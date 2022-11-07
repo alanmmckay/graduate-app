@@ -43,8 +43,8 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'guard-rspec'
-
   gem 'spring'
+  gem 'sqlite3','~> 1.3.6'
 end
 
 group :development do
