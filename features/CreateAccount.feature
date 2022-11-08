@@ -25,7 +25,7 @@ Scenario: new faculty user
   And I input my username "pat" and password "pat1pog2"
   And I select "faculty" from the "Account type" dropdown
   And I click "Create Account"
-  Then I should see a message that says "faculty account created with username pat"
+  Then I should see a message that says "faculty account with username pat pending department head authorization"
 
 # Sad paths
 Scenario: account already exists
