@@ -23,5 +23,3 @@ Feature: Withdraw Application
     When I login with username "fred" and password "password1234"
     And I click "Withdraw Application"
     Then "fred"'s application should be rejected
-
-
