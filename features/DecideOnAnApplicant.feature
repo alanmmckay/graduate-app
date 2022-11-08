@@ -32,9 +32,9 @@ Feature: approve faculty accounts
 
   Scenario: department head accepting an applicant
     When I click "Accept" on "bill"'s account
-    Then "bill"'s account should be accepted
+    Then "bill"'s application should be accepted
 
   Scenario: department head rejecting an applicant
     When I click "Reject" on "brandy"'s account
-    Then "brandy"'s account should be rejected
+    Then "brandy"'s application should be rejected
 
