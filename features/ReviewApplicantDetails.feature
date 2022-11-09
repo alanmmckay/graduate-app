@@ -1,6 +1,6 @@
 Feature: review application details
   As a faculty user
-  so that I can provide feedback on a student application
+  So that I can provide feedback on a student application
   I would like view a student's application details
 
 Background: users that have submitted an application
@@ -15,7 +15,7 @@ Background: users that have submitted an application
   | username        | password       | type             | first_name        | last_name       | citizenship      | gender | research_area     | degree_objective | degree_obj_major       | ug_institute               | ug_inst_city       | ug_gpa  | ug_deg_earned     | grad_inst               | grad_inst_city     | grad_gpa  | grad_deg_earned        | recommender_1     | recommender_2     | recommender_3     |
   | fred            | password1234   | student          | Fred              | Smith           | United States    | Male   | Machine Learning  | PhD              | CSE                    | Iowa State University      | Ames, Iowa         | 3.72/4  | Computer Science  | Iowa State University   | Ames, Iowa         | 3.81/4    | Computer Engineering   | Dr. James Dean    | Dr. Dan Smith     | Dr. James Jimmy   |
 
-  And I am on the faculty application review page for faculty user "sally"
+  And I am on the "Application Review Page" for faculty user "sally"
 
 # Happy paths
 Scenario: Application page loads successfully

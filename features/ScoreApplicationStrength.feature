@@ -1,6 +1,6 @@
 Feature: score application strength
   As a faculty user
-  so that I can provide feedback on a student application
+  So that I can provide feedback on a student application
   I would like to provide a score for the application
 
 Background: users that have submitted an application

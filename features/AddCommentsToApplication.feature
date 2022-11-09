@@ -1,6 +1,6 @@
 Feature: add comments to application
   As a faculty user
-  so that I can provide feedback on a student application
+  So that I can provide feedback on a student application
   I would like to add comments for the application
 
 Background: users that have submitted an application
