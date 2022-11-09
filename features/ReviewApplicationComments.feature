@@ -17,8 +17,8 @@ Background: faculty that have submitted an application review
     | fred            | password1234   | student          | Fred              | Smith           | United States    | Male   | Machine Learning  | PhD              | CSE                    | Iowa State University      | Ames, Iowa         | 3.72/4  | Computer Science  | Iowa State University   | Ames, Iowa         | 3.81/4    | Computer Engineering   | Dr. James Dean    | Dr. Dan Smith     | Dr. James Jimmy   | Looks good. I will review soon.   |
 
   And The following feedback has been given on the application for "fred":
-  | username       | department       | comments                                                               | application_score  |
-  | ethan          | CSE              | This looks good so far. I will discuss further with my colleagues.     | 3                  |
+    | username       | department       | comments                                                               | application_score  |
+    | ethan          | CSE              | This looks good so far. I will discuss further with my colleagues.     | 3                  |
 
 
 # Happy paths
