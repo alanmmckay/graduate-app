@@ -45,6 +45,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'spring'
   gem 'sqlite3','~> 1.3.6'
+  gem 'simplecov', :require=>false
 end
 
 group :development do
