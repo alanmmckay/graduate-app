@@ -8,4 +8,4 @@ Background:
 
 Scenario: see landing page
   When I follow the link to the website
-  Then I should see a landing page that says "Welcome"
+  Then I should see a landing page that says "Landing page"
