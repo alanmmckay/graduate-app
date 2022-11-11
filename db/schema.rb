@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221107003055) do
+ActiveRecord::Schema.define(version: 20221110153559) do
+
+  create_table "applications", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "citizenship"
+    t.string "gender"
+    t.string "research_area"
+    t.string "degree_obj"
+    t.string "degree_obj_major"
+    t.string "ug_inst"
+    t.string "ug_inst_city"
+    t.string "ug_gpa"
+    t.string "ug_deg_earned"
+    t.string "grad_inst"
+    t.string "grad_inst_city"
+    t.string "grad_gpa"
+    t.string "grad_deg_earned"
+    t.string "recommender_1"
+    t.string "recommender_2"
+    t.string "recommender_3"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
