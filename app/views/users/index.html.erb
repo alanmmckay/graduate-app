@@ -1,4 +1,5 @@
 <div class="container" style="max-width:1024px;margin-top:15px">
+  <hr>
   <div class="row">
     <h1>
       Landing Page for Graduate Application
@@ -16,21 +17,10 @@
       </p>
     </div>
     <div class="col-sm-4" style="margin-top:50px">
-      <form>
-        <div class="input-group">
-          <label class="input-group-text">Email: </label>
-          <input type="text" class="form-control" placeholder="Your Email" disabled>
-        </div>
-        <div class="input-group">
-          <label class="input-group-text">Password: </label>
-          <input type="password" class="form-control" placeholder="Password" disabled>
-        </div>
-        <button class="btn" type="submit" disabled>Submit</button>
-      </form>
+      <%= render :file => 'layouts/login.html.erb'  %>
       <form>
         <button class="btn" type="submit" disabled>Make New Account</button>
       </form>
     </div>
   </div>
-  <hr>
 </div>
