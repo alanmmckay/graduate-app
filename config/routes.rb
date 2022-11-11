@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'users/index', to: 'users#index'
+  get 'application/new', to: 'create_application#new'
   root 'users#index'
   #post 'users_login'
 
