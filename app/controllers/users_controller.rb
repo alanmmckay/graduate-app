@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def user_params
-      params.require(:user).permit(:name, :password, :passwordV)
+      params.require(:user).permit(:email, :password, :passwordV)
   end
 
   def index
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def create
     info = user_params
     if info[:password] == info[:passwordV]
-      @user = User.create!(name: info[:name], password: info[:password])
+      @user = User.create!(email: info[:email], password: info[:password])
       redirect_to users_path
     else
       puts 'fail'
