@@ -1,5 +1,9 @@
+=# need to check if logged in; perhaps a filter to accomplish this
 = form_tag users_path do
+  = label_tag :user_name, "Email"
   = text_field :user, "name"
+  = label_tag :user_password, "Password"
   = password_field :user, "password"
+  = label_tag :user_passwordV, "Verify Password"
   = password_field :user, "passwordV"
   = submit_tag 'Create User'
