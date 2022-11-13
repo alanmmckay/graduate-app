@@ -7,7 +7,7 @@ class EmailValidator < ActiveModel::Validator
 end
 
 class User < ActiveRecord::Base
-  validates :password, presence: true
+  validates :password, :fname, :lname, presence: true
   validates :email, uniqueness: {case_sensitive: false}
   validates_with EmailValidator
 

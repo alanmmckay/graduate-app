@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
-  get 'users/index', to: 'users#index'
-  get 'users/', to: 'users#index'
+  get 'users/', to: 'users#show'
+  get 'users/show', to: 'users#show'
   get 'users/new', to: 'users#new'
+
   post 'users/', to: 'users#create'
-  post 'users/index', to: 'users#create'
-  root 'users#index'
-  #post 'users_login'
+  post 'users/show', to: 'users#create'
+  root 'users#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # root 'welcome#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
