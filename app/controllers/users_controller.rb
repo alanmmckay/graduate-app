@@ -28,6 +28,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def landing
+    render users_login_path
+  end
+
   def login
     info = login_params
     puts User.find_by(email: info[:email])
