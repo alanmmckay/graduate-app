@@ -1,8 +1,8 @@
-%form
+= form_tag users_login_path do
   %div{:class => "input-group"}
-    %label{:class => "input-group-text"} Email:
-    %input{:type => "text", :class => "form-control", :placeholder => "Your Email", :disabled => true}
+    = label_tag :user_email, "Email", {:class => "input-group-text"}
+    = text_field :user, "email", {:class => "form-control", :placeholder => "Your Email", :disabled => false}
   %div{:class => "input-group"}
-    %label{:class => "input-group-text"} Password:
-    %input{:type => "password", :class => "form-control", :placeholder => "Password", :disabled => true}
-  %button{:class => "btn", :type =>"submit", :disabled => true} Submit
+    = label_tag :user_password, "Password", {:class => "input-group-text"}
+    = password_field :user, "password", {:class => "form-control", :placeholder => "Password", :disabled => false}
+  = button_tag "Login", {:class => "btn", :type =>"submit", :disabled => false}

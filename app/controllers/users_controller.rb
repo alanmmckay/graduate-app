@@ -4,8 +4,11 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :passwordV, :fname, :lname, :phone)
   end
 
+  def login_params
+    params.require(:user).permit(:email,:password)
+  end
   def show
-    @users = User.all
+
 
   end
 
@@ -23,6 +26,12 @@ class UsersController < ApplicationController
       flash[:notice] = "Passwords did not match"
       redirect_to users_new_path
     end
+  end
+
+  def login
+    info = login_params
+    puts User.find_by(email: info[:email])
+    redirect_to users_show_path
   end
 
 end
