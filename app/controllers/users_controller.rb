@@ -8,8 +8,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email,:password)
   end
   def show
-
-
+    @user = session[:user]
   end
 
   def new
@@ -34,7 +33,8 @@ class UsersController < ApplicationController
 
   def login
     info = login_params
-    puts User.find_by(email: info[:email])
+    @user = User.find_by(email:info[:email])
+    session[:user] = @user
     redirect_to users_show_path
   end
 
