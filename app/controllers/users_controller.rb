@@ -19,10 +19,12 @@ class UsersController < ApplicationController
     info = user_params
     if info[:password] == info[:passwordV]
       @user = User.create!(email: info[:email], password: info[:password], lname: info[:lname], fname: info[:fname], phone: info[:phone])
+      #need a mechanism to check if this succeeds
+      flash[:login] = "Account has been created. Please sign in:"
       redirect_to users_path
     else
       puts 'fail'
-      flash[:notice] = "Passwords did not match"
+      flash[:login] = "Passwords did not match"
       redirect_to users_new_path
     end
   end

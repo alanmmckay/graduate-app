@@ -1,4 +1,7 @@
 =# need to check if logged in; perhaps a filter to accomplish this
+- if flash[:login]
+  %div{:class => "alert alert-danger"}
+    = flash[:login]
 = form_tag users_create_path do
   = label_tag :user_email, "Email"
   = text_field :user, "email"
