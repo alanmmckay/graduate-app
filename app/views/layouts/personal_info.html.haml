@@ -1,6 +1,5 @@
-= label_tag :user_fname, "First Name"
-= text_field :user, "fname"
-= label_tag :user_lname, "Last Name"
-= text_field :user, "lname"
-= label_tag :user_phone, "Phone Number"
-= text_field :user, "phone"
+= create_form_input :text_field, :user, "fname", "First Name"
+%br
+= create_form_input :text_field, :user, "lname", "Last Name"
+%br
+= create_form_input :text_field, :user, "phone", "Phone Number"

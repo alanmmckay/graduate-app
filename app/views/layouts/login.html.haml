@@ -1,8 +1,6 @@
 = form_tag users_login_path do
   %div{:class => "input-group"}
-    = label_tag :user_email, "Email", {:class => "input-group-text"}
-    = text_field :user, "email", {:class => "form-control", :placeholder => "Your Email", :disabled => false}
+    = create_form_input :text_field, :user, "email", "Email", {:class => "form-control", :placeholder => "Your Email", :disabled => false}, {:class => "input-group-text"}
   %div{:class => "input-group"}
-    = label_tag :user_password, "Password", {:class => "input-group-text"}
-    = password_field :user, "password", {:class => "form-control", :placeholder => "Password", :disabled => false}
+    = create_form_input :password_field, :user, "password", "Password", {:class => "form-control", :placeholder => "Password", :disabled => false}, {:class => "input-group-text"}
   = button_tag "Login", {:class => "btn", :type =>"submit", :disabled => false}
