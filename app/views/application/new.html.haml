@@ -1,0 +1,23 @@
+%h1 Create Application
+
+= form_tag do
+
+  = label :application, :first_name, 'First Name'
+  = text_field :application, 'first_name'
+
+  = label :application, :last_name, 'Last Name'
+  = text_field :application, 'last_name'
+
+  = label :application, :gender, 'Gender'
+  = text_field :application, 'gender'
+
+  = label :application, :research_area, 'Research Area'
+  = text_field :application, 'research_area'
+
+  = label :application, :deg_obj, 'Degree Objective'
+  = text_field :application, 'deg_obj'
+
+  = label :application, :deg_obj_major, 'Undergraduate Major'
+  = text_field :application, 'deg_obj_major'
+
+  = submit_tag 'Create Application'
