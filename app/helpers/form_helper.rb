@@ -1,9 +1,6 @@
 # app/helpers/form_helper.rb
 module FormHelper
-  def create_form_input(helper_tag,object,method,label_text,placeholder = {}, errors = {}, options = {})
-    puts flash[:info]
-    puts flash[:login]
-    puts :heeeerre
+  def create_form_input(helper_tag,object,method,label_text, options = {})
     value = {}
     if flash[:info] and flash[:info][method]
       value = {:value => flash[:info][method]}
