@@ -29,12 +29,14 @@ class UsersController < ApplicationController
         #using params here instead casts as string
         flash[:login] = @user.errors
         info.delete(:password)
+        info.delete(:passwordV)
         flash[:info] = info
         redirect_to users_new_path
       end
     else
       flash[:login] = {:passwordV => ["Passwords did not match"]}
       info.delete(:password)
+      info.delete(:passwordV)
       flash[:info] = info
       redirect_to users_new_path
     end
