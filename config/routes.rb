@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
 
+  get 'users/error', to: 'users#error'
   root 'users#landing'
 
   # The priority is based upon order of creation: first created -> highest priority.
