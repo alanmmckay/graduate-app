@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-describe Application do
+describe GradApplication do
   describe 'testing' do
     
     it 'should do this' do
