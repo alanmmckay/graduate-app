@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def user_params
-      params.require(:user).permit(:email, :password, :passwordV, :fname, :lname, :phone)
+      params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :phone)
   end
 
   def login_params
@@ -19,11 +19,8 @@ class UsersController < ApplicationController
 
   def create
     info = user_params
-    #Need to consider this:
-    #https://guides.rubyonrails.org/active_record_validations.html#confirmation
-    #Also need to consider range of acceptable values for these parameters; their domains
-    if info[:password] == info[:passwordV]
-      @user = User.new(email: info[:email], password: info[:password], lname: info[:lname], fname: info[:fname], phone: info[:phone])
+    #Need to consider range of acceptable values for these parameters; their domains
+      @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
       if @user.valid?
         @user.save
         flash[:login] = "Account has been created. Please sign in:"
@@ -31,18 +28,11 @@ class UsersController < ApplicationController
       else
         #using params here will instead cast as string
         flash[:login] = @user.errors
+      end
         info.delete(:password)
-        info.delete(:passwordV)
+        info.delete(:password_confirmation)
         flash[:info] = info
         redirect_to users_new_path
-      end
-    else
-      flash[:login] = {:passwordV => ["Passwords did not match"], :password => ["Passwords did not match"]}
-      info.delete(:password)
-      info.delete(:passwordV)
-      flash[:info] = info
-      redirect_to users_new_path
-    end
   end
 
   def landing

@@ -7,8 +7,8 @@
   = create_form_input :password_field, :user, "password", "Password"
   = create_form_error :user, "password", flash[:login]["password"][0] if (flash[:login] and flash[:login]["password"])
   %br
-  = create_form_input :password_field, :user, "passwordV", "Verify Password"
-  = create_form_error :user, "passwordV", flash[:login]["password"][0] if (flash[:login] and flash[:login]["password"])
+  = create_form_input :password_field, :user, "password_confirmation", "Verify Password"
+  = create_form_error :user, "password_confirmation", flash[:login]["password_confirmation"][0] if (flash[:login] and flash[:login]["password_confirmation"])
   %br
   = render :file => 'layouts/personal_info.html.haml'
   = submit_tag 'Create User'

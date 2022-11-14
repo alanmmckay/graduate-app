@@ -9,8 +9,11 @@ end
 class User < ActiveRecord::Base
   before_save :set_name
   validates :password, :fname, :lname, presence: true
+  validates :password_confirmation, presence: true
+  validates :password, confirmation: true
   validates :email, uniqueness: {case_sensitive: false}
   validates_with EmailValidator
+
 
   def set_name
     self.name = self.fname + " " + self.lname
