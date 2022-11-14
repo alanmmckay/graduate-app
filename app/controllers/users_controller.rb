@@ -28,11 +28,11 @@ class UsersController < ApplicationController
       else
         #using params here will instead cast as string
         flash[:login] = @user.errors
-      end
         info.delete(:password)
         info.delete(:password_confirmation)
         flash[:info] = info
         redirect_to users_new_path
+      end
   end
 
   def landing
