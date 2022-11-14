@@ -7,8 +7,8 @@ Background:
 
   Given the following users have accounts:
     | username                   | password           | type       |
-    | fred                       | password1234       | student    |
-    | sally                      | sally4321          | faculty    |
+    | fred.uiowaSELT@gmail.com   | password1234       | student    |
+    | sally.uiowaSELT@gmail.com  | sally4321          | faculty    |
 
   And I am on the home page
 
