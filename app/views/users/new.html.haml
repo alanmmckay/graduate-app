@@ -1,14 +1,11 @@
 =# need to check if logged in; perhaps a filter to accomplish this
-- if flash[:login]
-  %div{:class => "alert alert-danger"}
-    = flash[:login]
+
 = form_tag users_create_path do
-  =# label_tag :user_email, "Email"
-  =# text_field :user, "email"
   = create_form_input :text_field, :user, "email", "Email"
-  = label_tag :user_password, "Password"
-  = password_field :user, "password"
-  = label_tag :user_passwordV, "Verify Password"
-  = password_field :user, "passwordV"
+  %br
+  = create_form_input :password_field, :user, "password", "Password"
+  %br
+  = create_form_input :password_field, :user, "passwordV", "Verify Password"
+  %br
   = render :file => 'layouts/personal_info.html.haml'
   = submit_tag 'Create User'

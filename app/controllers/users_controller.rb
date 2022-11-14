@@ -27,12 +27,16 @@ class UsersController < ApplicationController
         redirect_to users_path
       else
         #using params here instead casts as string
-        session[:error] = @user.errors
-        redirect_to users_error_path params
+        flash[:login] = @user.errors
+        info.delete(:password)
+        flash[:info] = info
+        redirect_to users_new_path
       end
     else
-      flash[:login] = "Passwords did not match"
-      redirect_to users_new_path params
+      flash[:login] = {:passwordV => ["Passwords did not match"]}
+      info.delete(:password)
+      flash[:info] = info
+      redirect_to users_new_path
     end
   end
 
@@ -48,10 +52,7 @@ class UsersController < ApplicationController
   end
 
   def error
-    flash[:login] = ""
-    session[:error].each do |error|
-      flash[:login] = flash[:login] + error[1][0]
-    end
-    redirect_to users_new_path params
+    #flash[:login] = session[:error]
+    #redirect_to users_new_path params
   end
 end
