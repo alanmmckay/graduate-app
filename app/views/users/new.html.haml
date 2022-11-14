@@ -2,10 +2,14 @@
 
 = form_tag users_create_path do
   = create_form_input :text_field, :user, "email", "Email"
+  = create_form_error :user, "email", flash[:login]["email"][0] if (flash[:login] and flash[:login]["email"])
   %br
   = create_form_input :password_field, :user, "password", "Password"
+  = create_form_error :user, "password", flash[:login]["password"][0] if (flash[:login] and flash[:login]["password"])
   %br
   = create_form_input :password_field, :user, "passwordV", "Verify Password"
+  = create_form_error :user, "passwordV", flash[:login]["password"][0] if (flash[:login] and flash[:login]["password"])
   %br
   = render :file => 'layouts/personal_info.html.haml'
   = submit_tag 'Create User'
+= link_to "Go Back", users_path
