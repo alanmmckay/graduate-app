@@ -1,13 +1,13 @@
 =# need to check if logged in; perhaps a filter to accomplish this
 
 = form_tag users_create_path do
-  = create_form_input :text_field, :user, "email", "Email"
+  = create_form_input_field :text_field, :user, "email", "Email"
   = create_form_error :user, "email", flash[:login]["email"][0] if (flash[:login] and flash[:login]["email"])
   %br
-  = create_form_input :password_field, :user, "password", "Password"
+  = create_form_input_field :password_field, :user, "password", "Password"
   = create_form_error :user, "password", flash[:login]["password"][0] if (flash[:login] and flash[:login]["password"])
   %br
-  = create_form_input :password_field, :user, "password_confirmation", "Verify Password"
+  = create_form_input_field :password_field, :user, "password_confirmation", "Verify Password"
   = create_form_error :user, "password_confirmation", flash[:login]["password_confirmation"][0] if (flash[:login] and flash[:login]["password_confirmation"])
   %br
   = render :file => 'layouts/personal_info.html.haml'
