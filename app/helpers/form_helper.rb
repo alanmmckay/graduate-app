@@ -1,10 +1,22 @@
 # app/helpers/form_helper.rb
 module FormHelper
   class FormHelper::InvalidSymbolError < StandardError ; end
-  def create_form_input_field(helper_sym, object, method, label_text = "", options = {}, label_options = {})
+
+  def suffix(helper_sym)
     affix = helper_sym.to_s.split('_')
-    suffix = affix[affix.length - 1]
-    if suffix == 'tag'
+    affix[affix.length - 1]
+  end
+
+  def compatible?(helper_sym)
+    incompatible_tags = [:button_tag,:check_box_tag, :field_set_tag, :file_field_tag, :image_submit_tag, :radio_button_tag, :select_tag, :submit_tag]
+    incompatible_tags.include?(helper_sym)
+  end
+
+  private :suffix
+  private :compatible?
+
+  def create_form_input_field(helper_sym, object, method, label_text = "", options = {}, label_options = {})
+    if suffix(helper_sym) == 'tag'
       raise FormHelper::InvalidSymbolError, ' WARNING: Be sure to use create_form_input_tag to access the tag object factory.'
     end
     value = {}
@@ -17,13 +29,10 @@ module FormHelper
 
   def create_form_input_tag(helper_sym, name, label_text, options = {}, label_options = {})
     # --- To ensure this isn't misused --- #
-    nonapplicable_tags = [:button_tag,:check_box_tag, :field_set_tag, :file_field_tag, :image_submit_tag, :radio_button_tag, :select_tag, :submit_tag]
-    if nonapplicable_tags.include?(helper_sym)
+    if compatible?(helper_sym)
       raise FormHelper::InvalidSymbolError, ' WARNING: non-applicable symbol (form_tag) given for create_form_input_tag.'
     end
-    affix = helper_sym.to_s.split('_')
-    suffix = affix[affix.length - 1]
-    if suffix == 'field'
+    if suffix(helper_sym) == 'field'
       raise FormHelper::InvalidSymbolError, ' WARNING: Be sure to use create_form_input_field to access the field object factory.'
     end
     # --- --- --- --- --- #
@@ -68,4 +77,5 @@ module FormHelper
   #image_submit_tag(source, options = {}) ⇒ Object
   #radio_button_tag(name, value, checked = false, options = {}) ⇒ Object
   #submit_tag(value = "Save changes", options = {}) ⇒ Object
+
 end
