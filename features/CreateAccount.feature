@@ -6,19 +6,22 @@ Feature: create a new account
 Background:
 
   Given the following users have accounts:
-    | username                   | password           | type       |
-    | fred                       | password1234       | student    |
-    | sally                      | sally4321          | faculty    |
+    | username                     | password           | first-name       | last-name |
+    | fred.uiowaSELT@example.com   | password1234       | Fred             | Smith     |
+    | sally.uiowaSELT@example.com  | sally4321          | Sally            | Jones     |
 
   And I am on the home page
 
 # Happy paths
 Scenario: new applicant user
-  When I click "Create Account"
-  And I input my username "frank" and password "cat1dog2"
-  And I select "student" from the "Account type" dropdown
+  When I click "Register"
+  And I input "frank123@example.com" for "Email"
+  And I input "password123" for "Password"
+  And I input "password123" for "Verify Password"
+  And I input "Frank" for "First Name"
+  And I input "Stevens" for "Last Name"
   And I click "Create Account"
-  Then I should see a message that says "student account created with username frank"
+  Then I should see "Account has been created. Please sign in"
 
 Scenario: new faculty user
   When I click "Create Account"
