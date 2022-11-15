@@ -17,41 +17,72 @@
         %td= label :grad_application, '----------'
         %td= label :grad_application, :ug_inst, 'Undergraduate Institute: '
         %td= text_field :grad_application, 'ug_inst'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :grad_deg_earned, 'Graduate Degree Earned: '
+        %td= text_field :grad_application, 'grad_deg_earned'
+        %td= label :grad_application, '-----------'
       %tr
         %td= label :grad_application, :last_name, 'Last Name: '
         %td= text_field :grad_application, 'last_name'
         %td= label :grad_application, '----------'
         %td= label :grad_application, :ug_inst_city, 'Undergraduate Institute City: '
         %td= text_field :grad_application, 'ug_inst_city'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :recommender_1, 'Recommender 1 Name: '
+        %td= text_field :grad_application, 'recommender_1'
       %tr
         %td= label :grad_application, :citizenship, 'Citizenship: '
         %td= text_field :grad_application, 'citizenship'
         %td= label :grad_application, '----------'
         %td= label :grad_application, :ug_inst_city, 'Undergraduate GPA: '
         %td= text_field :grad_application, 'ug_gpa'
+        %td= label :grad_application, ' '
+        %td
+          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
+            %label Recommendation Letter 1:
+            %input{:type=>"file", :name => 'file[]', multiple: false}
+
       %tr
         %td= label :grad_application, :gender, 'Gender: '
         %td= select :grad_application, :gender, ['Male', 'Female']
         %td= label :grad_application, '----------'
         %td= label :grad_application, :ug_deg_earned, 'Undergraduate Degree Earned: '
         %td= text_field :grad_application, 'ug_deg_earned'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :recommender_2, 'Recommender 2 Name: '
+        %td= text_field :grad_application, 'recommender_2'
       %tr
         %td= label :grad_application, :research_area, 'Research Area: '
         %td= text_field :grad_application, 'research_area'
         %td= label :grad_application, '----------'
         %td= label :grad_application, :grad_inst, 'Graduate Institute: '
         %td= text_field :grad_application, 'grad_inst'
+        %td= label :grad_application, '  '
+        %td
+          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
+            %label Recommendation Letter 2:
+            %input{:type=>"file", :name => 'file[]', multiple: false}
+
       %tr
         %td= label :grad_application, :deg_obj, 'Degree Objective: '
         %td= select :grad_application, :deg_obj, ['Masters', 'PhD']
         %td= label :grad_application, '----------'
         %td= label :grad_application, :grad_inst_city, 'Graduate Institute City: '
         %td= text_field :grad_application, 'grad_inst_city'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :recommender_3, 'Recommender 3 Name: '
+        %td= text_field :grad_application, 'recommender_3'
       %tr
         %td= label :grad_application, :deg_obj_major, 'Degree Objective Major: '
         %td= text_field :grad_application, 'deg_obj'
         %td= label :grad_application, '----------'
         %td= label :grad_application, :grad_gpa, 'Graduate GPA: '
         %td= text_field :grad_application, 'grad_gpa'
+        %td= label :grad_application, '  '
+        %td
+          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
+            %label Recommendation Letter 3:
+            %input{:type=>"file", :name => 'file[]', multiple: false}
+
 
   = submit_tag 'Create Application'
