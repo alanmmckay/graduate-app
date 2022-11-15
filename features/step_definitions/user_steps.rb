@@ -1,5 +1,5 @@
 Given /^I am on the home page$/ do
-  visit 'users/login'
+  visit root
 end
 
 When /^I follow the link to the website$/ do
@@ -12,4 +12,16 @@ end
 
 Then /^I should see a page with content$/ do
   expect(page).to have_content
+end
+
+When(/^I click "([^"]*)"$/) do |object|
+  click_on object
+end
+
+And(/^I input "([^"]*)" for "([^"]*)"$/) do |input, field|
+  fill_in field with input
+end
+
+Then(/^I should see "([^"]*)"$/) do |object|
+  page.has_content?(object)
 end
