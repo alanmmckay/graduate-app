@@ -11,5 +11,5 @@
   = create_form_error :user, "password_confirmation", flash[:login]["password_confirmation"][0] if (flash[:login] and flash[:login]["password_confirmation"])
   %br
   = render :file => 'layouts/personal_info.html.haml'
-  = submit_tag 'Create User'
+  = submit_tag 'Create Account'
 = link_to "Go Back", users_path

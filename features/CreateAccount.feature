@@ -6,11 +6,12 @@ Feature: create a new account
 Background:
 
   Given the following users have accounts:
-    | username                     | password           | first-name       | last-name |
+    | email                     | password           | first_name       | last_name |
     | fred.uiowaSELT@example.com   | password1234       | Fred             | Smith     |
     | sally.uiowaSELT@example.com  | sally4321          | Sally            | Jones     |
 
   And I am on the home page
+  Then 2 users should exist
 
 # Happy paths
 Scenario: new applicant user
@@ -23,24 +24,34 @@ Scenario: new applicant user
   And I click "Create Account"
   Then I should see "Account has been created. Please sign in"
 
-Scenario: new faculty user
-  When I click "Create Account"
-  And I input my username "pat" and password "pat1pog2"
-  And I select "faculty" from the "Account type" dropdown
-  And I click "Create Account"
-  Then I should see a message that says "faculty account with username pat pending department head authorization"
-
 # Sad paths
 Scenario: account already exists
-  When I click "Create Account"
-  And I input my username "fred" and password "flinstone5"
-  And I select "student" from the "Account type" dropdown
+  When I click "Register"
+  And I input "fred.uiowaSELT@example.com" for "Email"
+  And I input "password123" for "Password"
+  And I input "password123" for "Verify Password"
+  And I input "Fred" for "First Name"
+  And I input "Smith" for "Last Name"
   And I click "Create Account"
-  Then I should see an error message that says "Account with username fred already exists"
+  Then I should see "has already been taken"
+  And I should not see "Account has been created. Please sign in"
 
 Scenario: no password input
-  When I click "Create Account"
-  And I input my username "phil"
-  And I select "student" from the "Account type" dropdown
+  When I click "Register"
+  And I input "frank123@example.com" for "Email"
+  And I input "Frank" for "First Name"
+  And I input "Stevens" for "Last Name"
   And I click "Create Account"
-  Then I should see an error message that says "No password given. Please input a password to create an account"
+  Then I should see "can't be blank"
+  And I should not see "Account has been created. Please sign in"
+
+Scenario: passwords don't match
+  When I click "Register"
+  And I input "frank123@example.com" for "Email"
+  And I input "password123" for "Password"
+  And I input "different_password" for "Verify Password"
+  And I input "Frank" for "First Name"
+  And I input "Stevens" for "Last Name"
+  And I click "Create Account"
+  Then I should see "doesn't match Password"
+  And I should not see "Account has been created. Please sign in"
