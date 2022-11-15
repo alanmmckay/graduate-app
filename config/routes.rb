@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'users/index', to: 'users#index'
   root 'users#index'
+  get 'student/new', to: 'students#new'
+  get 'student/show', to: 'students#show'
+  get 'student/logged_in', to: 'students#logged_in'
   #post 'users_login'
 
   # The priority is based upon order of creation: first created -> highest priority.
