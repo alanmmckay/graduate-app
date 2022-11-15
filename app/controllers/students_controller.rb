@@ -1,6 +1,49 @@
 class StudentsController < ApplicationController
-  def index
-    @students = Student.all
-    #TODO: Change this to return only students in the logged in department
+
+  before_filter :set_current_user, :only=> %w[show edit update delete]
+  def student_params
+    params.require(:user_id).permit(:first_name, :last_name, :gender)
+    #TODO: does user_id need to be required? Or will it always be instantiated when linking to user account
   end
+
+  def create
+    @student = Student.new(student_params)
+    if @current_user << @student
+      flash[:notice] = "Successfully created student account"
+      redirect_to 'users/login'
+    end
+  end
+  def show
+    @student = @current_user.student
+    #TODO: validate student not null -> faculty null / not
+  end
+
+  def edit
+    @student = @current_user.student
+    #TODO: validate student not null -> faculty null / not
+    #TODO: go to editable student info form
+  end
+
+  def update
+    @student = @current_user.student
+    @student.update_attributes!(student_params)
+    flash[:notice] = "#{@current_user.username} student account successfully updated."
+    redirect_to 'student/show'
+    #TODO: validate student not null -> faculty null / not
+  end
+
+  def delete
+    flash[:notice] = "#{@current_user.username} account deleted"
+    @student = @current_user.student
+    @current_user.delete #TODO: ensure this will call user.delete and not student.delete
+    @student.delete
+    redirect_to 'user/login'
+  end
+
+  def logged_in
+    @student = @current_user.student
+    @grad_applications = @student.grad_applications
+  end
+
+
 end
