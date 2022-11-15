@@ -7,8 +7,14 @@ class UsersController < ApplicationController
   def login_params
     params.require(:user).permit(:email,:password)
   end
+
   def show
-    @user = session[:user]
+    if session[:email]
+      @email = session[:email]
+      session[:email] = nil #change later; have this in place for testing purposes
+    else
+      redirect_to users_path
+    end
   end
 
   def new
@@ -42,8 +48,13 @@ class UsersController < ApplicationController
   def login
     info = login_params
     @user = User.find_by(email:info[:email].downcase)
-    session[:user] = @user
-    redirect_to users_show_path params
+    if @user and info[:password] == @user.password
+      session[:email] = info[:email]
+      redirect_to users_show_path
+    else
+      flash[:login] = "Invalid Credentials"
+      flash[:info] = {:email => info[:email]}
+    end
   end
 
 end
