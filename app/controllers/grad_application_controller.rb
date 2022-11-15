@@ -1,6 +1,6 @@
 class GradApplicationController < ApplicationController
   def grad_application_params
-    params.require(:application).permit(:first_name, :last_name, :gender, :research_area, :deg_obj, :deg_obj_major)
+    params.require(:grad_application).permit(:first_name, :last_name, :gender, :research_area, :deg_obj, :deg_obj_major)
   end
 
   def show
@@ -11,9 +11,25 @@ class GradApplicationController < ApplicationController
   end
 
   def create
-    @grad_application = GradApplication.create!(grad_application_params)
-    flash[:notice] = "GradApplication was successfully submitted."
-    redirect_to grad_application_new_path #(student home page)
+    1.upto (10) do |i|
+      puts "%%"
+    end
+    @params = grad_application_params
+    if @params[:first_name] == ""
+      flash[:notice] = "Missing fields"
+      redirect_to grad_application_new_path #(student home page)
+    else
+      @grad_application = GradApplication.create!(grad_application_params)
+      flash[:notice] = "Application was successfully submitted."
+      redirect_to grad_application_faculty_test_path #(student home page)
+    end
+  end
+
+  def new
+    1.upto (10) do |i|
+      puts "@@"
+    end
+    # default: render 'new' template
   end
 
   def update # Used for updating an GradApplications ? Maybe this won't be possible
@@ -32,4 +48,21 @@ class GradApplicationController < ApplicationController
   
   def index
   end
+
+
+  def get_app_by_dep
+
+    # based on the filter for the applications
+    applications_list = find_application_by_department("CSE")
+
+  end
+
+  def faculty_test
+    @all_applications = GradApplication.all
+    @all_applications.each do |app|
+      puts app[:first_name]
+    end
+
+  end
+
 end

@@ -1,13 +1,13 @@
-class CreateApplication < ActiveRecord::Migration
+class GradApplications < ActiveRecord::Migration
   def change
-    create_table :grad_application do |t|
+    create_table :grad_applications do |t|
       t.string :first_name
       t.string :last_name
       t.string :citizenship
       t.string :gender
       t.string :research_area
-      t.string :degree_obj
-      t.string :degree_obj_major
+      t.string :deg_obj
+      t.string :deg_obj_major
       t.string :ug_inst
       t.string :ug_inst_city
       t.string :ug_gpa
