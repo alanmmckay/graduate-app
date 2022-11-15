@@ -1,0 +1,57 @@
+%h1 Create Application
+#main
+  - if flash[:notice]
+    #notice.message= flash[:notice]
+  - elsif flash[:warning]
+    #warning.message= flash[:warning]
+
+  = yield
+
+
+= form_tag grad_application_new_path do
+  %table
+    %tbody
+      %tr
+        %td= label :grad_application, :first_name, 'First Name: '
+        %td= text_field :grad_application, 'first_name'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :ug_inst, 'Undergraduate Institute: '
+        %td= text_field :grad_application, 'ug_inst'
+      %tr
+        %td= label :grad_application, :last_name, 'Last Name: '
+        %td= text_field :grad_application, 'last_name'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :ug_inst_city, 'Undergraduate Institute City: '
+        %td= text_field :grad_application, 'ug_inst_city'
+      %tr
+        %td= label :grad_application, :citizenship, 'Citizenship: '
+        %td= text_field :grad_application, 'citizenship'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :ug_inst_city, 'Undergraduate GPA: '
+        %td= text_field :grad_application, 'ug_gpa'
+      %tr
+        %td= label :grad_application, :gender, 'Gender: '
+        %td= select :grad_application, :gender, ['Male', 'Female']
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :ug_deg_earned, 'Undergraduate Degree Earned: '
+        %td= text_field :grad_application, 'ug_deg_earned'
+      %tr
+        %td= label :grad_application, :research_area, 'Research Area: '
+        %td= text_field :grad_application, 'research_area'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :grad_inst, 'Graduate Institute: '
+        %td= text_field :grad_application, 'grad_inst'
+      %tr
+        %td= label :grad_application, :deg_obj, 'Degree Objective: '
+        %td= select :grad_application, :deg_obj, ['Masters', 'PhD']
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :grad_inst_city, 'Graduate Institute City: '
+        %td= text_field :grad_application, 'grad_inst_city'
+      %tr
+        %td= label :grad_application, :deg_obj_major, 'Degree Objective Major: '
+        %td= text_field :grad_application, 'deg_obj'
+        %td= label :grad_application, '----------'
+        %td= label :grad_application, :grad_gpa, 'Graduate GPA: '
+        %td= text_field :grad_application, 'grad_gpa'
+
+  = submit_tag 'Create Application'
