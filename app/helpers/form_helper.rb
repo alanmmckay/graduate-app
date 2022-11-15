@@ -27,31 +27,39 @@ module FormHelper
       raise FormHelper::InvalidSymbolError, ' WARNING: Be sure to use create_form_input_field to access the field object factory.'
     end
     # --- --- --- --- --- #
-      value = {}
-      if flash[:info] and flash[:info][name]
-        value = {:value => flash[:info][name]}
-      end
-      label = label_tag name.to_sym, label_text, label_options
-      label + self.send(helper_sym, name, nil, options.merge(value))
+    value = {}
+    if flash[:info] and flash[:info][name]
+      value = {:value => flash[:info][name]}
+    end
+    label = label_tag name.to_sym, label_text, label_options
+    label + self.send(helper_sym, name, nil, options.merge(value))
   end
 
-  #telephone_field_tag(name, value = nil, options = {}) ⇒ Object
-  #text_area_tag(name, content = nil, options = {}) ⇒ Object
-  #text_field_tag(name, value = nil, options = {}) ⇒ Object
-  #time_field_tag(name, value = nil, options = {}) ⇒ Object
-  #url_field_tag(name, value = nil, options = {}) ⇒ Object
-  #week_field_tag(name, value = nil, options = {}) ⇒ Object
-  #search_field_tag(name, value = nil, options = {}) ⇒ Object
-  #range_field_tag(name, value = nil, options = {}) ⇒ Object
-  #password_field_tag(name = "password", value = nil, options = {}) ⇒ Object
-  #number_field_tag(name, value = nil, options = {}) ⇒ Object
-  #month_field_tag(name, value = nil, options = {}) ⇒ Object
-  #hidden_field_tag(name, value = nil, options = {}) ⇒ Object
-  #email_field_tag(name, value = nil, options = {}) ⇒ Object
-  #datetime_local_field_tag(name, value = nil, options = {}) ⇒ Object
-  #datetime_field_tag(name, value = nil, options = {}) ⇒ Object
-  #date_field_tag(name, value = nil, options = {}) ⇒ Object
-  #color_field_tag(name, value = nil, options = {}) ⇒ Object
+  def create_form_input_select(name, label_text, collection, value_method, text_method, options = {}, label_options = {}, selected: nil )
+    #select_tag(name, option_tags = nil, options = {}) ⇒ Object
+    value = selected
+    if flash[:info] and flash[:info][name]
+      value = {:selected => flash[:info][name]}
+    end
+    label = label_tag name.to_sym, label_text, label_options
+
+    options_tags = options_from_collection_for_select(collection,value_method,text_method, value)
+    label + select_tag(name,options_tags, options)
+
+    #usage: = create_form_input_select(:names, "list of names: ",User.all,'id','email',:selected => 2)
+    #creates:
+    # <select name="names" id="names">
+    #   <option value="1">alan@example.com</option>
+    #   <option selected="selected" value="2">alan@test.com</option>
+    # </select>
+    #usage: = create_form_input_select(:names, "list of names: ",User.all,'email','email',:selected => "alan@test.com")
+  end
+
+  def create_form_error(object,method,label_text = false, options = {:class => "alert-danger"})
+    if label_text
+      label_tag (object.to_s + "_" + method.to_s).to_sym, label_text, options
+    end
+  end
 
   #button_tag(content_or_options = nil, options = nil, &block) ⇒ Object
   #check_box_tag(name, value = "1", checked = false, options = {}) ⇒ Object
@@ -59,13 +67,5 @@ module FormHelper
   #file_field_tag(name, options = {}) ⇒ Object
   #image_submit_tag(source, options = {}) ⇒ Object
   #radio_button_tag(name, value, checked = false, options = {}) ⇒ Object
-  #select_tag(name, option_tags = nil, options = {}) ⇒ Object
   #submit_tag(value = "Save changes", options = {}) ⇒ Object
-
-  def create_form_error(object,method,label_text = false, options = {:class => "alert-danger"})
-    if label_text
-      puts label_tag (object.to_s + "_" + method.to_s).to_sym, label_text, options
-      label_tag (object.to_s + "_" + method.to_s).to_sym, label_text, options
-    end
-  end
 end
