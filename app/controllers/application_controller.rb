@@ -6,6 +6,5 @@ class ApplicationController < ActionController::Base
   protected
   def set_current_user
     @current_user ||= session[:session_token] && User.find_by_session_token(session[:session_token])
-    redirect_to 'users/login' and return unless @current_user
   end
 end
