@@ -14,15 +14,9 @@ class GradApplication < ActiveRecord::Base
             :ug_gpa, :ug_deg_earned, :recommender_1, presence: true
 
   if (:recommendation_1_email != "")
-    1.upto 100 do |i|
-      puts "blank "
-    end
     validates :recommendation_1_email, uniqueness: {case_sensitive: false}
     validates_with EmailValidator
   else
-    1.upto 100 do |i|
-      puts "not blank"
-    end
     validates :recommendation_1_email, presence: true
   end
   if (:recommendation_2_email != "")
