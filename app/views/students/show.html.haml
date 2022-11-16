@@ -1,0 +1,9 @@
+%h2 Details about #{@student.first_name}
+
+%ul#details
+  %li
+    Full Name:
+    = @student.first_name + " " + @student.last_name
+  %li
+    Gender
+    = @student.gender
