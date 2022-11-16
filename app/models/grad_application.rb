@@ -1,31 +1,41 @@
+class EmailValidator < ActiveModel::Validator
+  def validate(record)
+    if not URI::MailTo::EMAIL_REGEXP.match?(record.recommendation_1_email)
+      record.errors.add :recommendation_1_email, "Invalid email given"
+    end
+  end
+end
+
 class GradApplication < ActiveRecord::Base
 
-
+  before_save
   validates :university, :date, :first_name, :last_name, :citizenship, :gender,
             :research_area, :deg_obj, :deg_obj_major, :ug_inst, :ug_inst_city,
             :ug_gpa, :ug_deg_earned, :recommender_1, presence: true
-  # validates :university, presence: true
-  # validates :date, presence: true
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true
-  # validates :gender, presence: true
-  # validates :research_area, presence: true
-  # validates :deg_obj, presence: true
-  # validates :deg_obj_major, presence: true
-  # validates :ug_inst, presence: true
-  # validates :ug_inst_city, presence: true
-  # validates :ug_gpa, presence: true
-  # validates :ug_deg_earned, presence: true
-  # validates :recommender_1, presence: true
+
+  if (:recommendation_1_email != "")
+    1.upto 100 do |i|
+      puts "blank "
+    end
+    validates :recommendation_1_email, uniqueness: {case_sensitive: false}
+    validates_with EmailValidator
+  else
+    1.upto 100 do |i|
+      puts "not blank"
+    end
+    validates :recommendation_1_email, presence: true
+  end
+  if (:recommendation_2_email != "")
+    validates :recommendation_2_email, uniqueness: {case_sensitive: false}
+    validates_with EmailValidator
+  end
+  if (:recommendation_3_email != "")
+    validates :recommendation_3_email, uniqueness: {case_sensitive: false}
+    validates_with EmailValidator
+  end
 
 
-
-
-
-
-
-
-  def find_application_by_department(department) ## sort of function that may be useful for filtering
+  def find_application_by_department(department) ## sort of function that may be useful for filtering, not a complete function
     if department == "CSE"
       application_list = find_by_research_area("Machine Learning")
     elsif department == "EE"
@@ -33,6 +43,5 @@ class GradApplication < ActiveRecord::Base
     end
 
   end
-  
 
 end

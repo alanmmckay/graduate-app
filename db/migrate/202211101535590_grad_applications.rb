@@ -21,9 +21,9 @@ class GradApplications < ActiveRecord::Migration
       t.string :recommender_1
       t.string :recommender_2
       t.string :recommender_3
-      t.text :recommendation_letter_1
-      t.text :recommendation_letter_2
-      t.text :recommendation_letter_3
+      t.string :recommendation_1_email
+      t.string :recommendation_2_email
+      t.string :recommendation_3_email
     end
   end
 end

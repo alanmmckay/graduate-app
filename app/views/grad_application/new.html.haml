@@ -45,10 +45,9 @@
         %td= label :grad_application, :ug_gpa, 'Undergraduate GPA: '
         %td= create_form_input_field :text_field, :grad_application, 'ug_gpa'
         %td= create_form_error :grad_application, 'ug_gpa', flash[:requirement]['ug_gpa'][0] if (flash[:requirement] and flash[:requirement]['ug_gpa'])
-        %td
-          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
-            %label Recommendation Letter 1:
-            %input{:type=>"file", :name => 'file[]', multiple: false}
+        %td= label :grad_application, :recommendation_1_email, 'Recommender 1 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_1_email'
+        %td= create_form_error :grad_application, 'recommendation_1_email', flash[:requirement]['recommendation_1_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_1_email'])
       %tr
         %td= label :grad_application, :gender, 'Gender: '
         %td= select :grad_application, :gender, ['Male', 'Female']
@@ -66,10 +65,9 @@
         %td= label :grad_application, :grad_inst, 'Graduate Institute: '
         %td= create_form_input_field :text_field, :grad_application, 'grad_inst'
         %td= create_form_error :grad_application, 'grad_inst', flash[:requirement]['grad_inst'][0] if (flash[:requirement] and flash[:requirement]['grad_inst'])
-        %td
-          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
-            %label Recommendation Letter 2:
-            %input{:type=>"file", :name => 'file[]', multiple: false}
+        %td= label :grad_application, :recommendation_2_email, 'Recommender 2 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_2_email'
+        %td= create_form_error :grad_application, 'recommendation_2_email', flash[:requirement]['recommendation_2_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_2_email'])
       %tr
         %td= label :grad_application, :deg_obj, 'Degree Objective: '
         %td= select :grad_application, :deg_obj, ['Masters', 'PhD']
@@ -87,10 +85,9 @@
         %td= label :grad_application, :grad_gpa, 'Graduate GPA: '
         %td= create_form_input_field :text_field, :grad_application, 'grad_gpa'
         %td= create_form_error :grad_application, 'grad_gpa', flash[:requirement]['grad_gpa'][0] if (flash[:requirement] and flash[:requirement]['grad_gpa'])
-        %td
-          %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
-            %label Recommendation Letter 3:
-            %input{:type=>"file", :name => 'recommendation_letter_3', multiple: false}
+        %td= label :grad_application, :recommendation_3_email, 'Recommender 3 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_3_email'
+        %td= create_form_error :grad_application, 'recommendation_3_email', flash[:requirement]['recommendation_3_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_3_email'])
 
 
   = submit_tag 'Create Application'
