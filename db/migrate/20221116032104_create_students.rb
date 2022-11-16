@@ -2,7 +2,7 @@ class CreateStudents < ActiveRecord::Migration
   def up
     create_table :students do |t|
       t.references 'user'
-      t.string 'AppStatus'
+      t.string 'app_status'
     end
   end
   def down
