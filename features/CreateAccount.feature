@@ -55,3 +55,34 @@ Scenario: passwords don't match
   And I click "Create Account"
   Then I should see "doesn't match Password"
   And I should not see "Account has been created. Please sign in"
+
+Scenario: name not supplied
+  When I click "Register"
+  And I input "alan@test.com" for "Email"
+  And I input "FakePassword" for "Password"
+  And I input "FakePassword" for "Verify Password"
+  And I click "Create Account"
+  Then I should see "can't be blank"
+  And I should not see "Account has been created. Please sign in"
+
+Scenario: email case sensitivity
+  When I click "Register"
+  And I input "FRED.uiowaSELT@example.com" for "Email"
+  And I input "password123" for "Password"
+  And I input "password123" for "Verify Password"
+  And I input "Fred" for "First Name"
+  And I input "Smith" for "Last Name"
+  And I click "Create Account"
+  Then I should see "has already been taken"
+  And I should not see "Account has been created. Please sign in"
+
+Scenario: password case sensitivity
+  When I click "Register"
+  And I input "fred.uiowaSELT@example.com" for "Email"
+  And I input "password123" for "Password"
+  And I input "PASSWORD123" for "Verify Password"
+  And I input "Fred" for "First Name"
+  And I input "Smith" for "Last Name"
+  And I click "Create Account"
+  Then I should see "doesn't match Password"
+  And I should not see "Account has been created. Please sign in"
