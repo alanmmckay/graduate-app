@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
 
   before_filter :set_current_user, :only=> %w[show edit update delete]
   def student_params
-    params.require(:user_id).permit(:first_name, :last_name, :gender)
+    params.require(:user_id).permit(:fname, :lname, :app_status)
     #TODO: does user_id need to be required? Or will it always be instantiated when linking to user account
   end
 
