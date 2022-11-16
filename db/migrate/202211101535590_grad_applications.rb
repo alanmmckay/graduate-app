@@ -1,6 +1,8 @@
 class GradApplications < ActiveRecord::Migration
   def change
     create_table :grad_applications do |t|
+      t.string :university
+      t.datetime :date
       t.string :first_name
       t.string :last_name
       t.string :citizenship
@@ -19,6 +21,9 @@ class GradApplications < ActiveRecord::Migration
       t.string :recommender_1
       t.string :recommender_2
       t.string :recommender_3
+      t.text :recommendation_letter_1
+      t.text :recommendation_letter_2
+      t.text :recommendation_letter_3
     end
   end
 end

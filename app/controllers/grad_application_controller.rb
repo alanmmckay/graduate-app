@@ -1,6 +1,9 @@
 class GradApplicationController < ApplicationController
   def grad_application_params
-    params.require(:grad_application).permit(:first_name, :last_name, :gender, :research_area, :deg_obj, :deg_obj_major)
+    params.require(:grad_application).permit(:university, :date, :first_name, :last_name, :citizenship, :gender,
+                                             :research_area, :deg_obj, :deg_obj_major, :ug_inst, :ug_inst_city,
+                                             :ug_gpa, :ug_deg_earned, :grad_inst, :grad_inst_city, :grad_gpa,
+                                             :grad_deg_earned, :recommender_1, :recommender_2, :recommender_3)
   end
 
   def show
@@ -15,13 +18,24 @@ class GradApplicationController < ApplicationController
       puts "%%"
     end
     @params = grad_application_params
-    if @params[:first_name] == ""
-      flash[:notice] = "Missing fields"
-      redirect_to grad_application_new_path #(student home page)
-    else
-      @grad_application = GradApplication.create!(grad_application_params)
-      flash[:notice] = "Application was successfully submitted."
+
+    @grad_application = GradApplication.new(university: @params[:university], date: @params[:date], first_name: @params[:first_name], last_name: @params[:last_name],
+                                            citizenship: @params[:citizenship], gender: @params[:gender], research_area: @params[:research_area],
+                                            deg_obj: @params[:deg_obj], deg_obj_major: @params[:deg_obj_major], ug_inst: @params[:ug_inst],
+                                            ug_inst_city: @params[:ug_inst_city], ug_gpa: @params[:ug_gpa], ug_deg_earned: @params[:ug_deg_earned],
+                                            recommender_1: @params[:recommender_1])
+
+    print @grad_application
+    if @grad_application.valid?
+      puts "VALID"
+      @grad_application.save!
+      flash[:notice] = "Should be good"
       redirect_to grad_application_faculty_test_path #(student home page)
+      flash[:notice] = "Should be good"
+    else
+      puts "NOT VALID"
+      flash[:requirement] = @grad_application.errors
+      redirect_to grad_application_new_path #(student home page)
     end
   end
 
