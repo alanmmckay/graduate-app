@@ -7,17 +7,17 @@ Background:
 
   Given the following users have accounts:
     | username                   | password           | type       |
-    | megan                      | password1234       | head       |
+    | megan.uiowaSELT@gmail.com  | password1234       | head       |
 
   And the following faculty have been authorized:
     | username                   | department         | is_head?   |
-    | megan                      | CSE                | yes        |
+    | megan .uiowaSELT@gmail.com | CSE                | yes        |
 
   And the following faculty accounts have been created:
     | username                   | department         |
-    | bill                       | CSE                |
-    | brandy                     | CSE                |
-    | bob                        | CSE                |
+    | bill.uiowaSELT@gmail.com   | CSE                |
+    | brandy.uiowaSELT@gmail.com | CSE                |
+    | bob.uiowaSELT@gmail.com    | CSE                |
 
 # Happy paths
 Scenario: department head viewing pending faculty accounts
