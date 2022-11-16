@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'users/show', to: 'users#show'
   get 'users/login', to: 'users#landing'
   get 'users/new', to: 'users#new'
-  get 'students/show', to: 'students#show'
+  get 'students/home', to: 'students#home'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
