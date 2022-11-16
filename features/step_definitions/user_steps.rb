@@ -1,5 +1,5 @@
 Given /^I am on the home page$/ do
-  visit root
+  visit users_path
 end
 
 When /^I follow the link to the website$/ do
@@ -19,9 +19,24 @@ When(/^I click "([^"]*)"$/) do |object|
 end
 
 And(/^I input "([^"]*)" for "([^"]*)"$/) do |input, field|
-  fill_in field with input
+  fill_in field, with: input
 end
 
 Then(/^I should see "([^"]*)"$/) do |object|
-  page.has_content?(object)
+  expect(page).to have_content(object)
+end
+
+When(/^the following users have accounts:$/) do |users_table|
+  # table is a table.hashes.keys # => [:username, :password, :first-name, :last-name]
+  users_table.hashes.each do |user|
+    User.create!(:email => user[:email], :password => user[:password], :password_confirmation => user[:password], :lname => user[:first_name], :fname => user[:last_name])
+  end
+end
+
+Then(/^(\d+) users should exist$/) do |n_seeds|
+  expect(User.count).to eq n_seeds
+end
+
+Then(/^I should not see "([^"]*)"$/) do |object|
+  expect(page).to  have_no_content(object)
 end

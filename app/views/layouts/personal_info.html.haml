@@ -1,0 +1,8 @@
+= create_form_input_field :text_field, :user, "fname", "First Name"
+= create_form_error :user, "fname", flash[:login]["fname"][0] if (flash[:login] and flash[:login]["fname"])
+%br
+= create_form_input_field :text_field, :user, "lname", "Last Name"
+= create_form_error :user, "lname", flash[:login]["lname"][0] if (flash[:login] and flash[:login]["lname"])
+%br
+= create_form_input_field :text_field, :user, "phone", "Phone Number"
+%br
