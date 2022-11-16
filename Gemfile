@@ -2,16 +2,16 @@ source 'http://rubygems.org'
 
 ruby '2.6.6'
 
-gem 'bundler', '1.17.2'
+gem 'bundler', '~> 1.17.2'
 # Use Haml as the templating library
 gem 'haml'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '~> 4.2.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 2.7.0'
+gem 'uglifier', '~> 2.7.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -40,7 +40,7 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'launchy'
-  gem 'rspec', '~>3.5'
+  gem 'rspec', '~> 3.5'
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'spring'
