@@ -42,9 +42,9 @@
         %td= label :grad_application, :citizenship, 'Citizenship: '
         %td= create_form_input_field :text_field, :grad_application, 'citizenship'
         %td= create_form_error :grad_application, 'citizenship', flash[:requirement]['citizenship'][0] if (flash[:requirement] and flash[:requirement]['citizenship'])
-        %td= label :grad_application, :ug_inst_city, 'Undergraduate GPA: '
-        %td= create_form_input_field :text_field, :grad_application, 'ug_inst_city'
-        %td= create_form_error :grad_application, 'ug_inst_city', flash[:requirement]['ug_inst_city'][0] if (flash[:requirement] and flash[:requirement]['ug_inst_city'])
+        %td= label :grad_application, :ug_gpa, 'Undergraduate GPA: '
+        %td= create_form_input_field :text_field, :grad_application, 'ug_gpa'
+        %td= create_form_error :grad_application, 'ug_gpa', flash[:requirement]['ug_gpa'][0] if (flash[:requirement] and flash[:requirement]['ug_gpa'])
         %td
           %form{:action=>'/', :method=>"post",:enctype=>"multipart/form-data"}
             %label Recommendation Letter 1:
