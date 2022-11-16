@@ -1,0 +1,10 @@
+%h1 All Applications
+
+%table#applications
+  %tbody
+    - @applications.each do |application|
+      %tr
+        %td= application.department
+        %td= application.status
+        -#TODO add withdraw application
+        -#TODO add university search 
