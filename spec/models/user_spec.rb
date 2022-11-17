@@ -20,31 +20,43 @@ RSpec.describe User, type: :model do
       @valid_user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
       @invalid_user = User.new
     }
-    describe 'when valid user is new' do
+    describe 'when valid user instantiated' do
       subject { @valid_user }
       it { should be_valid}
     end
-    describe 'when invalid user is new' do
+    describe 'when invalid user instantiated' do
       subject { @invalid_user }
       it { should_not be_valid}
     end
-    describe 'when valid user is created using generate_user' do
+    describe 'when valid user is instantiated using generate_user' do
       subject { generate_user }
       it {should be_valid}
     end
-    describe 'when a single of the following attributes is missing' do
-      attributes = [:email,:password, :password_confirmation, :lname, :fname]
-      attributes.each do |attribute|
-        subject { generate_user( attribute )}
-        it {should_not be_valid}
+    describe 'when invalid attributes are given' do
+      it 'has one single of the following attributes missing' do
+        attributes = [:email,:password, :password_confirmation, :lname, :fname]
+        attributes.each do |attribute|
+          expect(generate_user( attribute )).to_not be_valid
+        end
       end
-    end
-    describe 'when an invalid email is supplied' do
       valid_user = generate_user
       invalid_user = valid_user
-      invalid_user.email = "testdotcom"
-      subject { invalid_user }
-      it {should_not be_valid}
+      it 'has an invalid email without a domain' do
+        invalid_user.email = "testdotcom"
+        expect(invalid_user).to_not be_valid
+      end
+      it 'has an invalid email without a top-level domain' do
+        invalid_user.email = "test.example"
+        expect(invalid_user).to_not be_valid
+      end
+      #to expand upon email tests:
+      #https://accelatest.com/how-to-write-email-validation-test-cases/
+      it 'has an invalid phone number' do
+        pending
+      end
+      it 'has an invalid address' do
+        pending
+      end
     end
   end
 end
