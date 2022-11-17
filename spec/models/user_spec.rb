@@ -2,16 +2,16 @@ require 'rails_helper'
 
 def generate_user(missing = nil) #This could probably be abstracted
   attributes = {:email => 'email@example.com', :password => 'test_password', password_confirmation: 'test_password', lname: 'Smith', fname: 'Frank' }
-  invalid_user = User.new
+  new_user = User.new
   attributes.each do |attribute|
     key = attribute[0]
     value = attribute[1]
     if key != missing
       method = (key.to_s + "=").to_sym
-      invalid_user.send(method, value)
+      new_user.send(method, value)
     end
   end
-  invalid_user
+  new_user
 end
 
 RSpec.describe User, type: :model do
