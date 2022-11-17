@@ -27,7 +27,7 @@ Background:
     | janet                      | CSE               | 3.4      |
     | julie                      | CIV               | 3.5      |
     | juan                       | BME               | 4.0      |
-  
+
 # Happy paths
 Scenario: see all department applications
   When I login with username "larry" and password "lazy4"
