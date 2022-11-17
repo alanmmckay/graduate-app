@@ -12,4 +12,9 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :email, uniqueness: {case_sensitive: false}
   validates_with EmailValidator
+  
+  def name
+    self.fname + " " + self.lname
+  end
+
 end
