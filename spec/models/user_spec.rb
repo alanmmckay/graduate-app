@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 def generate_user(missing = nil) #This could probably be abstracted
-  attributes = {:email => 'email@example.com', :password => 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith' }
+  attributes = {:email => 'email@example.com', :password => 'test_password', password_confirmation: 'test_password', lname: 'Smith', fname: 'Frank' }
   invalid_user = User.new
   attributes.each do |attribute|
     key = attribute[0]
@@ -56,6 +56,12 @@ RSpec.describe User, type: :model do
       end
       it 'has an invalid address' do
         pending
+      end
+    end
+    describe 'when valid attributes are given' do
+      valid_user = generate_user
+      it 'should return a valid name from fname and lname' do
+        expect(valid_user.name).to eql('Frank Smith')
       end
     end
   end

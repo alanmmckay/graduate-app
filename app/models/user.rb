@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   validates_with EmailValidator
 
 
-  def set_name
-    self.name = self.fname + " " + self.lname
+  def name
+    self.fname + " " + self.lname
   end
 
 end
