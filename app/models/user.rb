@@ -14,7 +14,12 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false}
   validates_with EmailValidator
   has_one :student
+  after_initialize :init
 
+  def init
+    self.phone ||= ""
+    self.address ||= ""
+  end
   def name
     self.fname + " " + self.lname
   end
