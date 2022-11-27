@@ -10,12 +10,14 @@ Rails.application.routes.draw do
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
   get 'students/new', to: 'students#new'
   get 'students/degree', to: 'students#degree'
+  #get 'students/degree_confirmation', to: 'students#degree_confirmation'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
   post 'grad_application/create', to: 'grad_application#create'
   post 'student/create', to: 'students#create'
+  post 'students/degree_confirmation', to: 'students#degree_confirmation'
 
   get 'users/error', to: 'users#error'
   root 'users#landing'

@@ -11,11 +11,16 @@ class StudentsController < ApplicationController
     params.require(:user).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
   end
 
+  def degree_params
+    params.require(:degree).permit(:name,:city,:degree_type,:major,:gpa)
+  end
+
   def create
     #run update with user_params
     student = current_user.build_student(gender: student_params[:gender],citizenship: student_params[:citizenship])
     #validation
     student.save
+    #"commit"=>"Continue"
     redirect_to students_degree_path
 
 
@@ -44,6 +49,14 @@ class StudentsController < ApplicationController
   end
 
   def degree
+
+  end
+
+  def degree_confirmation
+    degree = Degree.new(name: degree_params[:name], city: degree_params[:city], degree_type: degree_params[:degree_type], major: degree_params[:major], gpa: degree_params[:gpa])
+    degree.save
+    result = current_user.student.degrees << degree
+    @degree = degree
 
   end
   def new

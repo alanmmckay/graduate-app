@@ -6,8 +6,8 @@ class CreateDegrees < ActiveRecord::Migration
       t.string :city
       t.string :address
       t.string :phone
-      t.string :degree #listing of major
-      t.string :type #choices: associates; bachelors; masters; phd
+      t.string :major #listing of major
+      t.string :degree_type #choices: associates; bachelors; masters; phd
       t.string :gpa
     end
   end
