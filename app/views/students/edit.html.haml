@@ -6,4 +6,14 @@
   = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship}
   = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender}
 
+- @user.student.degrees.each do |degree|
+  = degree.name
+  = degree.city
+  = degree.major
+  = degree.degree_type
+  = degree.gpa
+  = link_to "Edit Degree"
+  %br
+  = link_to "Add Degree", students_degree_path
+  %br
   = submit_tag "Update"

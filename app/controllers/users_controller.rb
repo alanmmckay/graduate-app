@@ -44,7 +44,6 @@ class UsersController < ApplicationController
       @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
       if @user.valid?
         @user.save
-        #puts @user
         flash[:login] = "Account has been created. Please sign in:"
         redirect_to users_path
       else

@@ -21,8 +21,6 @@ class StudentsController < ApplicationController
     student.save
     #"commit"=>"Continue"
     redirect_to students_degree_path
-
-
   end
 
   def edit
@@ -36,7 +34,6 @@ class StudentsController < ApplicationController
   end
 
   def update
-
     info = student_params
     current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
     current_user.save
@@ -61,8 +58,8 @@ class StudentsController < ApplicationController
     degree.save
     current_user.student.degrees << degree
     @degrees = current_user.student.degrees
-
   end
+
   def new
     @user = current_user
   end
