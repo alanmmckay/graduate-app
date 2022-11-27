@@ -34,10 +34,13 @@ class StudentsController < ApplicationController
   end
 
   def update
-    info = student_params
-    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    #The params object is picky about where it receives data from. This is necessary with the current schema of the
+    # controller
+    sinfo = student_params
+    uinfo = user_params
+    current_user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
+    current_user.student.update(:gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
     current_user.save
-    current_user.student.update(:gender => info[:gender], :citizenship => info[:citizenship])
     redirect_to users_path
   end
 
