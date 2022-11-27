@@ -1,8 +1,7 @@
 class CreateStudents < ActiveRecord::Migration
   def up
     create_table :students do |t|
-      t.references :user, foreign_key: true
-      t.references :grad_application, foreign_key: true
+      t.belongs_to :user
     end
   end
   def down

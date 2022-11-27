@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   get 'grad_application/new', to: 'grad_application#new'
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
   get 'students/new', to: 'students#new'
+  get 'students/degree', to: 'students#degree'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
   post 'grad_application/create', to: 'grad_application#create'
-  post 'student/create', to: 'student#create'
+  post 'student/create', to: 'students#create'
 
   get 'users/error', to: 'users#error'
   root 'users#landing'

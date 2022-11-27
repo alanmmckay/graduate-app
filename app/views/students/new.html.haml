@@ -1,16 +1,11 @@
 = form_tag student_create_path do
-  = create_form_input_field :text_field, :user, "fname", "First Name"
-  = create_form_input_field :text_field, :user, "lname", "Last Name"
+  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @fname}
+  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @lname}
+  = create_form_input_field :text_field, :user, "address", "Address", {:value => @address}
+  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @phone}
   = create_form_input_field :text_field, :student, "citizenship", "Citizenship"
   = create_form_input_field :text_field, :student, "gender", "Gender"
-  = create_form_input_field :text_field, :student, "ug_inst", "Undergrad Institute"
-  = create_form_input_field :text_field, :student, "ug_inst_city", "City of Undergrad Institution"
-  = create_form_input_field :text_field, :student, "ug_gpa", "Undergrad GPA"
-  = create_form_input_field :text_field, :student, "ug_deg_earned", "Undergraduate Degree Earned"
-  = create_form_input_field :text_field, :student, "grad_inst", "Graduate Institute"
-  = create_form_input_field :text_field, :student, "grad_inst_city", "City of Graduate Institution"
-  = create_form_input_field :text_field, :student, "grad_gpa", "Graduate GPA"
-  = create_form_input_field :text_field, :student, "grad_deg_earned", "Graduate Degree Earned"
+  =# render :file => 'layouts/degree.html.haml'
   = submit_tag 'Continue'
 
   =# create_form_input_field :text_field, :user, "email", "Email"

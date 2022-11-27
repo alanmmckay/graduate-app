@@ -3,21 +3,22 @@ class StudentsController < ApplicationController
   before_filter :set_current_user, :only=> %w[show edit update delete]
 
   def student_params
-    params.require(:user_id).permit(:fname, :lname, :app_status)
+    params.require(:student).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
     #TODO: does user_id need to be required? Or will it always be instantiated when linking to user account
   end
 
-  def create
-    @student = Student.new(student_params)
-    if @current_user << @student
-      flash[:notice] = "Successfully created student account"
-      redirect_to 'users/login'
-    end
+  def user_params
+    params.require(:user).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
   end
 
-  def show
-    redirect_to 'users/show'
-    #TODO: validate student not null -> faculty null / not
+  def create
+    #run update with user_params
+    student = current_user.build_student(gender: student_params[:gender],citizenship: student_params[:citizenship])
+    #validation
+    student.save
+    redirect_to students_degree_path
+
+
   end
 
   def edit
@@ -42,12 +43,14 @@ class StudentsController < ApplicationController
     redirect_to 'user/login'
   end
 
-  def home
-    @student = @current_user.student
-    @applications = @student.grad_applications
+  def degree
+
   end
-
   def new
-
+    user = User.find_by(email: session[:email])
+    @fname = user.fname
+    @lname = user.lname
+    @address = user.address
+    @phone = user.phone
   end
 end
