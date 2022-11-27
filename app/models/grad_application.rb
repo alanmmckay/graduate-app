@@ -7,11 +7,12 @@ class EmailValidator < ActiveModel::Validator
 end
 
 class GradApplication < ActiveRecord::Base
-
+  belongs_to :student
   before_save
   validates :university, :date, :first_name, :last_name, :citizenship, :gender,
             :research_area, :deg_obj, :deg_obj_major, :ug_inst, :ug_inst_city,
-            :ug_gpa, :ug_deg_earned, :recommender_1, presence: true
+            :ug_gpa, :ug_deg_earned, :recommender_1,
+            presence: true
 
   if (:recommendation_1_email != "")
     validates :recommendation_1_email, uniqueness: {case_sensitive: false}

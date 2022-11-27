@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
+  post 'grad_application/create', to: 'grad_application#create'
 
   get 'users/error', to: 'users#error'
   root 'users#landing'

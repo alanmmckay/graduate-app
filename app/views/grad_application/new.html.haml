@@ -7,7 +7,7 @@
 
   = yield
 
-= form_tag grad_application_new_path do
+= form_tag grad_application_create_path do
   %table
     %tbody
       %tr
@@ -91,3 +91,4 @@
 
 
   = submit_tag 'Create Application'
+  = link_to "Cancel", users_applications_path
