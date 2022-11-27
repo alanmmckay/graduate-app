@@ -23,6 +23,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+
+  end
+  def edit
+    if current_user.student
+      redirect_to students_edit_path
+    end
+    @user = current_user
+  end
   def create
     info = user_params
     #Need to consider range of acceptable values for these parameters; their domains

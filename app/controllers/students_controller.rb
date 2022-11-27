@@ -27,9 +27,13 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    @student = @current_user.student
-    #TODO: validate student not null -> faculty null / not
-    #TODO: go to editable student info form
+    @user = current_user
+    @student = current_user.student
+    if @student.methods.include?(:degrees)
+      @degrees = @student.degrees
+    else
+      @degrees = nil
+    end
   end
 
   def update
@@ -55,15 +59,11 @@ class StudentsController < ApplicationController
   def degree_confirmation
     degree = Degree.new(name: degree_params[:name], city: degree_params[:city], degree_type: degree_params[:degree_type], major: degree_params[:major], gpa: degree_params[:gpa])
     degree.save
-    result = current_user.student.degrees << degree
-    @degree = degree
+    current_user.student.degrees << degree
+    @degrees = current_user.student.degrees
 
   end
   def new
-    user = User.find_by(email: session[:email])
-    @fname = user.fname
-    @lname = user.lname
-    @address = user.address
-    @phone = user.phone
+    @user = current_user
   end
 end

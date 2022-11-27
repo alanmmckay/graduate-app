@@ -6,7 +6,7 @@ class Degree < ActiveRecord::Base
     self.city ||= ""
     self.major ||= ""
     self.degree_type ||= ""
-    self.gpa || = ""
+    self.gpa ||= ""
   end
 
 end

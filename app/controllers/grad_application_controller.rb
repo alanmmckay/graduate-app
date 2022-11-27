@@ -36,8 +36,11 @@ class GradApplicationController < ApplicationController
   def new
 
     student = Student.find_by(:id => User.find_by(:email => session[:email]))
+
     if !student
       redirect_to students_new_path
+    elsif student.degrees.length == 0
+      redirect_to students_degree_path
     end
 
 
