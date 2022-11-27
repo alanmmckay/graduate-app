@@ -10,7 +10,7 @@ class GradApplicationController < ApplicationController
     # potentially assign an ID to every single GradApplications so they are all unique from each other
     last_name = params[:last_name] # retrieve GradApplications by searching last name, returns list maybe
     # if a list is returned, then maybe loop through till first name? or do something about same names
-    @grad_application = GradApplication.find(last_name) # look up GradApplications by last name
+    @grad_application = GradApplication.find(last_name)# look up GradApplications by last name
   end
 
   def create
@@ -46,6 +46,7 @@ class GradApplicationController < ApplicationController
   end
   
   def index
+    "test"
   end
 
 

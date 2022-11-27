@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   get 'users/show', to: 'users#show'
   get 'users/login', to: 'users#landing'
   get 'users/new', to: 'users#new'
-  get 'students/home', to: 'students#home'
   get 'users/logout', to: 'users#destroy'
+  get 'users/applications', to: 'grad_application#index'
+  get 'users/applications/new', to: 'grad_application#new'
+  get 'grad_application/new', to: 'grad_application#new'
+  #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
@@ -13,6 +17,7 @@ Rails.application.routes.draw do
   get 'users/error', to: 'users#error'
   root 'users#landing'
 
+  get 'students/home', to: 'students#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
