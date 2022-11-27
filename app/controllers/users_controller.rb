@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_action :authorized, only: [:show]
   def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :phone)
   end
@@ -11,7 +12,6 @@ class UsersController < ApplicationController
   def show
     if session[:email]
       @email = session[:email]
-      session[:email] = nil #change later; have this in place for testing purposes
     else
       redirect_to users_path
     end
@@ -43,7 +43,11 @@ class UsersController < ApplicationController
   end
 
   def landing
-    render users_login_path
+    if logged_in?
+      render users_show_path
+    else
+      render users_login_path
+    end
   end
 
   def login
@@ -56,6 +60,11 @@ class UsersController < ApplicationController
       flash[:login] = "Invalid Credentials"
       flash[:info] = {:email => info[:email]}
     end
+  end
+
+  def destroy
+    session[:email] = nil
+    redirect_to users_login_path
   end
 
 end

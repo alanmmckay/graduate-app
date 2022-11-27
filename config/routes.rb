@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'users/login', to: 'users#landing'
   get 'users/new', to: 'users#new'
   get 'students/home', to: 'students#home'
+  get 'users/logout', to: 'users#destroy'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
