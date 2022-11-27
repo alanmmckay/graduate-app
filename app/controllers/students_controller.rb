@@ -4,7 +4,6 @@ class StudentsController < ApplicationController
 
   def student_params
     params.require(:student).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
-    #TODO: does user_id need to be required? Or will it always be instantiated when linking to user account
   end
 
   def user_params
