@@ -8,17 +8,17 @@ Rails.application.routes.draw do
   get 'users/applications/new', to: 'grad_application#new'
   get 'grad_application/new', to: 'grad_application#new'
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
-
+  get 'students/new', to: 'students#new'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
   post 'grad_application/create', to: 'grad_application#create'
+  post 'student/create', to: 'student#create'
 
   get 'users/error', to: 'users#error'
   root 'users#landing'
 
-  get 'students/home', to: 'students#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

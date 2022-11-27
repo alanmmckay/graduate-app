@@ -47,5 +47,7 @@ class StudentsController < ApplicationController
     @applications = @student.grad_applications
   end
 
+  def new
 
+  end
 end
