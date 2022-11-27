@@ -1,7 +1,6 @@
 = form_tag users_update_path do
   = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname}
   = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname}
-  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address}
   = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone}
 
-  = submit_tag users_update_path
+  = submit_tag 'Update'

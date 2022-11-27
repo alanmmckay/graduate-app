@@ -5,6 +5,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :phone)
   end
 
+  def update_user_params
+    params.require(:user).permit(:fname,:lname,:phone)
+  end
   def login_params
     params.require(:user).permit(:email,:password)
   end
@@ -24,7 +27,10 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    info = update_user_params
+    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    current_user.save
+    redirect_to users_path
   end
   def edit
     if current_user.student
