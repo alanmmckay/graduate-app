@@ -36,11 +36,12 @@ class StudentsController < ApplicationController
   end
 
   def update
-    @student = @current_user.student
-    @student.update_attributes!(student_params)
-    flash[:notice] = "#{@current_user.username} student account successfully updated."
-    redirect_to 'student/show'
-    #TODO: validate student not null -> faculty null / not
+
+    info = student_params
+    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    current_user.save
+    current_user.student.update(:gender => info[:gender], :citizenship => info[:citizenship])
+    redirect_to users_path
   end
 
   def delete
