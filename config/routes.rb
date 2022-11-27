@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   get 'users/applications/new', to: 'grad_application#new'
   get 'grad_application/new', to: 'grad_application#new'
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+  get 'students/', to: 'users#show'
   get 'students/new', to: 'students#new'
   get 'students/edit', to: 'students#edit'
   get 'students/degree', to: 'students#degree'
-  get 'students/degree_confirmation', to: 'students#degree'
+  get 'students/degree_creation', to: 'students#degree'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   post 'users/update', to: 'users#update'
   post 'grad_application/create', to: 'grad_application#create'
   post 'student/create', to: 'students#create'
-  post 'students/degree_confirmation', to: 'students#degree_confirmation'
+  post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
 
   get 'users/error', to: 'users#error'

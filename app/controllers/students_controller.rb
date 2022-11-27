@@ -53,7 +53,10 @@ class StudentsController < ApplicationController
 
   end
 
-  def degree_confirmation
+  def edit_degree
+
+  end
+  def degree_creation
     degree = Degree.new(name: degree_params[:name], city: degree_params[:city], degree_type: degree_params[:degree_type], major: degree_params[:major], gpa: degree_params[:gpa])
     degree.save
     current_user.student.degrees << degree

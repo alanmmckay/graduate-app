@@ -1,19 +1,24 @@
 = form_tag students_update_path do
   = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname}
-  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname}
-  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address}
-  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone}
-  = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship}
-  = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender}
-
-- @user.student.degrees.each do |degree|
-  = degree.name
-  = degree.city
-  = degree.major
-  = degree.degree_type
-  = degree.gpa
-  = link_to "Edit Degree"
   %br
+  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname}
+  %br
+  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address}
+  %br
+  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone}
+  %br
+  = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship}
+  %br
+  = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender}
+  %br
+  - @user.student.degrees.each do |degree|
+    = degree.name
+    = degree.city
+    = degree.major
+    = degree.degree_type
+    = degree.gpa
+    = link_to "Edit Degree"
+    %br
   = link_to "Add Degree", students_degree_path
   %br
   = submit_tag "Update"
