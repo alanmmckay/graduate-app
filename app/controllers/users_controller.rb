@@ -30,6 +30,10 @@ class UsersController < ApplicationController
     info = update_user_params
     current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
     current_user.save
+    current_user.errors.each do |error|
+      puts "erro"
+      puts error
+    end
     redirect_to users_path
   end
   def edit
