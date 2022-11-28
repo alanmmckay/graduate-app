@@ -29,6 +29,7 @@ class UsersController < ApplicationController
       @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
       if @user.valid?
         @user.save
+        #puts @user
         flash[:login] = "Account has been created. Please sign in:"
         redirect_to users_path
       else
@@ -48,7 +49,7 @@ class UsersController < ApplicationController
   def login
     info = login_params
     @user = User.find_by(email:info[:email].downcase)
-    if @user and info[:password] == @user.password
+    if @user and @user.authenticate(info[:password])
       session[:email] = info[:email]
       redirect_to users_show_path
     else
