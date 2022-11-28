@@ -1,7 +1,12 @@
+%h1 User update page for Graduate Application
+%hr
 = form_tag users_update_path do
-  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname}
-  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname}
-  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone}
+  %div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+  %div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+  %div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone,:class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
 
-  = submit_tag 'Update'
+  = submit_tag 'Update', {:class => "btn", :type =>"submit", :disabled => false}
 = link_to "Cancel", users_path

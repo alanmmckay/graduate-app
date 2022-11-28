@@ -1,3 +1,6 @@
+%h1 Degree creation page for Graduate Application
+%hr
 = form_tag students_degree_creation_path do
   = render :file => 'layouts/degree.html.haml'
   = submit_tag "Submit"
+= link_to "Cancel", students_edit_path

@@ -1,11 +1,11 @@
 = form_tag student_create_path do
-  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname}
-  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname}
-  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address}
-  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone}
-  = create_form_input_field :text_field, :student, "citizenship", "Citizenship"
-  = create_form_input_field :text_field, :student, "gender", "Gender"
+  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :student, "gender", "Gender", {:class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
   =# render :file => 'layouts/degree.html.haml'
-  = submit_tag 'Continue'
+  = submit_tag 'Continue', {:class => "btn", :type =>"submit", :disabled => false}
 
   =# create_form_input_field :text_field, :user, "email", "Email"
