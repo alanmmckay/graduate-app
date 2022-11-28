@@ -2,5 +2,5 @@
 %hr
 = form_tag students_degree_creation_path do
   = render :file => 'layouts/degree.html.haml'
-  = submit_tag "Submit"
+  = submit_tag "Submit", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
 = link_to "Cancel", students_edit_path
