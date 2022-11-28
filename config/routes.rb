@@ -1,13 +1,43 @@
 Rails.application.routes.draw do
-  get 'users/index', to: 'users#index'
-  root 'users#index'
-  #post 'users_login'
+  get 'degrees/edit'
+
+  get 'degrees/update'
+
+  get 'users/', to: 'users#landing'
+  get 'users/show', to: 'users#show'
+  get 'users/login', to: 'users#landing'
+  get 'users/new', to: 'users#new'
+  get 'users/logout', to: 'users#destroy'
+  get 'users/edit', to: 'users#edit'
+  get 'users/applications', to: 'grad_application#index'
+  get 'users/applications/new', to: 'grad_application#new'
+  get 'grad_application/new', to: 'grad_application#new'
+  #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+  get 'students/', to: 'users#show'
+  get 'students/new', to: 'students#new'
+  get 'students/edit', to: 'students#edit'
+  get 'students/degree', to: 'students#degree'
+  get 'students/degree_creation', to: 'students#degree'
+  get 'degrees/edit/:id', to: 'degrees#edit'
+
+  post 'users/', to: 'users#login'
+  post 'users/login', to: 'users#login'
+  post 'users/create', to: 'users#create'
+  post 'users/update', to: 'users#update'
+  post 'grad_application/create', to: 'grad_application#create'
+  post 'student/create', to: 'students#create'
+  post 'students/degree_creation', to: 'students#degree_creation'
+  post 'students/update', to: 'students#update'
+  put 'degrees/update/:id', to: 'degrees#update'
+
+  get 'users/error', to: 'users#error'
+  root 'users#landing'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # root 'welcome#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -14,16 +14,17 @@
  *= require_self
  */
 body {
-    background: gold;
+    /*background: gold;*/
 }
 
 h1 {
     background-color: gold;
-    font-size: 350%;
-    font-style: italic;
+    /*font-size: 350%;*/
+    /*font-style: italic*/
 }
 
-p {
-    font-size: 150%;
+.btn-alternative{
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
 }
 

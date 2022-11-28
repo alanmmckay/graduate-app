@@ -1,0 +1,94 @@
+%h1 Create Application
+#main
+  - if flash[:notice]
+    #notice.message= flash[:notice]
+  - elsif flash[:warning]
+    #warning.message= flash[:warning]
+
+  = yield
+
+= form_tag grad_application_create_path do
+  %table
+    %tbody
+      %tr
+        %td= label :grad_application, :university, 'University: '
+        %td= create_form_input_field :text_field, :grad_application, 'university'
+        %td= create_form_error :grad_application, 'university', flash[:requirement]['university'][0] if (flash[:requirement] and flash[:requirement]['university'])
+        %td= label :grad_application, :date, 'Today\'s Date: '
+        %td= create_form_input_field :date_field, :grad_application, 'date'
+        %td= create_form_error :grad_application, 'date', flash[:requirement]['date'][0] if (flash[:requirement] and flash[:requirement]['date'])
+    %tbody
+      %tr
+        %td= label :grad_application, :first_name, 'First Name: '
+        %td= create_form_input_field :text_field, :grad_application, 'first_name'
+        %td= create_form_error :grad_application, 'first_name', flash[:requirement]['first_name'][0] if (flash[:requirement] and flash[:requirement]['first_name'])
+        %td= label :grad_application, :ug_inst, 'Undergraduate Institute: '
+        %td= create_form_input_field :text_field, :grad_application, 'ug_inst'
+        %td= create_form_error :grad_application, 'ug_inst', flash[:requirement]['ug_inst'][0] if (flash[:requirement] and flash[:requirement]['ug_inst'])
+        %td= label :grad_application, :grad_deg_earned, 'Graduate Degree Earned: '
+        %td= create_form_input_field :text_field, :grad_application, 'grad_deg_earned'
+        %td= create_form_error :grad_application, 'grad_deg_earned', flash[:requirement]['grad_deg_earned'][0] if (flash[:requirement] and flash[:requirement]['grad_deg_earned'])
+      %tr
+        %td= label :grad_application, :last_name, 'Last Name: '
+        %td= create_form_input_field :text_field, :grad_application, 'last_name'
+        %td= create_form_error :grad_application, 'last_name', flash[:requirement]['last_name'][0] if (flash[:requirement] and flash[:requirement]['last_name'])
+        %td= label :grad_application, :ug_inst_city, 'Undergraduate Institute City: '
+        %td= create_form_input_field :text_field, :grad_application, 'ug_inst_city'
+        %td= create_form_error :grad_application, 'ug_inst_city', flash[:requirement]['ug_inst_city'][0] if (flash[:requirement] and flash[:requirement]['ug_inst_city'])
+        %td= label :grad_application, :recommender_1, 'Recommender 1 Name: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommender_1'
+        %td= create_form_error :grad_application, 'recommender_1', flash[:requirement]['recommender_1'][0] if (flash[:requirement] and flash[:requirement]['recommender_1'])
+      %tr
+        %td= label :grad_application, :citizenship, 'Citizenship: '
+        %td= create_form_input_field :text_field, :grad_application, 'citizenship'
+        %td= create_form_error :grad_application, 'citizenship', flash[:requirement]['citizenship'][0] if (flash[:requirement] and flash[:requirement]['citizenship'])
+        %td= label :grad_application, :ug_gpa, 'Undergraduate GPA: '
+        %td= create_form_input_field :text_field, :grad_application, 'ug_gpa'
+        %td= create_form_error :grad_application, 'ug_gpa', flash[:requirement]['ug_gpa'][0] if (flash[:requirement] and flash[:requirement]['ug_gpa'])
+        %td= label :grad_application, :recommendation_1_email, 'Recommender 1 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_1_email'
+        %td= create_form_error :grad_application, 'recommendation_1_email', flash[:requirement]['recommendation_1_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_1_email'])
+      %tr
+        %td= label :grad_application, :gender, 'Gender: '
+        %td= select :grad_application, :gender, ['Male', 'Female']
+        %td= label :grad_application, ' '
+        %td= label :grad_application, :ug_deg_earned, 'Undergraduate Degree Earned: '
+        %td= create_form_input_field :text_field, :grad_application, 'ug_deg_earned'
+        %td= create_form_error :grad_application, 'ug_deg_earned', flash[:requirement]['ug_deg_earned'][0] if (flash[:requirement] and flash[:requirement]['ug_deg_earned'])
+        %td= label :grad_application, :recommender_2, 'Recommender 2 Name: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommender_2'
+        %td= create_form_error :grad_application, 'recommender_2', flash[:requirement]['recommender_2'][0] if (flash[:requirement] and flash[:requirement]['recommender_2'])
+      %tr
+        %td= label :grad_application, :research_area, 'Research Area: '
+        %td= create_form_input_field :text_field, :grad_application, 'research_area'
+        %td= create_form_error :grad_application, 'research_area', flash[:requirement]['research_area'][0] if (flash[:requirement] and flash[:requirement]['research_area'])
+        %td= label :grad_application, :grad_inst, 'Graduate Institute: '
+        %td= create_form_input_field :text_field, :grad_application, 'grad_inst'
+        %td= create_form_error :grad_application, 'grad_inst', flash[:requirement]['grad_inst'][0] if (flash[:requirement] and flash[:requirement]['grad_inst'])
+        %td= label :grad_application, :recommendation_2_email, 'Recommender 2 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_2_email'
+        %td= create_form_error :grad_application, 'recommendation_2_email', flash[:requirement]['recommendation_2_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_2_email'])
+      %tr
+        %td= label :grad_application, :deg_obj, 'Degree Objective: '
+        %td= select :grad_application, :deg_obj, ['Masters', 'PhD']
+        %td= label :grad_application, ' '
+        %td= label :grad_application, :grad_inst_city, 'Graduate Institute City: '
+        %td= create_form_input_field :text_field, :grad_application, 'grad_inst_city'
+        %td= create_form_error :grad_application, 'grad_inst_city', flash[:requirement]['grad_inst_city'][0] if (flash[:requirement] and flash[:requirement]['grad_inst_city'])
+        %td= label :grad_application, :recommender_3, 'Recommender 3 Name: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommender_3'
+        %td= create_form_error :grad_application, 'recommender_3', flash[:requirement]['recommender_3'][0] if (flash[:requirement] and flash[:requirement]['recommender_3'])
+      %tr
+        %td= label :grad_application, :deg_obj_major, 'Degree Objective Major: '
+        %td= create_form_input_field :text_field, :grad_application, 'deg_obj_major'
+        %td= create_form_error :grad_application, 'deg_obj_major', flash[:requirement]['deg_obj_major'][0] if (flash[:requirement] and flash[:requirement]['deg_obj_major'])
+        %td= label :grad_application, :grad_gpa, 'Graduate GPA: '
+        %td= create_form_input_field :text_field, :grad_application, 'grad_gpa'
+        %td= create_form_error :grad_application, 'grad_gpa', flash[:requirement]['grad_gpa'][0] if (flash[:requirement] and flash[:requirement]['grad_gpa'])
+        %td= label :grad_application, :recommendation_3_email, 'Recommender 3 Email: '
+        %td= create_form_input_field :text_field, :grad_application, 'recommendation_3_email'
+        %td= create_form_error :grad_application, 'recommendation_3_email', flash[:requirement]['recommendation_3_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_3_email'])
+
+
+  = submit_tag 'Create Application', {:disabled => true}
+  = link_to "Cancel", users_applications_path

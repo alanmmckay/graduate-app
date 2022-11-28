@@ -7,10 +7,10 @@ Background:
 
   Given the following users have accounts:
     | username                   | password           | type       |
-    | fred                       | password1234       | student    |
-    | ted                        | password5678       | student    |
-    | bread                      | password9101       | student    |
-    | sally                      | sally4321          | faculty    |
+    | fred.uiowaSELT@gmail.com   | password1234       | student    |
+    | ted.uiowaSELT@gmail.com    | password5678       | student    |
+    | bread.uiowaSELT@gmail.com  | password9101       | student    |
+    | sally.uiowaSELT@gmail.com  | sally4321          | faculty    |
 
   And the following applications have been submitted:
     | student                   | department         | gpa   |

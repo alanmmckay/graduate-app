@@ -7,10 +7,10 @@ Background: users that are submitting an application
 
   Given the following users have accounts:
     | username                   | password           | type       | department        |
-    | fred                       | password1234       | student    |                   |
-    | james                      | pass123456         | student    |                   |
-    | sally                      | sally4321          | faculty    | CSE               |
-    | ethan                      | ethan4321          | faculty    | CSE               |
+    | fred.uiowaSELT@gmail.com   | password1234       | student    |                   |
+    | james.uiowaSELT@gmail.com  | pass123456         | student    |                   |
+    | sally.uiowaSELT@gmail.com  | sally4321          | faculty    | CSE               |
+    | ethan.uiowaSELT@gmail.com  | ethan4321          | faculty    | CSE               |
 
   And I am on the "Submit Application Form" page for student user "fred"
 

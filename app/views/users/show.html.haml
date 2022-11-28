@@ -1,0 +1,17 @@
+-#This will be the view which displays user info and allows routing to other user actions
+%h1 User control page for Graduate Application
+%hr
+Consider this page to be a primary hub for one logged in.
+%br
+It is within here one can navigate to various resources, such as comparing schools.
+%br
+A user can be redirected from here via link to view the application page.
+%br
+They can also be redirected from here via link to faculty controls, should they be faculty.
+%br
+= link_to "View Applications", users_applications_path
+%br
+This logout link should be placed into a higher-order template so that it can be displayed on all pages:
+= link_to "Logout", users_logout_path
+This edit link should be placed into a higher-order template so that it can be displayed on all pages:
+= link_to "Edit User Information", users_edit_path

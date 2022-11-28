@@ -1,0 +1,6 @@
+= form_tag users_login_path do
+  %div{:class => "input-group"}
+    = create_form_input_field :text_field, :user, "email", "Email", {:class => "form-control", :placeholder => "Your Email", :disabled => false}, {:class => "input-group-text"}
+  %div{:class => "input-group"}
+    = create_form_input_field :password_field, :user, "password", "Password", {:class => "form-control", :placeholder => "Password", :disabled => false}, {:class => "input-group-text"}
+  = button_tag "Login", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}

@@ -1,0 +1,15 @@
+%h1 User creation page for Graduate Application
+%hr
+= form_tag users_create_path do
+  = create_form_input_field :text_field, :user, "email", "Email", {:class => "form-control", :placeholder => "Your Email", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :user, "email", flash[:login]["email"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["email"])
+
+  = create_form_input_field :password_field, :user, "password", "Password", {:class => "form-control", :placeholder => "Password", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :user, "password", flash[:login]["password"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["password"])
+
+  = create_form_input_field :password_field, :user, "password_confirmation", "Verify Password", {:class => "form-control", :placeholder => "Verify Password", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :user, "password_confirmation", flash[:login]["password_confirmation"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["password_confirmation"])
+  %br
+  = render :file => 'layouts/personal_info.html.haml'
+  = submit_tag 'Create Account', {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
+= link_to "Go Back", users_path
