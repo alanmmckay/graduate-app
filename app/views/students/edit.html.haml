@@ -8,6 +8,7 @@
   = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship, :class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
   = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
   %br
+  %h6 Degrees obtained:
   - @user.student.degrees.each do |degree|
     = degree.name
     = degree.city

@@ -90,5 +90,5 @@
         %td= create_form_error :grad_application, 'recommendation_3_email', flash[:requirement]['recommendation_3_email'][0] if (flash[:requirement] and flash[:requirement]['recommendation_3_email'])
 
 
-  = submit_tag 'Create Application'
+  = submit_tag 'Create Application', {:disabled => true}
   = link_to "Cancel", users_applications_path
