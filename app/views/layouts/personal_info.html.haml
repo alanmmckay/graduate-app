@@ -1,8 +1,5 @@
-= create_form_input_field :text_field, :user, "fname", "First Name"
-= create_form_error :user, "fname", flash[:login]["fname"][0] if (flash[:login] and flash[:login]["fname"])
-%br
-= create_form_input_field :text_field, :user, "lname", "Last Name"
-= create_form_error :user, "lname", flash[:login]["lname"][0] if (flash[:login] and flash[:login]["lname"])
-%br
-= create_form_input_field :text_field, :user, "phone", "Phone Number"
-%br
+= create_form_input_field :text_field, :user, "fname", "First Name", {:class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+= create_form_error :user, "fname", flash[:login]["fname"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["fname"])
+= create_form_input_field :text_field, :user, "lname", "Last Name", {:class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+= create_form_error :user, "lname", flash[:login]["lname"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["lname"])
+= create_form_input_field :text_field, :user, "phone", "Phone Number", {:class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}

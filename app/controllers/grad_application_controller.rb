@@ -1,4 +1,6 @@
 class GradApplicationController < ApplicationController
+
+  before_action :authorized
   def grad_application_params
     params.require(:grad_application).permit(:university, :date, :first_name, :last_name, :citizenship, :gender,
                                              :research_area, :deg_obj, :deg_obj_major, :ug_inst, :ug_inst_city,
@@ -10,10 +12,14 @@ class GradApplicationController < ApplicationController
     # potentially assign an ID to every single GradApplications so they are all unique from each other
     last_name = params[:last_name] # retrieve GradApplications by searching last name, returns list maybe
     # if a list is returned, then maybe loop through till first name? or do something about same names
-    @grad_application = GradApplication.find(last_name) # look up GradApplications by last name
+    @grad_application = GradApplication.find(last_name)# look up GradApplications by last name
   end
 
+  def create_student
+
+  end
   def create
+
     @params = grad_application_params
     @grad_application = GradApplication.new(@params)
 
@@ -28,6 +34,16 @@ class GradApplicationController < ApplicationController
   end
 
   def new
+
+    student = Student.find_by(:id => User.find_by(:email => session[:email]))
+
+    if !student
+      redirect_to students_new_path
+    elsif student.degrees.length == 0
+      redirect_to students_degree_path
+    end
+
+
     # default: render 'new' template
   end
 
@@ -46,6 +62,8 @@ class GradApplicationController < ApplicationController
   end
   
   def index
+    @user == User.find_by(:email => session[:email])
+
   end
 
 

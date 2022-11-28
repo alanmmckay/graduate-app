@@ -1,0 +1,10 @@
+%h1 Degree edit page for Graduate Application
+%hr
+= form_tag degrees_update_path+'/'+@degree.id.to_s, :method => :put do
+  = create_form_input_field :text_field, :degree, "name", "Institution Name:", {:value => @degree.name, :class => "form-control", :placeholder => "Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :degree, "city", "Institution City:", {:value => @degree.city, :class => "form-control", :placeholder => "City", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :degree, "major", "Type of Degree:", {:value => @degree.major, :class => "form-control", :placeholder => "Major", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :degree, "degree_type", "Degree Earned:", {:value => @degree.degree_type, :class => "form-control", :placeholder => "Degree", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :degree, "gpa", "GPA Earned:", {:value => @degree.gpa, :class => "form-control", :placeholder => "GPA", :disabled => false}, {:class => "input-group-text"}
+  = submit_tag "Update"
+= link_to "Cancel", students_edit_path
