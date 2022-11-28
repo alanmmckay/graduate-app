@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
     self.phone ||= ""
     self.address ||= ""
   end
+
   def name
     self.fname + " " + self.lname
   end

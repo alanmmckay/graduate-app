@@ -17,7 +17,7 @@
     = degree.major
     = degree.degree_type
     = degree.gpa
-    = link_to "Edit Degree"
+    = link_to "Edit Degree", degrees_edit_path+"/"+degree.id.to_s
     %br
   = link_to "Add Degree", students_degree_path
   %br

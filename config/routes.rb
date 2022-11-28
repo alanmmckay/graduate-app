@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'degrees/edit'
+
+  get 'degrees/update'
+
   get 'users/', to: 'users#landing'
   get 'users/show', to: 'users#show'
   get 'users/login', to: 'users#landing'
@@ -14,6 +18,7 @@ Rails.application.routes.draw do
   get 'students/edit', to: 'students#edit'
   get 'students/degree', to: 'students#degree'
   get 'students/degree_creation', to: 'students#degree'
+  get 'degrees/edit/:id', to: 'degrees#edit'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
@@ -23,6 +28,7 @@ Rails.application.routes.draw do
   post 'student/create', to: 'students#create'
   post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
+  put 'degrees/update/:id', to: 'degrees#update'
 
   get 'users/error', to: 'users#error'
   root 'users#landing'
