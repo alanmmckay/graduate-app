@@ -1,0 +1,2 @@
+module LettersOfRecommendationHelper
+end
