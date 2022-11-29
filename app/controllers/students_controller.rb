@@ -16,11 +16,21 @@ class StudentsController < ApplicationController
 
   def create
     #run update with user_params
-    student = current_user.build_student(address: student_params[:address], gender: student_params[:gender],citizenship: student_params[:citizenship])
-    #validation
-    student.save
-    #"commit"=>"Continue"
-    redirect_to students_degree_path
+    sinfo = student_params
+    uinfo = user_params
+
+
+    @user = current_user
+    @user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
+    @user.build_student(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
+    if @user.valid? #and @student.valid?
+      @user.save
+      redirect_to students_degree_path
+    else
+      flash[:errors] = @user.errors
+      flash[:info] = uinfo.merge(sinfo)
+      redirect_to students_new_path
+    end
   end
 
   def edit
@@ -36,12 +46,20 @@ class StudentsController < ApplicationController
   def update
     #The params object is picky about where it receives data from. This is necessary with the current schema of the
     # controller
+
     sinfo = student_params
     uinfo = user_params
-    current_user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
-    current_user.student.update(:address => sinfo[:address], :gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
-    current_user.save
-    redirect_to users_path
+    @user = current_user
+    @user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
+    @user.student.update(:address => sinfo[:address], :gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
+    if @user.valid?
+      current_user.save
+      redirect_to users_path
+    else
+      flash[:errors] = @user.errors
+      flash[:info] = sinfo.merge(uinfo)
+      redirect_to users_edit_path
+    end
   end
 
   def delete
