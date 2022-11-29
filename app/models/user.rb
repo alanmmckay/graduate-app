@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
 
   def init
     self.phone ||= ""
-    self.address ||= ""
   end
 
   def name

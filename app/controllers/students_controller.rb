@@ -16,7 +16,7 @@ class StudentsController < ApplicationController
 
   def create
     #run update with user_params
-    student = current_user.build_student(gender: student_params[:gender],citizenship: student_params[:citizenship])
+    student = current_user.build_student(address: student_params[:address], gender: student_params[:gender],citizenship: student_params[:citizenship])
     #validation
     student.save
     #"commit"=>"Continue"
@@ -39,7 +39,7 @@ class StudentsController < ApplicationController
     sinfo = student_params
     uinfo = user_params
     current_user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
-    current_user.student.update(:gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
+    current_user.student.update(:address => sinfo[:address], :gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
     current_user.save
     redirect_to users_path
   end

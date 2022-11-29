@@ -3,8 +3,8 @@
 = form_tag students_update_path do
   = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
   = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
   = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+  = create_form_input_field :text_field, :student, "address", "Address", {:value => @student.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
   = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship, :class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
   = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
   %br
