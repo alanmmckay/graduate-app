@@ -1,4 +1,4 @@
-class LettersOfRecommendation < ActiveRecord::Base
+class LetterOfRecommendation < ActiveRecord::Base
   belongs_to :grad_application
   validates :recommender_email, presence: true, on: create
   after_initialize :init

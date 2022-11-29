@@ -1,4 +1,4 @@
-class LettersOfRecommendationController < ApplicationController
+class LetterOfRecommendationController < ApplicationController
 
   def letter_of_recommendation_params
     params.require(:letter_of_recommendation).permit(:letter)
@@ -9,6 +9,7 @@ class LettersOfRecommendationController < ApplicationController
   end
 
   def create
-    @params = letter_params
+    @params = letter_of_recommendation_params
+    @letter_of_recommendation = LetterOfRecommendation.new(@params)
   end
 end
