@@ -1,0 +1,15 @@
+%header
+  %h1.text-center{:style => "background:gold"}= session[:header]
+  - session[:header] = nil
+  %ul.nav.nav-tabs
+    %li.nav-item
+      %a.nav-link.active{:href => "#"} Test link1
+    %li.nav-item
+      %a.nav-link.disabled{:href => "#"} Test link2
+    %li.nav-item
+      %a.nav-link.disabled{:href => "#"} Test link3
+    - if session[:email]
+      %li.nav-item
+        = link_to "Logout", users_logout_path, {:class => "nav-link"}
+
+
