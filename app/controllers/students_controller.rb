@@ -19,7 +19,6 @@ class StudentsController < ApplicationController
     sinfo = student_params
     uinfo = user_params
 
-
     @user = current_user
     @user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
     @user.build_student(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
@@ -78,10 +77,17 @@ class StudentsController < ApplicationController
 
   end
   def degree_creation
-    degree = Degree.new(name: degree_params[:name], city: degree_params[:city], degree_type: degree_params[:degree_type], major: degree_params[:major], gpa: degree_params[:gpa])
-    degree.save
-    current_user.student.degrees << degree
-    @degrees = current_user.student.degrees
+    dinfo = degree_params
+    degree = Degree.new(name: dinfo[:name], city: dinfo[:city], degree_type: dinfo[:degree_type], major:dinfo[:major], gpa: dinfo[:gpa])
+    if degree.valid?
+      degree.save
+      current_user.student.degrees << degree
+      @degrees = current_user.student.degrees
+    else
+      flash[:info] = dinfo
+      flash[:errors] = degree.errors
+      redirect_to students_degree_path
+    end
   end
 
   def new

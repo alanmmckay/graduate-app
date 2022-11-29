@@ -2,9 +2,14 @@
 %hr
 = form_tag degrees_update_path+'/'+@degree.id.to_s, :method => :put do
   = create_form_input_field :text_field, :degree, "name", "Institution Name:", {:value => @degree.name, :class => "form-control", :placeholder => "Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :degree, "name", flash[:errors]["name"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["name"])
   = create_form_input_field :text_field, :degree, "city", "Institution City:", {:value => @degree.city, :class => "form-control", :placeholder => "City", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :degree, "city", flash[:errors]["city"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["city"])
   = create_form_input_field :text_field, :degree, "major", "Type of Degree:", {:value => @degree.major, :class => "form-control", :placeholder => "Major", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :degree, "major", flash[:errors]["major"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["major"])
   = create_form_input_field :text_field, :degree, "degree_type", "Degree Earned:", {:value => @degree.degree_type, :class => "form-control", :placeholder => "Degree", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :degree, "degree_type", flash[:errors]["degree_type"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["degree_type"])
   = create_form_input_field :text_field, :degree, "gpa", "GPA Earned:", {:value => @degree.gpa, :class => "form-control", :placeholder => "GPA", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :degree, "gpa", flash[:errors]["gpa"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["gpa"])
   = submit_tag "Update"
 = link_to "Cancel", students_edit_path
