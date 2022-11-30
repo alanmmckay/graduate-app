@@ -29,9 +29,16 @@ class UsersController < ApplicationController
 
   def update
     info = update_user_params
-    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
-    current_user.save
-    redirect_to users_path
+    @user = current_user
+    @user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    if @user.valid?
+      @user.save
+      redirect_to users_path
+    else
+      flash[:errors] = @user.errors
+      flash[:info] = info
+      redirect_to users_edit_path
+    end
   end
   def edit
     if current_user.student
