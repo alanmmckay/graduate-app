@@ -81,7 +81,7 @@ class UsersController < ApplicationController
       if @user.student
         application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
       else
-        application_path = {"Begin application" => students_new_path, "Edit User Information" => users_edit_path}
+        application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
       end
       session[:nav] = application_path.merge(session[:nav])
       redirect_to users_show_path

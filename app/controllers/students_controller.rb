@@ -24,6 +24,9 @@ class StudentsController < ApplicationController
     @user.build_student(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
     if @user.valid? #and @student.valid?
       @user.save
+      session[:nav].delete("Begin Application")
+      session[:nav] = {"Continue Application" => "#"}.merge(session[:nav])
+      session[:nav]["Edit User Information"] = students_edit_path
       redirect_to students_degree_path
     else
       flash[:errors] = @user.errors
