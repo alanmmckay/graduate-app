@@ -14,17 +14,24 @@ class LetterOfRecommendationController < ApplicationController
 
   def create
     @params = letter_of_recommendation_params
-    @params[:url] = Digest::SHA256.digest "#{current_user.email}#{@params[:recommender_email]}"
+    iters = rand(1..100)
+    i = 0
+    url = "#{current_user.email}#{@params[:recommender_email]}"
+    while i < iters
+      url = Digest::SHA256.digest.hexdigest url
+      i = i + 1
+    end
+    @params[:url] = url
 
     @letter_of_recommendation = LetterOfRecommendation.new(@params)
 
     if @letter_of_recommendation.valid?
       @letter_of_recommendation.save!
+      flash[:notice] = "Request for recommendation sent to #{@params[:recommender_email]}"
       redirect_to # letter submitted view
-      flash[:notice] = "Letter of recommendation successfully submitted"
     else
       flash[:requirement] = @letter_of_recommendation.errors
-      render # where to go?
+      redirect_to # grad application editting?
     end
   end
 end
