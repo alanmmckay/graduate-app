@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    #puts request.path
     if session[:email]
       @email = session[:email]
     else
@@ -69,6 +70,13 @@ class UsersController < ApplicationController
     @user = User.find_by(email:info[:email].downcase)
     if @user and @user.authenticate(info[:password])
       session[:email] = info[:email]
+      session[:nav] = {"Log out" => users_logout_path}
+      if @user.student
+        application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
+      else
+        application_path = {"Begin application" => students_new_path, "Edit User Information" => users_edit_path}
+      end
+      session[:nav] = application_path.merge(session[:nav])
       redirect_to users_show_path
     else
       flash[:login] = "Invalid Credentials"
@@ -78,6 +86,7 @@ class UsersController < ApplicationController
 
   def destroy
     session[:email] = nil
+    session[:nav] = nil
     redirect_to users_login_path
   end
 

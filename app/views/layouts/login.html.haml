@@ -1,6 +1,6 @@
 = form_tag users_login_path, {:class => "card"} do
   - if flash[:login]
-    %div{:class => "card-header alert-danger"}
+    %div{:class => "card-header alert-warning"}
       = flash[:login]
   - else
     %div{:class => "card-header"} Please log in:

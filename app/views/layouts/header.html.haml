@@ -1,15 +1,13 @@
+-# {:five => "six"}.merge(test.merge({:three => "four"})) in order
 %header
   %h1.text-center{:style => "background:gold"}= session[:header]
   - session[:header] = nil
   %ul.nav.nav-tabs
-    %li.nav-item
-      %a.nav-link.active{:href => "#"} Test link1
-    %li.nav-item
-      %a.nav-link.disabled{:href => "#"} Test link2
-    %li.nav-item
-      %a.nav-link.disabled{:href => "#"} Test link3
-    - if session[:email]
-      %li.nav-item
-        = link_to "Logout", users_logout_path, {:class => "nav-link"}
-
-
+    - if session.include?(:nav)
+      - session[:nav].each do | text, path |
+        %li.nav-item
+          - if !(session[:exclusions].include?(path))
+            - if path == request.path
+              %a.nav-link.active{:href => path}=text
+            - else
+              %a.nav-link{:href => path}= text

@@ -1,4 +1,4 @@
-%h1 Student update page for Graduate Application
+= new_header "Student update page for Graduate Application"
 %hr
 = form_tag students_update_path do
   = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
