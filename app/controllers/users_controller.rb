@@ -86,8 +86,12 @@ class UsersController < ApplicationController
     if @user and @user.authenticate(info[:password])
       session[:email] = info[:email]
       session[:nav] = {"Log out" => users_logout_path}
-      if @user.student
-        application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
+      if is_student? @user
+        if has_degree? @user
+          application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
+        else
+          application_path = {"Continue Application" => students_degree_path, "Edit User Information" => students_edit_path }
+        end
       else
         application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
       end
