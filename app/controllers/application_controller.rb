@@ -15,8 +15,12 @@ class ApplicationController < ActionController::Base
   def authorized
     redirect_to users_login_path unless logged_in?
   end
-
-
+  def is_student?(user)
+    user.methods.include?(:student)
+  end
+  def has_degree?(user)
+    user.student.degrees.exists?
+  end
   protect_from_forgery with: :exception
 
   protected

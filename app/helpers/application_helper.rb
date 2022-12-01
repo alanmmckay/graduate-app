@@ -6,6 +6,12 @@ module ApplicationHelper
     session[:header] = header_text
     render :file => 'layouts/header.html.haml'
   end
+  def is_student?(user)
+    user.methods.include?(:student)
+  end
+  def has_degree?(user)
+    user.student.degrees.exists?
+  end
   class FormHelper::InvalidSymbolError < StandardError ; end
 
   # === === === === === === === === === === === === === === === === === === === === #
