@@ -29,7 +29,7 @@ Scenario: cancel
   Then I should see "Go Back"
   When I click "Go Back"
   Then I should see "Coming Soon"
-  
+
 # Sad paths
 Scenario: account already exists
   When I click "Register"
