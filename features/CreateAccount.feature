@@ -42,7 +42,7 @@ Scenario: no password input
   And I input "Frank" for "First Name"
   And I input "Stevens" for "Last Name"
   And I click "Create Account"
-  Then I should see "can't be blank"
+  Then I should see "Password must be filled"
   And I should not see "Account has been created. Please sign in"
 
 Scenario: passwords don't match
@@ -53,7 +53,7 @@ Scenario: passwords don't match
   And I input "Frank" for "First Name"
   And I input "Stevens" for "Last Name"
   And I click "Create Account"
-  Then I should see "doesn't match Password"
+  Then I should see "Passwords do not match"
   And I should not see "Account has been created. Please sign in"
 
 Scenario: email not supplied
@@ -83,5 +83,5 @@ Scenario: password case sensitivity
   And I input "Fred" for "First Name"
   And I input "Smith" for "Last Name"
   And I click "Create Account"
-  Then I should see "doesn't match Password"
+  Then I should see "Passwords do not match"
   And I should not see "Account has been created. Please sign in"
