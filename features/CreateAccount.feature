@@ -33,7 +33,7 @@ Scenario: account already exists
   And I input "Fred" for "First Name"
   And I input "Smith" for "Last Name"
   And I click "Create Account"
-  Then I should see "has already been taken"
+  Then I should see "Email already in use"
   And I should not see "Account has been created. Please sign in"
 
 Scenario: no password input
@@ -56,13 +56,12 @@ Scenario: passwords don't match
   Then I should see "doesn't match Password"
   And I should not see "Account has been created. Please sign in"
 
-Scenario: name not supplied
+Scenario: email not supplied
   When I click "Register"
-  And I input "alan@test.com" for "Email"
   And I input "FakePassword" for "Password"
   And I input "FakePassword" for "Verify Password"
   And I click "Create Account"
-  Then I should see "can't be blank"
+  Then I should see "Invalid email given"
   And I should not see "Account has been created. Please sign in"
 
 Scenario: email case sensitivity
@@ -73,7 +72,7 @@ Scenario: email case sensitivity
   And I input "Fred" for "First Name"
   And I input "Smith" for "Last Name"
   And I click "Create Account"
-  Then I should see "has already been taken"
+  Then I should see "Email already in use"
   And I should not see "Account has been created. Please sign in"
 
 Scenario: password case sensitivity
