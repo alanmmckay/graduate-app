@@ -8,10 +8,10 @@ end
 
 class User < ActiveRecord::Base
   has_secure_password
-  validates :password, presence: true, on: create
-  validates :password, confirmation: true, on: create
-  validates :password_confirmation, presence: true, on: create
-  validates :email, uniqueness: {case_sensitive: false}, on: create
+  validates :password, presence: true, on: :create
+  validates :password, confirmation: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
+  validates :email, uniqueness: {case_sensitive: false}, on: :create
   validates  :fname, :lname, presence: true
   validates_with EmailValidator
   has_one :student
