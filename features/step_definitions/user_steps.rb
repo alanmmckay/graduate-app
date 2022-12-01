@@ -11,7 +11,7 @@ Then /^I should see a landing page that says "(.*?)"$/ do |content|
 end
 
 Then /^I should see a page with content$/ do
-  expect(page).to have_content
+  expect(page).to_not be(nil)
 end
 
 When(/^I click "([^"]*)"$/) do |object|
