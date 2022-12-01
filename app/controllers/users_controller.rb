@@ -15,7 +15,15 @@ class UsersController < ApplicationController
   def show
     #puts request.path
     if session[:email]
-      @email = session[:email]
+      @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
+      if is_student? current_user
+        student = current_user.student
+        @student_info = {:Address => student.address, :Citizenship => student.citizenship, :Gender => student.gender}
+        @user_info = @user_info.merge(@student_info)
+        if has_degree? current_user
+          @degrees = @user.student.degrees
+        end
+      end
     else
       redirect_to users_path
     end
@@ -66,7 +74,7 @@ class UsersController < ApplicationController
 
   def landing
     if logged_in?
-      render users_show_path
+      redirect_to users_show_path
     else
       render users_login_path
     end

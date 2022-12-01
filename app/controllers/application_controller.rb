@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     redirect_to users_login_path unless logged_in?
   end
   def is_student?(user)
-    user.methods.include?(:student)
+    !user.student.nil?
   end
   def has_degree?(user)
     user.student.degrees.exists?
