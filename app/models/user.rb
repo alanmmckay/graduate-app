@@ -7,12 +7,12 @@ class EmailValidator < ActiveModel::Validator
 end
 
 class User < ActiveRecord::Base
-  has_secure_password
-  validates :password, presence: true, on: create
-  validates :password, confirmation: true, on: create
-  validates :password_confirmation, presence: true, on: create
-  validates :email, uniqueness: {case_sensitive: false}, on: create
-  validates  :fname, :lname, presence: true
+  validates :password, presence: { message: "Password must be filled" }, on: :create
+  validates :password_confirmation, presence: { message: "Password must be filled" }, on: :create
+  validates :password, confirmation: { message: "Passwords do not match"}, on: :create
+  has_secure_password #this must occur after the above validations; lest it overwrite messages involved.
+  validates :email, uniqueness: {case_sensitive: false, message: "Email already in use"}, on: :create
+  validates  :fname, :lname, presence: { message: "Name must be filled"}
   validates_with EmailValidator
   has_one :student
   after_initialize :init

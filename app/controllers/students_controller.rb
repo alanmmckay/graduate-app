@@ -24,6 +24,9 @@ class StudentsController < ApplicationController
     @user.build_student(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
     if @user.valid? #and @student.valid?
       @user.save
+      session[:nav].delete("Begin Application")
+      session[:nav] = {"Continue Application" => students_degree_path}.merge(session[:nav])
+      session[:nav]["Edit User Information"] = students_edit_path
       redirect_to students_degree_path
     else
       flash[:errors] = @user.errors
@@ -82,7 +85,10 @@ class StudentsController < ApplicationController
     if degree.valid?
       degree.save
       current_user.student.degrees << degree
-      @degrees = current_user.student.degrees
+      session[:nav].delete("Continue Application")
+      session[:nav] = {"Continue Application": grad_application_new_path}.merge(session[:nav])
+      flash[:degree] = "Degree from " + dinfo[:name] + " successfully added. To finish, select continue application."
+      redirect_to students_degree_path
     else
       flash[:info] = dinfo
       flash[:errors] = degree.errors
