@@ -22,16 +22,34 @@ Scenario: login with valid account
   Then I should not see "Invalid Credentials"
   And I should see "User information"
 
+Scenario: login with valid account case insensitive
+  When I input "sally.uiowaselt@example.com" for "Email"
+  And I input "sally4321" for "Password"
+  And I click "Login"
+  Then I should not see "Invalid Credentials"
+  And I should see "User Information"
+
 # Sad paths
-Scenario: login without an account
+Scenario: login without an invalid account
   When I input "james.uiowaSELT@example.com" for "Email"
   And I input "password1234" for "Password"
   And I click "Login"
   Then I should see "Invalid Credentials"
 
-
 Scenario: login without a password
   When I input "fred.uiowaSELT@example.com" for "Email"
+  And I click "Login"
+  Then I should see "Invalid Credentials"
+
+Scenario: login with an invalid password
+  When I input "fred.uiowaSELT@example.com" for "Email"
+  And I input "sally4321" for "Password"
+  And I click "Login"
+  Then I should see "Invalid Credentials"
+
+Scenario: login with wrong password character-casing
+  When I input "fred.uiowaSELT@example.com" for "Email"
+  And I input "PASSWORD1234" for "Password"
   And I click "Login"
   Then I should see "Invalid Credentials"
 
