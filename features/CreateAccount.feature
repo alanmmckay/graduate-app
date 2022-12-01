@@ -14,7 +14,7 @@ Background:
   Then 2 users should exist
 
 # Happy paths
-Scenario: new applicant user
+Scenario: new valid user
   When I click "Register"
   And I input "frank123@example.com" for "Email"
   And I input "password123" for "Password"
@@ -24,6 +24,12 @@ Scenario: new applicant user
   And I click "Create Account"
   Then I should see "Account has been created. Please sign in"
 
+Scenario: cancel
+  When I click "Register"
+  Then I should see "Go Back"
+  When I click "Go Back"
+  Then I should see "Coming Soon"
+  
 # Sad paths
 Scenario: account already exists
   When I click "Register"
