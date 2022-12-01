@@ -25,7 +25,7 @@ end
 When(/^the following users have accounts:$/) do |users_table|
   # table is a table.hashes.keys # => [:username, :password, :first-name, :last-name]
   users_table.hashes.each do |user|
-    User.create!(:email => user[:email], :password => user[:password], :password_confirmation => user[:password], :lname => user[:first_name], :fname => user[:last_name])
+    User.create!(:email => user[:email], :password => user[:password], :password_confirmation => user[:password], :lname => user[:last_name], :fname => user[:first_name])
   end
 end
 
