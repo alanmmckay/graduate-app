@@ -6,22 +6,34 @@ Feature: login
 Background: users have created accounts
 
   Given the following users have accounts:
-    | username                   | password           | type       |
-    | fred.uiowaSELT@gmail.com   | password1234       | student    |
-    | sally.uiowaSELT@gmail.com  | sally4321          | faculty    |
+    | email                        | password           | first_name       | last_name |
+    | fred.uiowaSELT@example.com   | password1234       | Fred             | Smith     |
+    | sally.uiowaSELT@example.com  | sally4321          | Sally            | Jones     |
 
   And I am on the home page
+  Then I should see "Landing Page for Graduate Application"
 
 # Happy paths
-Scenario: login with account already created
-  When I click "Login"
-  And I input my username "fred" and password "password1234"
+Scenario: login with valid account
+  When I input "fred.uiowaSELT@example.com" for "Email"
+  And I input "password1234" for "Password"
   And I click "Login"
-  Then I should be logged in
+  Then I should see "User information"
 
 # Sad paths
 Scenario: login without an account
-  When I click "Login"
-  And I input my username "missing username" and password "missing password"
+  When I input "james.uiowaSELT@example.com" for "Email"
+  And I input "password1234" for "Password"
   And I click "Login"
-  Then I should see an error message that says "No account with that username and/or password"
+  Then I should see "Invalid Credentials"
+
+
+Scenario: login without a password
+  When I input "fred.uiowaSELT@example.com" for "Email"
+  And I click "Login"
+  Then I should see "Invalid Credentials"
+
+Scenario: login without an email
+  And I input "password1234" for "Password"
+  And I click "Login"
+  Then I should see "Invalid Credentials"
