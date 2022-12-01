@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   def create
     info = user_params
     #Need to consider range of acceptable values for these parameters; their domains
-      @user = User.new(email: info[:email].downcase, password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
+      @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
       if @user.valid?
         @user.save
         flash[:login] = "Account has been created. Please sign in:"
@@ -82,7 +82,8 @@ class UsersController < ApplicationController
 
   def login
     info = login_params
-    @user = User.find_by(email:info[:email].downcase)
+    info[:email] = info[:email].downcase
+    @user = User.find_by(email:info[:email])
     if @user and @user.authenticate(info[:password])
       session[:email] = info[:email]
       session[:nav] = {"Log out" => users_logout_path}

@@ -12,13 +12,15 @@ Background: users have created accounts
 
   And I am on the home page
   Then I should see "Landing Page for Graduate Application"
+  And 2 users should exist
 
 # Happy paths
 Scenario: login with valid account
   When I input "fred.uiowaSELT@example.com" for "Email"
   And I input "password1234" for "Password"
   And I click "Login"
-  Then I should see "User information"
+  Then I should not see "Invalid Credentials"
+  And I should see "User information"
 
 # Sad paths
 Scenario: login without an account

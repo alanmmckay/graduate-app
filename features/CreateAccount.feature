@@ -6,7 +6,7 @@ Feature: create a new account
 Background:
 
   Given the following users have accounts:
-    | email                     | password           | first_name       | last_name |
+    | email                        | password           | first_name       | last_name |
     | fred.uiowaSELT@example.com   | password1234       | Fred             | Smith     |
     | sally.uiowaSELT@example.com  | sally4321          | Sally            | Jones     |
 
