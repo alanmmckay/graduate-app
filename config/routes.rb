@@ -1,36 +1,58 @@
 Rails.application.routes.draw do
-  get 'degrees/edit'
 
-  get 'degrees/update'
-
+  # Get methods in regards to the users controller.
   get 'users/', to: 'users#landing'
   get 'users/show', to: 'users#show'
   get 'users/login', to: 'users#landing'
   get 'users/new', to: 'users#new'
   get 'users/logout', to: 'users#destroy'
   get 'users/edit', to: 'users#edit'
-  get 'users/applications', to: 'grad_application#index'
-  get 'users/applications/new', to: 'grad_application#new'
-  get 'grad_application/new', to: 'grad_application#new'
-  #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+  #This is to redirect anyone trying to access the site using a 'students/' url
   get 'students/', to: 'users#show'
+
+
+  # Get methods in regards to the students controller.
+  # The students controller is activated and used once a user starts an...
+  #...application:
   get 'students/new', to: 'students#new'
   get 'students/edit', to: 'students#edit'
   get 'students/degree', to: 'students#degree'
+  # redirects get access of degree_creation to the degree action...
+  #... note post usage below to make sense of this:
   get 'students/degree_creation', to: 'students#degree'
-  get 'degrees/edit/:id', to: 'degrees#edit'
 
+  # Get methods in regards to the grad_applications controller.
+  get 'users/applications', to: 'grad_application#index'
+  get 'users/applications/new', to: 'grad_application#new'
+  get 'grad_application/new', to: 'grad_application#new'
+
+  # Get methods in regards to the degrees controller.
+  get 'degrees/edit/:id', to: 'degrees#edit'
+  get 'degrees/update' #this will be used for redirection
+  get 'degrees/edit' #this will be used for redirection
+
+  #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+
+  # Post methods in regards to the users controller.
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
   post 'users/create', to: 'users#create'
   post 'users/update', to: 'users#update'
-  post 'grad_application/create', to: 'grad_application#create'
+
+  # Post methods in regards to the students controller
   post 'student/create', to: 'students#create'
   post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
+
+  post 'grad_application/create', to: 'grad_application#create'
+  #This post will insert the degree into the relevant degrees collection. It...
+  #... will then present a page represented within degree_creation.html.haml
+  #... which allows the insertion of another degree. This process could be...
+  #... made to be more concise; will likely change:
+
   put 'degrees/update/:id', to: 'degrees#update'
 
-  get 'users/error', to: 'users#error'
+  get 'users/error', to: 'users#error' #uncertain if this is being used
   root 'users#landing'
 
   # The priority is based upon order of creation: first created -> highest priority.

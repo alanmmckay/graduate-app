@@ -7,5 +7,6 @@ class Student < ActiveRecord::Base
   def init
     self.gender ||= ""
     self.citizenship ||= ""
+    self.address ||= ""
   end
 end
