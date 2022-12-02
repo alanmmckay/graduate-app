@@ -5,7 +5,7 @@ class LetterOfRecommendationController < ApplicationController
   end
 
   def edit
-
+    @letter_of_recommendation = LetterOfRecommendation.find_by_url(params[:id])
   end
 
   def update
