@@ -12,10 +12,19 @@ module ApplicationHelper
   def has_degree?(user)
     user.student.degrees.exists?
   end
-  class FormHelper::InvalidSymbolError < StandardError ; end
+
+  class EmailValidator < ActiveModel::Validator
+    def validate(record)
+      if not URI::MailTo::EMAIL_REGEXP.match?(record.email)
+        record.errors.add :email, "Invalid email given"
+      end
+    end
+  end
 
   # === === === === === === === === === === === === === === === === === === === === #
   # -- Functions pertaining to form_input. Perhaps rename 'suffix' and 'compatible?'.
+
+  class FormHelper::InvalidSymbolError < StandardError ; end
 
   def suffix(helper_sym)
     affix = helper_sym.to_s.split('_')
