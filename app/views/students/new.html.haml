@@ -1,18 +1,30 @@
-%h1 Student creation page for Graduate Application
+= new_header "Student creation page for Graduate Application"
 %hr
-= form_tag student_create_path do
-  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "fname", flash[:errors]["fname"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["fname"])
-  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "lname", flash[:errors]["lname"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["lname"])
-  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "phone", flash[:errors]["phone"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["phone"])
-  = create_form_input_field :text_field, :student, "address", "Address", {:class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "address", flash[:errors]["address"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["address"])
-  = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "citizenship", flash[:errors]["citizenship"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["citizenship"])
-  = create_form_input_field :text_field, :student, "gender", "Gender", {:class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
-  = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert alert-danger"} if (flash[:errors] and flash[:errors]["gender"])
-  = submit_tag 'Continue', {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
+= form_tag student_create_path, {class: 'card'} do
+  %h2.card-header To begin the application, please confirm the following:
+  %div.card-body
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "fname", flash[:errors]["fname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["fname"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "lname", flash[:errors]["lname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["lname"])
+    %hr
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "phone", flash[:errors]["phone"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["phone"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "address", "Address", {:class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "address", flash[:errors]["address"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["address"])
+    %hr
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "citizenship", flash[:errors]["citizenship"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["citizenship"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "gender", "Gender", {:class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["gender"])
+    %hr
+    %div{:class => "input-group"}
+      = submit_tag 'Continue', {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
 
-  =# create_form_input_field :text_field, :user, "email", "Email"
+= link_to "Cancel", users_show_path
