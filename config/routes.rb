@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'students/degree', to: 'students#degree'
   get 'students/degree_creation', to: 'students#degree'
   get 'degrees/edit/:id', to: 'degrees#edit'
+  get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
