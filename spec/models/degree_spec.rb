@@ -7,17 +7,14 @@ RSpec.describe Degree, type: :model do
       @invalid_degree = Degree.new
       @missing_one_degree = Degree.new(name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science')
     }
-    describe "when valid degree instantiated" do
-      subject {@valid_degree}
-      it {should be_valid}
+    it "when valid degree instantiated" do
+      expect(@valid_degree).to be_valid
     end
-    describe 'when invalid degree instantiated' do
-      subject {@invalid_degree}
-      it {should_not be_valid}
+    it 'when invalid degree instantiated' do
+      expect(@invalid_degree).to_not be_valid
     end
-    describe "has one of the attributes missing" do
-      subject {@missing_one_degree}
-      it {should_not be_valid}
+    it "has one of the attributes missing" do
+      expect(@missing_one_degree).to_not be_valid
     end
   end
 end

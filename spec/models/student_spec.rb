@@ -7,17 +7,14 @@ RSpec.describe Student, type: :model do
       @invalid_student = Student.new
       @missing_one_student = Student.new(gender: 'Male')
     }
-    describe "when valid student instantiated" do
-      subject {@valid_student}
-      it {should be_valid}
+    it "when valid student instantiated" do
+      expect(@valid_student).to be_valid
     end
-    describe 'when invalid student instantiated' do
-      subject {@invalid_student}
-      it {should_not be_valid}
+    it 'when invalid student instantiated' do
+      expect(@invalid_student).to_not be_valid
     end
-    describe "has one of the attributes missing" do
-      subject {@missing_one_student}
-      it {should_not be_valid}
+    it "has one of the attributes missing" do
+      expect(@missing_one_student).to_not be_valid
     end
   end
 end
