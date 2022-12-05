@@ -1,2 +1,0 @@
-class LettersOfRecommendationController < ApplicationController
-end
