@@ -15,14 +15,6 @@
     %br
     = render :file => 'layouts/personal_info.html.haml'
     %br
-      .radio
-        %label
-          %input{name: "student_or_faculty", type: "radio", value: "student"}
-          Student
-      .radio
-        %label
-          %input{name: "student_or_faculty", type: "radio", value: "faculty"}
-          Faculty
     %div{:class => "input-group"}
       = submit_tag 'Create Account', {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
 = link_to "Go Back", users_path
