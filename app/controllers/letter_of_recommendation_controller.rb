@@ -10,7 +10,8 @@ class LetterOfRecommendationController < ApplicationController
   end
 
   def update
-
+    letter = letter_of_recommendation_params[:letter]
+    LetterOfRecommendation.find_by_url([:id]).update(:letter => letter)
   end
 
   def create
@@ -28,11 +29,9 @@ class LetterOfRecommendationController < ApplicationController
 
     if @letter_of_recommendation.valid?
       @letter_of_recommendation.save!
-      flash[:notice] = "Request for recommendation sent to #{@params[:recommender_email]}"
-      redirect_to # letter submitted view
+      Letter.with(user: current_user, url: url,email: @params[:recommender_email]).email_recommender.deliver_now
     else
       flash[:requirement] = @letter_of_recommendation.errors
-      redirect_to # grad application editting?
     end
   end
 end
