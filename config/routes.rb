@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post 'student/create', to: 'students#create'
   post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
+  put 'letter_or_recommendation/update/:id', to: 'letter_of_recommendation#update'
   put 'degrees/update/:id', to: 'degrees#update'
 
   get 'users/error', to: 'users#error'
