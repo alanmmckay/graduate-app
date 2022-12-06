@@ -31,16 +31,13 @@ RSpec.describe UsersController, type: :controller do
     end
   end
   describe "create" do
-    before(:each) do
-      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
-      allow_any_instance_of(StudentsController).to receive(:user).and_return(@user)
-    end
     it 'should render the users template if a user is created' do
-      post :create, params: {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}
-      expect(response).to render_template(:users_path)
+      post :create, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to '/users'
     end
     it 'should stay on new user template if not a valid user ' do
-
+      post :create, {:user => {email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to '/new'
     end
   end
 end
