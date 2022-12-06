@@ -26,7 +26,7 @@
       = create_form_input_field :text_field, :grad_application, "deg_obj_major", "Department of Application", {:class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
       = create_form_error :user, "deg_obj_major", flash[:errors]["deg_obj_major"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["deg_obj_major"])
     %hr
-    %div{:class => "input-group", :style => "display:none"}
+    %div{:class => "input-group", :style =>'display:none;'}
       = create_form_input_field :text_area, :grad_application, "statement_of_purpose", "Statement of Purpose", {:class => "form-control", :placeholder => "Insert and format statement of purpose.", :disabled => false}, {:class => "input-group-text"}
       = create_form_error :user, "statement_of_purpose", flash[:errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["statement_of_purpose"])
     %div.card.col-sm-10
@@ -36,6 +36,7 @@
       %script{:src=>"https://cdn.quilljs.com/1.3.6/quill.js"}
       %script
         var quill = new Quill('#statement_editor', { theme: 'snow' });
+      %script var output_content = document.getElementById('grad_application_statement_of_purpose'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
   %br
   %h2.card-header Please confirm the following:
   %div.card-body
@@ -68,5 +69,5 @@
       = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @user.student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
       = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["gender"])
     %br
-    = submit_tag 'Finish Application', {:class => "btn btn-alternative", :type => 'submit', :disabled => true}
+    = submit_tag 'Finish Application', {:class => "btn btn-alternative", :type => 'submit', :disabled => false}
 = link_to "Cancel", users_applications_path
