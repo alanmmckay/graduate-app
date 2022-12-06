@@ -50,5 +50,17 @@ RSpec.describe UsersController, type: :controller do
       expect(flash[:login]).to have_attributes(:messages => {:email=>["Invalid email given"]})
     end
   end
+  describe "landing" do
+    it 'should redirect to users homepage if logged in' do
+
+    end
+  end
+  describe "login" do
+    it 'should flash if the user is not registered' do
+      post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(flash[:login]).to eq('Invalid Credentials')
+    end
+  end
+
 end
 
