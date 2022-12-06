@@ -50,6 +50,11 @@ Rails.application.routes.draw do
   #... which allows the insertion of another degree. This process could be...
   #... made to be more concise; will likely change:
 
+
+  get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
+  put 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update'
+
+
   put 'degrees/update/:id', to: 'degrees#update'
 
   get 'users/error', to: 'users#error' #uncertain if this is being used
