@@ -33,7 +33,7 @@
         %div.list-group.card
           %span.card-header Degrees obtained:
           %span.card-body
-            - @user.student.degrees.each do |degree|
+            - @user.degrees.each do |degree|
               = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s, {:class => "list-group-item list-group-action"}
     -# end check
     %div{:class => "input-group"}

@@ -12,7 +12,6 @@ class GradApplication < ActiveRecord::Base
     elsif department == "EE"
       application_list = find_by_research_area("Machine Learning")
     end
-
   end
 
 end

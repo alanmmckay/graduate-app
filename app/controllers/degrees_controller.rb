@@ -4,12 +4,12 @@ class DegreesController < ApplicationController
   end
 
   def edit
-    @degree = current_user.student.degrees.find(params[:id])
+    @degree = current_user.degrees.find(params[:id])
   end
 
   def update
     info = degree_params
-    @degree = current_user.student.degrees.find(params[:id])
+    @degree = current_user.degrees.find(params[:id])
     @degree.update(:name => info[:name], :city => info[:city], :degree_type => info[:degree_type], :major => info[:major], :gpa => info[:gpa])
     if @degree.valid?
       redirect_to students_edit_path

@@ -10,7 +10,7 @@ module ApplicationHelper
     user.methods.include?(:student)
   end
   def has_degree?(user)
-    user.student.degrees.exists?
+    user.degrees.exists?
   end
 
   class EmailValidator < ActiveModel::Validator

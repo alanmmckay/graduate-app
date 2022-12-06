@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         @student_info = {:Address => student.address, :Citizenship => student.citizenship, :Gender => student.gender}
         @user_info = @user_info.merge(@student_info)
         if has_degree? current_user
-          @degrees = @user.student.degrees
+          @degrees = @user.degrees
         end
       end
     else

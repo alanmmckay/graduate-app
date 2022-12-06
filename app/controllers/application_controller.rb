@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     !user.student.nil?
   end
   def has_degree?(user)
-    user.student.degrees.exists? and user.student.degrees.length > 0
+    user.degrees.exists? and user.degrees.length > 0
   end
   protect_from_forgery with: :exception
 

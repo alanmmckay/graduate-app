@@ -84,7 +84,7 @@ class StudentsController < ApplicationController
     degree = Degree.new(name: dinfo[:name], city: dinfo[:city], degree_type: dinfo[:degree_type], major:dinfo[:major], gpa: dinfo[:gpa])
     if degree.valid?
       degree.save
-      current_user.student.degrees << degree
+      current_user.degrees << degree
       session[:nav].delete("Continue Application")
       session[:nav] = {"Continue Application": grad_application_new_path}.merge(session[:nav])
       flash[:degree] = "Degree from " + dinfo[:name] + " successfully added. To finish, select continue application."
