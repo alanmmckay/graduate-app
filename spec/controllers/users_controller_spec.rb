@@ -31,13 +31,13 @@ RSpec.describe UsersController, type: :controller do
     end
   end
   describe "create" do
-    it 'should render the users template if a user is created' do
+    it 'should redirect to user page if a user is created' do
       post :create, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
       expect(response).to redirect_to '/users'
     end
-    it 'should stay on new user template if not a valid user ' do
+    it 'should stay on new user "redirect" page if not a valid user ' do
       post :create, {:user => {email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
-      expect(response).to redirect_to '/new'
+      expect(response).to redirect_to '/users/new'
     end
   end
 end
