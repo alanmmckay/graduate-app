@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
   put 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update'
 
-
+  post 'degrees/edit/:id', to: 'degrees#application_edit'
   put 'degrees/update/:id', to: 'degrees#update'
   put 'degrees/application_update/:id', to: 'degrees#application_update'
 

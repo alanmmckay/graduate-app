@@ -26,4 +26,8 @@ class DegreesController < ApplicationController
   def application_update
     run_update(grad_application_new_path,degrees_application_update_path)
   end
+
+  def application_edit
+    redirect_to degrees_edit_path+"/"+params[:id].to_s
+  end
 end
