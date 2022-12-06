@@ -32,9 +32,7 @@
       %div{:class => "input-group"}
         %div.list-group.card
           %span.card-header Degrees obtained:
-          %span.card-body
-            - @user.degrees.each do |degree|
-              = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s, {:class => "list-group-item list-group-action"}
+          =render :file => "layouts/list_degrees_with_edit.html.haml"
     -# end check
     %div{:class => "input-group"}
       = link_to "Add Degree", students_degree_path

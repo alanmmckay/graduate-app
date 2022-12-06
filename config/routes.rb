@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'degrees/edit/:id', to: 'degrees#edit'
   get 'degrees/update' #this will be used for redirection
   get 'degrees/edit' #this will be used for redirection
+  get 'degrees/application_update' #this will be used for redirection
 
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
 
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
 
 
   put 'degrees/update/:id', to: 'degrees#update'
+  put 'degrees/application_update/:id', to: 'degrees#application_update'
 
   get 'users/error', to: 'users#error' #uncertain if this is being used
   root 'users#landing'

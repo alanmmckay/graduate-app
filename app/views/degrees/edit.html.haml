@@ -1,6 +1,10 @@
 = new_header "Degree edit page for Graduate Application"
+- if params['application']
+  - return_path = degrees_application_update_path+'/'+@degree.id.to_s
+- else
+  - return_path = degrees_update_path+'/'+@degree.id.to_s
 %hr
-= form_tag degrees_update_path+'/'+@degree.id.to_s, {class: "card", method: :put} do
+= form_tag return_path, {class: "card", method: :put} do
   %h2.card-header Please confirm/update the following:
   %div.card-body
     %div{:class => "input-group"}
