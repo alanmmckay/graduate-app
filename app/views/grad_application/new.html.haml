@@ -8,14 +8,58 @@
   = yield
 
 = form_tag grad_application_create_path, {class: 'card'} do
-  %h2.card-header Please fill and confirm the following:
+  %h2.card-header Please fill following:
   %div.card-body
     %div{:class => "input-group"}
       = create_form_input_field :text_field, :grad_application, "university", "University of Enrollment", {:class => "form-control", :placeholder => "University", :disabled => false}, {:class => "input-group-text"}
       = create_form_error :user, "university", flash[:errors]["university"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["university"])
-  = submit_tag 'Create Application', {:disabled => true}
-  = link_to "Cancel", users_applications_path
-
-  %span.card-body
-  - @user.degrees.each do |degree|
-    = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s+"?application=1", {:class => "list-group-item list-group-action"}
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :grad_application, "research_area", "Desired Area of Research",{:class => "form-control", :placeholder => "", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "research_area", flash[:errors]["research_area"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["research_area"])
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :grad_application, "deg_obj", "Degree Objective", {:class => "form-control", :placeholder => "Objective", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "deg_obj", flash[:errors]["deg_obj"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["deg_obj"])
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :grad_application, "deg_obj_major", "Department of Application", {:class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "deg_obj_major", flash[:errors]["deg_obj_major"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["deg_obj_major"])
+    %hr
+    %div{:class => "input-group"}
+      = create_form_input_field :text_area, :grad_application, "statement_of_purpose", "Statement of Purpose", {:class => "form-control", :placeholder => "Insert and format statement of purpose.", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "statement_of_purpose", flash[:errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["statement_of_purpose"])
+  %br
+  %h2.card-header Please confirm the following:
+  %div.card-body
+    %br
+    %div{:class => "input-group"}
+      %div.list-group.card
+        %span.card-header Degrees obtained:
+        %span.card-body
+          - @user.degrees.each do |degree|
+            = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s+"?application=1", {:class => "list-group-item list-group-action"}
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "fname", flash[:errors]["fname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["fname"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "lname", flash[:errors]["lname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["lname"])
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "phone", flash[:errors]["phone"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["phone"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "address", "Address", {:value => @user.student.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "address", flash[:errors]["address"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["address"])
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @user.student.citizenship, :class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "citizenship", flash[:errors]["citizenship"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["citizenship"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @user.student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["gender"])
+    %br
+    = submit_tag 'Finish Application', {:class => "btn btn-alternative", :type => 'submit', :disabled => true}
+= link_to "Cancel", users_applications_path
