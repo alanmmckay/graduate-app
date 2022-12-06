@@ -1,6 +1,15 @@
-%h1 Degree creation page for Graduate Application
+= new_header "Degree creation page for Graduate Application"
 %hr
-= form_tag students_degree_creation_path do
-  = render :file => 'layouts/degree.html.haml'
-  = submit_tag "Submit", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
-= link_to "Cancel", students_edit_path
+%div.card
+  - if flash[:degree]
+    %h3.card-header= flash[:degree]
+    %div.card-body
+      = link_to "Continue Application", grad_application_new_path
+= form_tag students_degree_creation_path, {class: "card"} do
+  %h2.card-header Please fill the following information:
+  %div.card-body
+    = render :file => 'layouts/degree.html.haml'
+    %br
+    %div{:class => "input-group"}
+      = submit_tag "Add Degree", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
+= link_to "Cancel", users_show_path

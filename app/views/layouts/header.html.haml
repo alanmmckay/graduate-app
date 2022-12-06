@@ -1,0 +1,13 @@
+-# {:five => "six"}.merge(test.merge({:three => "four"})) in order
+%header
+  %h1.text-center{:style => "background:gold"}= session[:header]
+  - session[:header] = nil
+  %ul.nav.nav-tabs
+    - if session.include?(:nav)
+      - session[:nav].each do | text, path |
+        %li.nav-item
+          - if !(session[:exclusions].include?(path))
+            - if path == request.path
+              %a.nav-link.active{:href => path}=text
+            - else
+              %a.nav-link{:href => path}= text

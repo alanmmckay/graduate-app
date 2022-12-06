@@ -1,23 +1,44 @@
-%h1 Student update page for Graduate Application
+= new_header "Student update page for Graduate Application"
 %hr
-= form_tag students_update_path do
-  = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :user, "address", "Address", {:value => @user.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship, :class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
-  = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
-  %br
-  %h6 Degrees obtained:
-  - @user.student.degrees.each do |degree|
-    = degree.name
-    = degree.city
-    = degree.major
-    = degree.degree_type
-    = degree.gpa
-    = link_to "Edit Degree", degrees_edit_path+"/"+degree.id.to_s
+= form_tag students_update_path, {class: 'card'} do
+  %h2.card-header Please confirm/update the following:
+  %div.card-body
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "fname", flash[:errors]["fname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["fname"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "lname", "Last Name", {:value => @user.lname, :class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "lname", flash[:errors]["lname"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["lname"])
     %br
-  = link_to "Add Degree", students_degree_path
-  %br
-  = submit_tag "Update", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :user, "phone", "Phone", {:value => @user.phone, :class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "phone", flash[:errors]["phone"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["phone"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "address", "Address", {:value => @student.address, :class => "form-control", :placeholder => "Address", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "address", flash[:errors]["address"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["address"])
+    %br
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "citizenship", "Citizenship", {:value => @student.citizenship, :class => "form-control", :placeholder => "Citizenship Status", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "citizenship", flash[:errors]["citizenship"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["citizenship"])
+    %div{:class => "input-group"}
+      = create_form_input_field :text_field, :student, "gender", "Gender", {:value => @student.gender, :class => "form-control", :placeholder => "Gender", :disabled => false}, {:class => "input-group-text"}
+      = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["gender"])
+    %br
+    -# need a check for existence of degrees
+    - if has_degree? @user
+      %div{:class => "input-group"}
+        = submit_tag "Update", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
+      %hr
+      %div{:class => "input-group"}
+        %div.list-group.card
+          %span.card-header Degrees obtained:
+          %span.card-body
+            - @user.student.degrees.each do |degree|
+              = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s, {:class => "list-group-item list-group-action"}
+    -# end check
+    %div{:class => "input-group"}
+      = link_to "Add Degree", students_degree_path
+    %br
+    -#%div{:class => "input-group"}
+    = submit_tag "Update", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}
 = link_to "Cancel", students_path

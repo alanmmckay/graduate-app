@@ -9,7 +9,14 @@ class DegreesController < ApplicationController
 
   def update
     info = degree_params
-    update = current_user.student.degrees.find(params[:id]).update(:name => info[:name], :city => info[:city], :degree_type => info[:degree_type], :major => info[:major], :gpa => info[:gpa])
-    redirect_to students_edit_path
+    @degree = current_user.student.degrees.find(params[:id])
+    @degree.update(:name => info[:name], :city => info[:city], :degree_type => info[:degree_type], :major => info[:major], :gpa => info[:gpa])
+    if @degree.valid?
+      redirect_to students_edit_path
+    else
+      flash[:info] = info
+      flash[:errors] = @degree.errors
+      redirect_to degrees_edit_path+"/"+params[:id].to_s
+    end
   end
 end

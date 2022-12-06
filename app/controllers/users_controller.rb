@@ -13,8 +13,17 @@ class UsersController < ApplicationController
   end
 
   def show
+    #puts request.path
     if session[:email]
-      @email = session[:email]
+      @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
+      if is_student? current_user
+        student = current_user.student
+        @student_info = {:Address => student.address, :Citizenship => student.citizenship, :Gender => student.gender}
+        @user_info = @user_info.merge(@student_info)
+        if has_degree? current_user
+          @degrees = @user.student.degrees
+        end
+      end
     else
       redirect_to users_path
     end
@@ -28,9 +37,16 @@ class UsersController < ApplicationController
 
   def update
     info = update_user_params
-    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
-    current_user.save
-    redirect_to users_path
+    @user = current_user
+    @user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    if @user.valid?
+      @user.save
+      redirect_to users_path
+    else
+      flash[:errors] = @user.errors
+      flash[:info] = info
+      redirect_to users_edit_path
+    end
   end
   def edit
     if current_user.student
@@ -58,7 +74,7 @@ class UsersController < ApplicationController
 
   def landing
     if logged_in?
-      render users_show_path
+      redirect_to users_show_path
     else
       render users_login_path
     end
@@ -69,6 +85,17 @@ class UsersController < ApplicationController
     @user = User.find_by(email:info[:email].downcase)
     if @user and @user.authenticate(info[:password])
       session[:email] = info[:email]
+      session[:nav] = {"Log out" => users_logout_path}
+      if is_student? @user
+        if has_degree? @user
+          application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
+        else
+          application_path = {"Continue Application" => students_degree_path, "Edit User Information" => students_edit_path }
+        end
+      else
+        application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
+      end
+      session[:nav] = application_path.merge(session[:nav])
       redirect_to users_show_path
     else
       flash[:login] = "Invalid Credentials"
@@ -78,6 +105,7 @@ class UsersController < ApplicationController
 
   def destroy
     session[:email] = nil
+    session[:nav] = nil
     redirect_to users_login_path
   end
 
