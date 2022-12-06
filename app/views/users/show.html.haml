@@ -21,7 +21,4 @@
       %li.list-group-item
         %div.card
           %h3.card-header Degrees listed:
-          %ul.card-body
-            - @degrees.each do |degree|
-              %li.list-group-item= degree.degree_type + " of " + degree.major + " from " + degree.name
-
+          =render :file => 'layouts/degrees.html.haml'
