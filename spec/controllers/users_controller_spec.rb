@@ -39,6 +39,16 @@ RSpec.describe UsersController, type: :controller do
       post :create, {:user => {email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
       expect(response).to redirect_to '/users/new'
     end
+    it 'should flash correct message if a user is created' do
+      post :create, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to '/users'
+      expect(flash[:login]).to eq 'Account has been created. Please sign in:'
+    end
+    it 'should flash errors if a user is not created' do
+      post :create, {:user => {email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to '/users/new'
+      expect(flash[:login]).to have_attributes(:messages => {:email=>["Invalid email given"]})
+    end
   end
 end
 
