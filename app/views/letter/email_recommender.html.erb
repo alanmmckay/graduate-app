@@ -1,0 +1,18 @@
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Hello,</h1>
+<p>
+  <%= @user.fname %><% @user.lname %> has requested a
+  letter of recommendation from you.<br>
+</p>
+<p>
+  To write your letter of recommendation, please follow
+  this link: <%= @base_url+@url_suffix %>.
+</p>
+<p>Your recommendation is greatly appreciated in the application review process.
+  Thank you for your time.</p>
+</body>
+</html>

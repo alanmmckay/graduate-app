@@ -1,0 +1,8 @@
+%h1 Letter of Recommendation for #{@student.user.fname} #{@student.user.lname}
+%hr
+= form_tag letter_of_recommendation_update_path do
+  %div{:class => "input-group"}
+  = create_form_input_field :text_area, :letter_of_recommendation, "letter", "Letter of Recommendation", {:value => @letter_of_recommendation.letter, :class => "form-control", :placeholder => "Letter Contents", :disabled => false}, {:class => "input-group-text"}
+
+  = submit_tag 'Submit', {:class => "btn btn-alternative", :type => "submit", :disabled => false}
+-#TODO: add save and continue later link button
