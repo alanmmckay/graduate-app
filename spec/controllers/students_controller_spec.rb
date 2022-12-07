@@ -30,7 +30,6 @@ describe StudentsController do
     end
     it 'should create a degree' do
       post :degree_creation, {:degree =>  {name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science', gpa: '4.0'}}
-
       expect(Degree).to receive(:new).with(name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science', gpa: '4.0')
     end
     it 'should link that degree to current user signed in' do
@@ -50,17 +49,31 @@ describe StudentsController do
     end
   end
   describe "update student" do
-    it 'should update student with info given' do
-      pending
+    before(:each) do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user.student= @student
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
     it 'should redirect to users path on update' do
-      pending
+      post :update, {:user => {email: 'email@example.com', lname: 'Frank', fname: 'Smith'}, :student => {gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street'}}
+      expect(response).to redirect_to('/users')
     end
     it 'should stay on users edit path on fail' do
-      pending
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user.student= @student
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :update, {:user => {email: 'emailexample.com', lname: 'Frank', fname: 'Smith'}, :student => {gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street'}}
+      expect(response).to redirect_to('/users/edit')
     end
     it 'should flash errors on fail' do
-      pending
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user.student= @student
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :update, {:user => {email: 'emailexample.com', lname: 'Frank', fname: 'Smith'}, :student => {gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street'}}
+      expect(flash[:errors]).to have_attributes(:messages => {:email=>["Invalid email given"]})
     end
   end
 end
