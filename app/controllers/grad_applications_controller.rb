@@ -35,10 +35,18 @@ class GradApplicationsController < ApplicationController
     letter_2 = LetterOfRecommendationController::create_letter(linfo[:recommender_2],current_user)
     letter_3 = LetterOfRecommendationController::create_letter(linfo[:recommender_3],current_user)
     if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid?
-
+      application.letter_of_recommendations << letter_1
+      application.letter_of_recommendations << letter_2
+      application.letter_of_recommendations << letter_3
+      user.student.grad_applications << application
+      user.save
+      user.student.save
+      application.save
+      letter_1.save
+      letter_2.save
+      letter_3.save
       redirect_to applications_path
     else
-      puts letter_1.valid?
       flash[:info] = uinfo.merge(sinfo).merge(ginfo).merge(linfo)
       flash[:errors] = user.errors
       flash[:app_errors] = application.errors

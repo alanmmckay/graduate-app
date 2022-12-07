@@ -15,7 +15,7 @@ class LetterOfRecommendationController < ApplicationController
   end
 
   def self.create_letter(email, user)
-    iterations = rand(1..100)
+    iterations = rand(1..10000)
     i = 0
     url = "#{user.email}#{@email}"
     while i < iterations
@@ -26,7 +26,6 @@ class LetterOfRecommendationController < ApplicationController
     letter_of_recommendation = LetterOfRecommendation.new(:email => email, :url => url)
 
     if letter_of_recommendation.valid?
-      letter_of_recommendation.save
       #Letter.with(user: user, url: url,email: email).email_recommender.deliver_now
     end
 
@@ -37,5 +36,6 @@ class LetterOfRecommendationController < ApplicationController
     params = letter_of_recommendation_params
     letter = self.create_letter(params[:email],current_user)
     #check to see if letter has errors at this scope for error message handling
+    letter.save
   end
 end
