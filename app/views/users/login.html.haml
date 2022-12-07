@@ -10,3 +10,4 @@
         = flash[:login]
     = render :file => 'layouts/login.html.haml'
     = link_to 'Register', users_new_path, {:class => "link-primary"}
+    = link_to "Log in with Google", '/auth/google_oauth2'
