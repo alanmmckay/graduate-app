@@ -22,9 +22,15 @@ end
 
 describe StudentsController do
   describe 'degree creation' do
+    before(:each) do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user.student= @student
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
     it 'should create a degree' do
-      controller.params[:degree] = {name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science', gpa: '4.0'}
-      allow_any_instance_of(StudentsController).to receive(:degree_creation)
+      post :degree_creation, {:degree =>  {name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science', gpa: '4.0'}}
+
       expect(Degree).to receive(:new).with(name: 'UofI', city: 'Iowa City', major: "BME", degree_type: 'Bachelors of Science', gpa: '4.0')
     end
     it 'should link that degree to current user signed in' do
