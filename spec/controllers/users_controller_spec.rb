@@ -32,7 +32,7 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "update" do
     before(:each) do
-      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
     it 'should redirect to users path if the update is successful' do
@@ -73,7 +73,7 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "login" do
     before(:each) do
-      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
     it 'should flash if the user is not registered' do

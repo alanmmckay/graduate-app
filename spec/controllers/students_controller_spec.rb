@@ -23,8 +23,8 @@ end
 describe StudentsController do
   describe 'degree creation' do
     before(:each) do
-      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
-      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street')
       @user.student= @student
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
@@ -50,8 +50,8 @@ describe StudentsController do
   end
   describe "update student" do
     before(:each) do
-      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
-      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street')
       @user.student= @student
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
@@ -60,16 +60,16 @@ describe StudentsController do
       expect(response).to redirect_to('/users')
     end
     it 'should stay on users edit path on fail' do
-      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
-      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street')
       @user.student= @student
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       post :update, {:user => {email: 'emailexample.com', lname: 'Frank', fname: 'Smith'}, :student => {gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street'}}
       expect(response).to redirect_to('/users/edit')
     end
     it 'should flash errors on fail' do
-      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
-      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street');
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street')
       @user.student= @student
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       post :update, {:user => {email: 'emailexample.com', lname: 'Frank', fname: 'Smith'}, :student => {gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street'}}
