@@ -1,7 +1,7 @@
 class LetterOfRecommendationController < ApplicationController
 
   def letter_of_recommendation_params
-    params.require(:letter_of_recommendation).permit(:recommender_email,:letter)
+    params.require(:letter_of_recommendation).permit(:email,:letter)
   end
 
   def edit
@@ -23,11 +23,11 @@ class LetterOfRecommendationController < ApplicationController
       i = i + 1
     end
 
-    letter_of_recommendation = LetterOfRecommendation.new(:recommender_email => email, :url => url)
+    letter_of_recommendation = LetterOfRecommendation.new(:email => email, :url => url)
 
     if letter_of_recommendation.valid?
       letter_of_recommendation.save
-      #Letter.with(user: current_user, url: url,email: @params[:recommender_email]).email_recommender.deliver_now
+      #Letter.with(user: user, url: url,email: email).email_recommender.deliver_now
     end
 
     letter_of_recommendation #this could have error messages associated; will need to check at higher scope

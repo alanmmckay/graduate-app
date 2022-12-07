@@ -31,15 +31,15 @@
       %div.card-body
         %div{:class => "input-group"}
           = create_form_input_field :text_field, :letter_of_recommendation, "recommender_1", "Email 1", {:class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
-          = create_form_error :user, "recommender_1", flash[:r1errors]["recommender_email"][0], {:class => "alert-danger input-group-text"} if (flash[:r1errors] and flash[:r1errors]["recommender_email"])
+          = create_form_error :user, "recommender_1", flash[:r1errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r1errors] and flash[:r1errors]["email"])
         %br
         %div{:class => "input-group"}
           = create_form_input_field :text_field, :letter_of_recommendation, "recommender_2", "Email 2", {:class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
-          = create_form_error :user, "recommender_2", flash[:r2errors]["recommender_email"][0], {:class => "alert-danger input-group-text"} if (flash[:r2errors] and flash[:r2errors]["recommender_email"])
+          = create_form_error :user, "recommender_2", flash[:r2errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r2errors] and flash[:r2errors]["email"])
         %br
         %div{:class => "input-group"}
           = create_form_input_field :text_field, :letter_of_recommendation, "recommender_3", "Email 3", {:class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
-          = create_form_error :user, "recommender_3", flash[:r3errors]["recommender_email"][0], {:class => "alert-danger input-group-text"} if (flash[:r3errors] and flash[:r3errors]["recommender_email"])
+          = create_form_error :user, "recommender_3", flash[:r3errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r3errors] and flash[:r3errors]["email"])
     %hr
     %div{:class => "input-group", :style =>'display:none;'}
       = create_form_input_field :text_area, :grad_application, "statement_of_purpose", "Statement of Purpose", {:class => "form-control", :placeholder => "Insert and format statement of purpose.", :disabled => false}, {:class => "input-group-text"}
