@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'students/degree', to: 'students#degree'
   get 'students/degree_creation', to: 'students#degree'
   get 'degrees/edit/:id', to: 'degrees#edit'
+  get 'auth/:provider/callback' => 'sessions#omniauth'
 
   post 'users/', to: 'users#login'
   post 'users/login', to: 'users#login'
