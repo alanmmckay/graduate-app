@@ -22,10 +22,9 @@ Rails.application.routes.draw do
   get 'students/degree_creation', to: 'students#degree'
 
   # Get methods in regards to the grad_applications controller.
-  get 'users/applications', to: 'grad_applications#index'
-  get 'users/applications/new', to: 'grad_applications#new'
+  get 'applications', to: 'grad_applications#index'
+  get 'applications/new', to: 'grad_applications#new'
 
-  get 'grad_applications/new', to: 'grad_applications#new'
 
   # Get methods in regards to the degrees controller.
   get 'degrees/edit/:id', to: 'degrees#edit'
@@ -46,7 +45,7 @@ Rails.application.routes.draw do
   post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
 
-  post 'grad_applications/create', to: 'grad_applications#create'
+  post 'applications/create', to: 'grad_applications#create'
   #This post will insert the degree into the relevant degrees collection. It...
   #... will then present a page represented within degree_creation.html.haml
   #... which allows the insertion of another degree. This process could be...

@@ -24,7 +24,7 @@ class DegreesController < ApplicationController
   end
 
   def application_update
-    run_update(grad_applications_new_path,degrees_application_update_path)
+    run_update(applications_new_path,degrees_application_update_path)
   end
 
   def application_edit

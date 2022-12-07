@@ -7,7 +7,7 @@
 
   = yield
 
-= form_tag grad_applications_create_path, {class: 'card'} do
+= form_tag applications_create_path, {class: 'card'} do
   %h2.card-header Please fill following:
   %div.card-body
     %div{:class => "input-group"}
@@ -70,4 +70,4 @@
       = create_form_error :user, "gender", flash[:errors]["gender"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["gender"])
     %br
     = submit_tag 'Finish Application', {:class => "btn btn-alternative", :type => 'submit', :disabled => false}
-= link_to "Cancel", users_applications_path
+= link_to "Cancel", applications_path
