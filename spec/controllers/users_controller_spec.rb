@@ -30,6 +30,22 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+  describe "update" do
+    before(:each) do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
+    it 'should redirect to users path if the update is successful' do
+      post :update, {:user => {lname: 'George', fname: 'Smith'}}
+      expect(response).to redirect_to('/users')
+    end
+    it 'should stay on the edit path if not successful' do
+      pending
+    end
+    it 'should flash errors if not a valid user' do
+      pending
+    end
+  end
   describe "create" do
     it 'should redirect to user page if a user is created' do
       post :create, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
@@ -56,9 +72,17 @@ RSpec.describe UsersController, type: :controller do
     end
   end
   describe "login" do
+    before(:each) do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith');
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
     it 'should flash if the user is not registered' do
       post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
       expect(flash[:login]).to eq('Invalid Credentials')
+    end
+    it 'should redirect to users show path' do
+      post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to('/users/show')
     end
   end
 
