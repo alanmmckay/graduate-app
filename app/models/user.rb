@@ -22,13 +22,12 @@ class User < ActiveRecord::Base
     self.address ||= ""
   end
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.provider = auth['provider']
-      user.uid = auth['uid']
-      if auth['info']
-        user.name = auth['info']['name'] || ""
-      end
+
+  def self.from_omniauth(response)
+    User.find_or_create_by(uid: response[:uid], provider: response[:provider]) do |u|
+      # u.username = response[:info][:name]
+      u.email = response[:info][:email]
+      u.password = SecureRandom.hex(15)
     end
   end
 
