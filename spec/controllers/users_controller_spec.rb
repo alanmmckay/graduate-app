@@ -52,6 +52,16 @@ RSpec.describe UsersController, type: :controller do
       expect(flash[:errors]).to have_attributes(:messages => {:email=>["Invalid email given"]})
     end
   end
+  describe "edit" do
+    it 'should redirect to students edit path if the current user is a student' do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      @student = Student.new(gender: 'Male', citizenship: 'US Citizen', address: '123 Sesame Street')
+      @user.student= @student
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :edit
+      expect(response).to redirect_to('/students/edit')
+    end
+  end
   describe "create" do
     it 'should redirect to user page if a user is created' do
       post :create, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
@@ -74,7 +84,14 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "landing" do
     it 'should redirect to users homepage if logged in' do
-
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :landing
+      expect(response).to redirect_to('/users/show')
+    end
+    it 'should redirect to login page if not logged in' do
+      post :landing
+      expect(response).to have_http_status(:success)
     end
   end
   describe "login" do
@@ -89,6 +106,16 @@ RSpec.describe UsersController, type: :controller do
     it 'should redirect to users show path' do
       post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
       expect(response).to redirect_to('/users/show')
+    end
+  end
+  describe "destroy" do
+    before(:each) do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
+    it 'should redirect to the login page' do
+      post :destroy, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
+      expect(response).to redirect_to('/users/login')
     end
   end
 
