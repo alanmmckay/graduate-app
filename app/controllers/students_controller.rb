@@ -86,7 +86,7 @@ class StudentsController < ApplicationController
       degree.save
       current_user.degrees << degree
       session[:nav].delete("Continue Application")
-      session[:nav] = {"Continue Application": grad_application_new_path}.merge(session[:nav])
+      session[:nav] = {"Continue Application": grad_applications_new_path}.merge(session[:nav])
       flash[:degree] = "Degree from " + dinfo[:name] + " successfully added. To finish, select continue application."
       redirect_to students_degree_path
     else

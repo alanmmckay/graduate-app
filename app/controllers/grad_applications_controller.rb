@@ -1,8 +1,8 @@
-class GradApplicationController < ApplicationController
+class GradApplicationsController < ApplicationController
 
   before_action :authorized
   def grad_application_params
-    params.require(:grad_application).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose)
+    params.require(:grad_applications).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose)
   end
 
   def show
@@ -20,7 +20,7 @@ class GradApplicationController < ApplicationController
       flash[:notice] = "Application has been successfully submitted"
     else
       flash[:requirement] = @grad_application.errors
-      render grad_application_new_path
+      render grad_applications_new_path
     end
   end
 

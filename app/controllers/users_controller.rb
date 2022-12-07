@@ -88,7 +88,7 @@ class UsersController < ApplicationController
       session[:nav] = {"Log out" => users_logout_path}
       if is_student? @user
         if has_degree? @user
-          application_path = {"Continue Application" => grad_application_new_path, "Edit User Information" => students_edit_path }
+          application_path = {"Continue Application" => grad_applications_new_path, "Edit User Information" => students_edit_path }
         else
           application_path = {"Continue Application" => students_degree_path, "Edit User Information" => students_edit_path }
         end
