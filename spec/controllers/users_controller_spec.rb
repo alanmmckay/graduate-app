@@ -40,10 +40,16 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to('/users')
     end
     it 'should stay on the edit path if not successful' do
-      pending
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :update, {:user => {lname: 'George', fname: 'Smith'}}
+      expect(response).to redirect_to('/users/edit')
     end
     it 'should flash errors if not a valid user' do
-      pending
+      @user = User.new(email: 'emailexample.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :update, {:user => {lname: 'George', fname: 'Smith'}}
+      expect(flash[:errors]).to have_attributes(:messages => {:email=>["Invalid email given"]})
     end
   end
   describe "create" do
