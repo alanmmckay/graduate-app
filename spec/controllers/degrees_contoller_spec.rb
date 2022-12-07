@@ -24,6 +24,12 @@ RSpec.describe DegreesController, type: :controller do
     it 'should redirect to student edit page if a degree is updated' do
       pending
     end
+    it 'should stay on edit degree if not a valid degree' do
+      pending
+    end
+    it 'should flash errors if not a valid degree' do
+      pending
+    end
   end
 end
 
