@@ -34,7 +34,14 @@ class GradApplicationsController < ApplicationController
     #letter_1 = LetterOfRecommendation.new(:recommender_email => linfo[:recommender_1])
     #letter_2 = LetterOfRecommendation.new(:recommender_email => linfo[:recommender_2])
     #letter_3 = LetterOfRecommendation.new(:recommender_email => linfo[:recommender_3])
-    letter_1 =
+    letter_1 = LetterOfRecommendationController::create_letter(linfo[:recommender_1],current_user)
+    letter_2 = LetterOfRecommendationController::create_letter(linfo[:recommender_2],current_user)
+    letter_3 = LetterOfRecommendationController::create_letter(linfo[:recommender_3],current_user)
+    puts letter_1.valid?
+    puts letter_2.valid?
+    puts letter_3.valid?
+    puts :heeeere
+    puts letter_1.errors.keys
     if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid?
 
       redirect_to applications_path
