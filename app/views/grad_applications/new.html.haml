@@ -1,13 +1,11 @@
 = new_header "Application creation page for Graduate Application"
-#main
-  - if flash[:notice]
-    #notice.message= flash[:notice]
-  - elsif flash[:warning]
-    #warning.message= flash[:warning]
-
-  = yield
-
 = form_tag applications_create_path, {class: 'card'} do
+  - if flash[:notice]
+    %div{class: 'alert alert-warning'}
+      = flash[:notice]
+  - elsif flash[:warning]
+    %div{class: 'alert alert-danger'}
+      = flash[:warning]
   %h2.card-header Please fill following:
   %div.card-body
     %div{:class => "input-group"}
@@ -43,8 +41,8 @@
     %hr
     %div{:class => "input-group", :style =>'display:none;'}
       = create_form_input_field :text_area, :grad_application, "statement_of_purpose", "Statement of Purpose", {:class => "form-control", :placeholder => "Insert and format statement of purpose.", :disabled => false}, {:class => "input-group-text"}
-      = create_form_error :user, "statement_of_purpose", flash[:errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:errors] and flash[:errors]["statement_of_purpose"])
     %div.card.col-sm-10
+      = create_form_error :grad_application, "statement_of_purpose", flash[:app_errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:app_errors] and flash[:app_errors]["statement_of_purpose"])
       %link{:href => "https://cdn.quilljs.com/1.3.6/quill.snow.css", :rel =>"stylesheet"}
       %h3.card-header Statement of Purpose:
       %div.card-body{:id => "statement_editor", :style => "height:300px"}
