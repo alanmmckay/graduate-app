@@ -46,7 +46,6 @@
       %h3.card-header Please confirm/update your Statement of Purpose:
       %div.card-body{:id => "statement_editor", :style => "height:300px"}
         =@application_content[:statement_of_purpose].html_safe
-      %script{:src=>"https://cdn.quilljs.com/1.3.6/quill.js"}
       %script
         var quill = new Quill('#statement_editor', { theme: 'snow' });
       %script var output_content = document.getElementById('grad_application_statement_of_purpose'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
