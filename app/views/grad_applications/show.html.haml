@@ -1,3 +1,10 @@
+- bool = false
+- if session[:nav]["View Application"]
+  - bool = true
+  - session[:nav].delete("View Application")
+  - session[:nav] = {"View Application" => applications_show_path(params[:id])}.merge(session[:nav])
+- else
+  - session[:nav] = {"Current Application" => applications_show_path(params[:id])}.merge(session[:nav])
 = new_header "show"
 %br
 %div.row
@@ -5,10 +12,6 @@
     %div.card
       %h2.card-header Application Information
       %ul.card-body
-        %li.list-group-item
-          %div.card
-            %h3.card-header Degrees listed:
-            =render :file => 'layouts/list_degrees.html.haml'
         - @application_info.each do |attribute, value|
           - if attribute != 'Statement of Purpose'
             %li.list-group-item
@@ -19,9 +22,10 @@
           %div.card
             %h3.card-header Statement of Purpose
             %div.card-body= @application_info["Statement of Purpose"].html_safe
+        %li.list-group-item= link_to "Edit Application", applications_edit_path
   %div.col-lg-5
     %div.card
-      %h2.card-header User information:
+      %h2.card-header Student information
       %ul.card-body
         - @user_info.merge(@student_info).each do |attribute, value|
           %li.list-group-item
@@ -31,4 +35,11 @@
                 %li.list-group-item.flex-fill{:style => "color:red"}= "None given"
               - else
                 %li.list-group-item.flex-fill= value
-
+        %li.list-group-item
+          %div.card
+            %h3.card-header Degrees listed:
+            =render :file => 'layouts/list_degrees.html.haml'
+- session[:nav].delete("Current Application")
+- if bool
+  - session[:nav].delete("View Application")
+  - session[:nav] = {"View Application" => applications_path(params[:id])}.merge(session[:nav])

@@ -43,7 +43,6 @@
       = create_form_input_field :text_area, :grad_application, "statement_of_purpose", "Statement of Purpose", {:class => "form-control", :placeholder => "Insert and format statement of purpose.", :disabled => false}, {:class => "input-group-text"}
     %div.card.col-sm-10
       = create_form_error :grad_application, "statement_of_purpose", flash[:app_errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:app_errors] and flash[:app_errors]["statement_of_purpose"])
-      %link{:href => "https://cdn.quilljs.com/1.3.6/quill.snow.css", :rel =>"stylesheet"}
       %h3.card-header Statement of Purpose:
       %div.card-body{:id => "statement_editor", :style => "height:300px"}
       %script{:src=>"https://cdn.quilljs.com/1.3.6/quill.js"}

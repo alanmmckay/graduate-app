@@ -25,7 +25,6 @@ class GradApplicationsController < ApplicationController
   end
 
   def create
-    puts params
     uinfo = user_params
     sinfo = student_params
     ginfo = grad_application_params
@@ -49,6 +48,10 @@ class GradApplicationsController < ApplicationController
       letter_1.save
       letter_2.save
       letter_3.save
+      if session[:nav]["Continue Application"]
+        session[:nav].delete("Continue Application")
+        session[:nav] = {"View Applications" => applications_path}.merge(session[:nav])
+      end
       redirect_to applications_path
     else
       flash[:info] = uinfo.merge(sinfo).merge(ginfo).merge(linfo)
@@ -67,6 +70,21 @@ class GradApplicationsController < ApplicationController
     @user = current_user
   end
 
+  def edit
+    application = current_user.student.grad_applications.find(params[:id])
+    letters = application.letter_of_recommendations
+    @application_content = {}
+    @application_content[:university] = application.university
+    @application_content[:research_area] = application.research_area
+    @application_content[:deg_obj] = application.deg_obj
+    @application_content[:deg_obj_major] = application.deg_obj_major
+    @application_content[:recommender_1] = letters[0].email
+    @application_content[:recommender_2] = letters[1].email
+    @application_content[:recommender_3] = letters[2].email
+    @application_content[:statement_of_purpose] = application.statement_of_purpose
+    puts @application_content
+
+  end
 
   def update
 
@@ -77,8 +95,12 @@ class GradApplicationsController < ApplicationController
   end
   
   def index
-    @user == User.find_by(:email => session[:email])
+    applications = current_user.student.grad_applications
+    if applications.length > 1
 
+    else
+      redirect_to applications_show_path(applications[0].id)
+    end
   end
 
 
