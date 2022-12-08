@@ -30,6 +30,14 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+  describe "show" do
+    it 'should redirect to users path if not a student' do
+      @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      post :show
+      expect(response).to redirect_to('/users')
+    end
+  end
   describe "update" do
     before(:each) do
       @user = User.new(email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith')
@@ -103,9 +111,9 @@ RSpec.describe UsersController, type: :controller do
       post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
       expect(flash[:login]).to eq('Invalid Credentials')
     end
-    it 'should redirect to users show path' do
+    it 'should stay on the login page if not logged in' do
       post :login, {:user => {email: 'email@example.com', password: 'test_password', password_confirmation: 'test_password', lname: 'Frank', fname: 'Smith'}}
-      expect(response).to redirect_to('/users/show')
+      expect(response).to have_http_status(:success)
     end
   end
   describe "destroy" do
