@@ -100,7 +100,7 @@ class UsersController < ApplicationController
         else
           application_path = {"Continue Application" => students_degree_path }
         end
-        application_path = application_path.merge({"Edit User Information" => students_edit_path})
+        application_path = application_path.merge({"Edit Student Information" => students_edit_path})
       else
         application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
       end

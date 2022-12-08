@@ -8,6 +8,17 @@
 = new_header "show"
 %br
 %div.row
+  %div{:id => "statementModal", :class => "modal fade", :tabindex=>"-1", "area-labelledby" => "statementModalLabel", "aria-hidden" => "true"}
+    %div{:class => "modal-dialog modal-xl modal-fullscreen-lg-down"}
+      %div{:class => "modal-content"}
+        %div{:class => "modal-header"}
+          %h5{:id => "statementModalLabel", :class =>"modal-title"} Statement of Purpose
+          %button{:class => "btn-close", "data-bs-dismiss" => "modal", "aria-label" => "Close"}
+        %div{:class => "modal-body"}
+          =@application_info["Statement of Purpose"].html_safe
+        %div{:class => "modal-footer"}
+          %button{:class => "btn btn-secondary", :type => "button", "data-bs-dismiss" =>"modal" } Close
+  %span{:class => "alert alert-warning"} Current status of application: #{@application_info[:status]}
   %div.col-lg-7
     %div.card
       %h2.card-header Application Information
@@ -19,13 +30,14 @@
                 %li.list-group-item= attribute
                 %li.list-group-item.flex-fill= value
         %li.list-group-item
-          %div.card
-            %h3.card-header Statement of Purpose
-            %div.card-body= @application_info["Statement of Purpose"].html_safe
-        %li.list-group-item= link_to "Edit Application", applications_edit_path
+          %button{:id => "statementButton", :class => "btn btn-alternative", "data-bs-toggle" => "modal", "data-bs-target" => "#statementModal"} View Statement of Purpose
+        %li.list-group-item
+          %ul.list-group.list-group-horizontal
+            %li.list-group-item.flex-fill=link_to "Edit Application", applications_edit_path, {:class => "list-group-item list-group-action flex-fill link-primary"}
+            %li.list-group-item=link_to "Withdraw application", applications_withdraw_path, {:class => "list-group-item list-group-action link-secondary",:style => "float:right;", :method => "post", :data => {:confirm => "Are you sure you would like to withdraw this application? This cannot be undone, but a new application can be filled."}}
   %div.col-lg-5
     %div.card
-      %h2.card-header Student information
+      %h4.card-header Student information
       %ul.card-body
         - @user_info.merge(@student_info).each do |attribute, value|
           %li.list-group-item
@@ -37,7 +49,7 @@
                 %li.list-group-item.flex-fill= value
         %li.list-group-item
           %div.card
-            %h3.card-header Degrees listed:
+            %h5.card-header Degrees listed:
             =render :file => 'layouts/list_degrees.html.haml'
 - session[:nav].delete("Current Application")
 - if bool

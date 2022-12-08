@@ -21,7 +21,7 @@ class GradApplicationsController < ApplicationController
     @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
     @degrees = current_user.degrees
     application = current_user.student.grad_applications.find(params[:id])
-    @application_info = {:University => application.university, :Objective => application.deg_obj, "Field of Interest" => application.deg_obj_major, "Reasearch Area" => application.research_area, "Statement of Purpose" => application.statement_of_purpose}
+    @application_info = {:University => application.university, :Objective => application.deg_obj, "Field of Interest" => application.deg_obj_major, "Reasearch Area" => application.research_area, "Statement of Purpose" => application.statement_of_purpose, :Status => application.status}
   end
 
   def create
@@ -82,7 +82,7 @@ class GradApplicationsController < ApplicationController
     @application_content[:recommender_2] = letters[1].email
     @application_content[:recommender_3] = letters[2].email
     @application_content[:statement_of_purpose] = application.statement_of_purpose
-    puts @application_content
+
 
   end
 
@@ -91,12 +91,23 @@ class GradApplicationsController < ApplicationController
   end
 
   def destroy
-
+    application = current_user.student.grad_applications.find(params[:id])
+    letter_1 = application.letter_of_recommendations[0]
+    letter_2 = application.letter_of_recommendations[1]
+    letter_3 = application.letter_of_recommendations[2]
+    letter_1.destroy
+    letter_2.destroy
+    letter_3.destroy
+    application.destroy
+    flash[:notice] = "Application has been withdrawn"
+    redirect_to users_path
   end
   
   def index
     applications = current_user.student.grad_applications
-    if applications.length > 1
+    if applications.length == 0
+      redirect_to users_path
+    elsif applications.length > 1
 
     else
       redirect_to applications_show_path(applications[0].id)

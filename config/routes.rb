@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   post 'students/update', to: 'students#update'
 
   post 'applications/create', to: 'grad_applications#create'
+  post 'applications/withdraw/:id', to: 'grad_applications#destroy', as: 'applications_withdraw'
   #This post will insert the degree into the relevant degrees collection. It...
   #... will then present a page represented within degree_creation.html.haml
   #... which allows the insertion of another degree. This process could be...
