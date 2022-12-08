@@ -44,8 +44,8 @@
     %div.card.col-sm-10
       = create_form_error :grad_application, "statement_of_purpose", flash[:app_errors]["statement_of_purpose"][0], {:class => "alert-danger input-group-text"} if (flash[:app_errors] and flash[:app_errors]["statement_of_purpose"])
       %h3.card-header Statement of Purpose:
-      %div.card-body{:id => "statement_editor", :style => "height:300px"}
       %script{:src=>"https://cdn.quilljs.com/1.3.6/quill.js"}
+      %div.card-body{:id => "statement_editor", :style => "height:300px"}
       %script
         var quill = new Quill('#statement_editor', { theme: 'snow' });
       %script var output_content = document.getElementById('grad_application_statement_of_purpose'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
@@ -57,9 +57,29 @@
       %div.list-group.card
         %span.card-header Degrees obtained:
         %span.card-body
+          - flash.each do |entry|
+            -puts entry
           - @user.degrees.each do |degree|
-            = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s+"?path=grad_application", {:class => "list-group-item list-group-action", :method => :get, :data => {:confirm => "This redirection will cause any changes to be undone. This will be reliant on javascript to refill the fields."}, :id => "degree"+degree.id.to_s}
-            %script $('.degree#{degree.id.to_s}.bind('ajax:success', function() { $(this).fadeOut();});
+
+            %a{:class => "list-group-item list-group-action card-header javascript-degree-link", :id => "degree"+degree.id.to_s, :onclick => "show_degree('degree"+degree.id.to_s+"')"}= degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit "
+
+            %div.card-body{:style => "display:none", :id => "degree"+degree.id.to_s+"Form"}
+              %div{:class => "input-group"}
+                = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "name", "Institution Name:", {:value => degree.name, :class => "form-control", :placeholder => "Name", :disabled => false}, {:class => "input-group-text"}
+                = create_form_error "degrees["+degree.id.to_s+"]", "name", flash["degree"+degree.id.to_s]["name"][0], {:class => "alert-danger input-group-text"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["name"])
+              %div{:class => "input-group"}
+                = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "city", "Institution City:", {:value => degree.city, :class => "form-control", :placeholder => "City", :disabled => false}, {:class => "input-group-text"}
+                = create_form_error "degrees["+degree.id.to_s+"]", "city", flash["degree"+degree.id.to_s]["city"][0], {:class => "alert-danger input-group-text"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["city"])
+              %div{:class => "input-group"}
+                = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "major", "Type of Degree:", {:value => degree.major, :class => "form-control", :placeholder => "Major", :disabled => false}, {:class => "input-group-text"}
+                = create_form_error "degrees["+degree.id.to_s+"]", "major", flash["degree"+degree.id.to_s]["major"][0], {:class => "alert-danger input-group-text"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["major"])
+              %div{:class => "input-group"}
+                = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "degree_type", "Degree Earned:", {:value => degree.degree_type, :class => "form-control", :placeholder => "Degree", :disabled => false}, {:class => "input-group-text"}
+                = create_form_error "degrees["+degree.id.to_s+"]", "degree_type", flash["degree"+degree.id.to_s]["degree_type"][0], {:class => "alert-danger input-group-text"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["degree_type"])
+              %div{:class => "input-group"}
+                = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "gpa", "GPA Earned:", {:value => degree.gpa, :class => "form-control", :placeholder => "GPA", :disabled => false}, {:class => "input-group-text"}
+                = create_form_error "degrees["+degree.id.to_s+"]", "gpa", flash["degree"+degree.id.to_s]["gpa"][0], {:class => "alert alert-danger"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["gpa"])
+    %script function show_degree(id){ document.getElementById(id+'Form').style.display = 'block'; link = document.getElementById(id); string = link.innerHTML; if(string.slice(string.length-7,string.length-1) == '| edit'){link.innerHTML = string.slice(0,string.length-7);}}
     %br
     %div{:class => "input-group"}
       = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}

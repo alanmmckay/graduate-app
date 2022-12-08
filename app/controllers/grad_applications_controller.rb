@@ -17,6 +17,9 @@ class GradApplicationsController < ApplicationController
     params.require(:letter_of_recommendation).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose, :recommender_1, :recommender_2, :recommender_3, :fname, :lname, :address, :phone, :citizenship, :gender)
   end
 
+  def degrees_params
+    params.require(:degrees)
+  end
   def show
     @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
     @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
@@ -30,21 +33,33 @@ class GradApplicationsController < ApplicationController
     sinfo = student_params
     ginfo = grad_application_params
     linfo = letter_params
+    dinfo = degrees_params
 
     user = current_user
     user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
     user.student.update(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
     application = GradApplication.new(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: ginfo[:statement_of_purpose], status: "In Progress")
+    degrees = {}
+    degrees_valid = true
+    dinfo.each do |key, dict|
+      degree = user.student.degrees.find(key)
+      degree.update(:name => dict[:name], :city => dict[:city], :major => dict[:major], :degree_type => dict[:degree_type], :gpa => dict[:gpa])
+      degrees_valid = (degrees_valid and degree.valid?)
+      degrees[key.to_sym] = degree
+    end
     letter_1 = LetterOfRecommendationController::create_letter(linfo[:recommender_1],current_user)
     letter_2 = LetterOfRecommendationController::create_letter(linfo[:recommender_2],current_user)
     letter_3 = LetterOfRecommendationController::create_letter(linfo[:recommender_3],current_user)
-    if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid? and not has_script?(ginfo[:statement_of_purpose])
+    if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid? and degrees_valid and not has_script?(ginfo[:statement_of_purpose])
       application.letter_of_recommendations << letter_1
       application.letter_of_recommendations << letter_2
       application.letter_of_recommendations << letter_3
       user.student.grad_applications << application
       user.save
       user.student.save
+      degrees.each do |key, degree|
+        degree.save
+      end
       application.save
       letter_1.save
       letter_2.save
@@ -65,6 +80,10 @@ class GradApplicationsController < ApplicationController
       flash[:r1errors] = letter_1.errors
       flash[:r2errors] = letter_2.errors
       flash[:r3errors] = letter_3.errors
+      degrees.each do |key, degree|
+        flash[:info] = flash[:info].merge(dinfo[key])
+        flash[("degree"+key.to_s).to_sym] = degree.errors
+      end
       flash[:warning] = "Error in submission form, please ensure all fields are correct"
       redirect_to applications_new_path
     end
@@ -105,6 +124,8 @@ class GradApplicationsController < ApplicationController
     letter_3.destroy
     application.destroy
     flash[:notice] = "Application has been withdrawn"
+    session[:nav].delete("View Application")
+    session[:nav] = {"Continue Application" => applications_new_path}.merge(session[:nav])
     redirect_to users_path
   end
   
