@@ -35,7 +35,7 @@
           =render :file => "layouts/list_degrees_with_edit.html.haml"
     -# end check
     %div{:class => "input-group"}
-      = link_to "Add Degree", students_degree_path
+      = link_to "Add Degree", students_degree_path+"/?path=student_edit"
     %br
     -#%div{:class => "input-group"}
     = submit_tag "Update", {:class => "btn btn-alternative", :type =>"submit", :disabled => false}

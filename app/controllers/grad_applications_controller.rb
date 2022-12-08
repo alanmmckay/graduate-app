@@ -16,6 +16,7 @@ class GradApplicationsController < ApplicationController
   def letter_params
     params.require(:letter_of_recommendation).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose, :recommender_1, :recommender_2, :recommender_3, :fname, :lname, :address, :phone, :citizenship, :gender)
   end
+
   def show
     @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
     @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
@@ -33,7 +34,7 @@ class GradApplicationsController < ApplicationController
     user = current_user
     user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
     user.student.update(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
-    application = GradApplication.new(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: ginfo[:statement_of_purpose])
+    application = GradApplication.new(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: ginfo[:statement_of_purpose], status: "In Progress")
     letter_1 = LetterOfRecommendationController::create_letter(linfo[:recommender_1],current_user)
     letter_2 = LetterOfRecommendationController::create_letter(linfo[:recommender_2],current_user)
     letter_3 = LetterOfRecommendationController::create_letter(linfo[:recommender_3],current_user)
@@ -50,7 +51,11 @@ class GradApplicationsController < ApplicationController
       letter_3.save
       if session[:nav]["Continue Application"]
         session[:nav].delete("Continue Application")
-        session[:nav] = {"View Applications" => applications_path}.merge(session[:nav])
+        if user.student.grad_applications.length > 1
+          session[:nav] = {"View Applications" => applications_path}.merge(session[:nav])
+        else
+          session[:nav] = {"View Application" => applications_path}.merge(session[:nav])
+        end
       end
       redirect_to applications_path
     else

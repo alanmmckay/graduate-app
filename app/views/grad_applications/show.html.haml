@@ -12,7 +12,7 @@
     %div{:class => "modal-dialog modal-xl modal-fullscreen-lg-down"}
       %div{:class => "modal-content"}
         %div{:class => "modal-header"}
-          %h5{:id => "statementModalLabel", :class =>"modal-title"} Statement of Purpose
+          %h5{:id => "statementModalLabel", :class =>"modal-title"} Statement of Purpose for #{@user_info[:Name]}
           %button{:class => "btn-close", "data-bs-dismiss" => "modal", "aria-label" => "Close"}
         %div{:class => "modal-body"}
           =@application_info["Statement of Purpose"].html_safe

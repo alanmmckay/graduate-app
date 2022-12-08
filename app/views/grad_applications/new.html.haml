@@ -58,7 +58,8 @@
         %span.card-header Degrees obtained:
         %span.card-body
           - @user.degrees.each do |degree|
-            = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s+"?application=1", {:class => "list-group-item list-group-action", :method => "post", :data => {:confirm => "This redirection will cause any changes to be undone. This will be reliant on javascript to refill the fields."}}
+            = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s+"?path=grad_application", {:class => "list-group-item list-group-action", :method => :get, :data => {:confirm => "This redirection will cause any changes to be undone. This will be reliant on javascript to refill the fields."}, :id => "degree"+degree.id.to_s}
+            %script $('.degree#{degree.id.to_s}.bind('ajax:success', function() { $(this).fadeOut();});
     %br
     %div{:class => "input-group"}
       = create_form_input_field :text_field, :user, "fname", "First Name", {:value => @user.fname, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
