@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   # Get methods in regards to the grad_applications controller.
   get 'applications/', to: 'grad_applications#index'
   get 'applications/new', to: 'grad_applications#new'
+  get 'applications/show/:id', to:'grad_applications#show'
 
 
   # Get methods in regards to the degrees controller.

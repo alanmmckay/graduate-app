@@ -21,6 +21,10 @@ module ApplicationHelper
     end
   end
 
+  def has_script?(html)
+    html.include?("<script") or html.include?("</script>")
+  end
+
   # === === === === === === === === === === === === === === === === === === === === #
   # -- Functions pertaining to form_input. Perhaps rename 'suffix' and 'compatible?'.
 

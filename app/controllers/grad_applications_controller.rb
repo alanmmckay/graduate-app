@@ -17,7 +17,11 @@ class GradApplicationsController < ApplicationController
     params.require(:letter_of_recommendation).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose, :recommender_1, :recommender_2, :recommender_3, :fname, :lname, :address, :phone, :citizenship, :gender)
   end
   def show
-
+    @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
+    @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
+    @degrees = current_user.degrees
+    application = current_user.student.grad_applications.find(params[:id])
+    @application_info = {:University => application.university, :Objective => application.deg_obj, "Field of Interest" => application.deg_obj_major, "Reasearch Area" => application.research_area, "Statement of Purpose" => application.statement_of_purpose}
   end
 
   def create
@@ -34,7 +38,7 @@ class GradApplicationsController < ApplicationController
     letter_1 = LetterOfRecommendationController::create_letter(linfo[:recommender_1],current_user)
     letter_2 = LetterOfRecommendationController::create_letter(linfo[:recommender_2],current_user)
     letter_3 = LetterOfRecommendationController::create_letter(linfo[:recommender_3],current_user)
-    if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid?
+    if application.valid?  and letter_1.valid? and letter_2.valid? and letter_3.valid? and user.valid? and user.student.valid? and not has_script?(ginfo[:statement_of_purpose])
       application.letter_of_recommendations << letter_1
       application.letter_of_recommendations << letter_2
       application.letter_of_recommendations << letter_3
