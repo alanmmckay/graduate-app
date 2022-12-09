@@ -1,12 +1,12 @@
 class CreateFaculty < ActiveRecord::Migration
 
   def up
-    create_table :faculty do |t|
+    create_table :faculties do |t|
       t.belongs_to :user
+      t.string :university
     end
   end
-  def down
-    drop_table :faculty
-  end
+
+
 
 end
