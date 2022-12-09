@@ -118,4 +118,8 @@ class UsersController < ApplicationController
     redirect_to users_login_path
   end
 
+  def index
+    @users = User.all
+  end
+
 end

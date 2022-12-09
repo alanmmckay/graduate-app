@@ -30,6 +30,9 @@ Rails.application.routes.draw do
 
   # Get methods in regards to the degrees controller.
   get 'degrees/edit/:id', to: 'degrees#edit'
+
+  get 'auth/:provider/callback' => 'sessions#omniauth'
+
   get 'degrees/update' #this will be used for redirection
   get 'degrees/edit' #this will be used for redirection
   get 'degrees/application_update' #this will be used for redirection

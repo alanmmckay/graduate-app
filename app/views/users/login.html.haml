@@ -7,3 +7,4 @@
   %div{:class => "col-sm-4"}
     = render :file => 'layouts/login.html.haml'
     = link_to 'Register', users_new_path, {:class => "link-primary"}
+    = button_to "Log in with Google", '/auth/google_oauth2'
