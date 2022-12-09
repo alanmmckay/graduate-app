@@ -20,6 +20,10 @@ class GradApplicationsController < ApplicationController
   def degrees_params
     params.require(:degrees)
   end
+
+  def scrub_html(string)
+    string.gsub(/<div class="ql-editor" data-gramm="false" contenteditable="true">/,"<div class='ql-editor' data-gramm='false' contenteditable='false'>").gsub(/<\s*s\s*c\s*r\s*i\s*p\s*t\s*/,"").gsub(/<\s*\/\s*s\s*c\s*r\s*i\s*p\s*t\s*>/,"")
+  end
   def show
     @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
     @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
@@ -38,7 +42,11 @@ class GradApplicationsController < ApplicationController
     user = current_user
     user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
     user.student.update(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
-    application = GradApplication.new(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: ginfo[:statement_of_purpose], status: "In Progress")
+    sanitized_html_string = scrub_html(ginfo[:statement_of_purpose])
+    puts :heeeeere
+    puts sanitized_html_string
+    puts sanitized_html_string.class
+    application = GradApplication.new(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: sanitized_html_string, status: "In Progress")
     degrees = {}
     degrees_valid = true
     dinfo.each do |key, dict|
