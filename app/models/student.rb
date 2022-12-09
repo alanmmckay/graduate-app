@@ -3,7 +3,6 @@ class Student < ActiveRecord::Base
   has_many :grad_applications
   has_many :degrees
   after_initialize :init
-  validates :gender, :citizenship, :address, presence: true
 
   def init
     self.gender ||= ""
