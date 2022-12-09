@@ -1,10 +1,6 @@
-class FacultyController < ApplicationController
+class FacultiesController < ApplicationController
 
-  # before_filter :set_current_user, :only=> %w[show edit update delete]
-
-  def student_params
-    params.require(:student).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
-  end
+  before_filter :set_current_user, :only=> %w[show edit update delete]
 
   def user_params
     params.require(:user).permit(:fname, :lname, :address, :phone, :citizenship, :gender)
@@ -19,77 +15,102 @@ class FacultyController < ApplicationController
   end
 
   def create
-    #run update with user_params
-    sinfo = student_params
-    uinfo = user_params
 
     @user = current_user
-    @user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
-    @user.build_student(address: sinfo[:address], gender: sinfo[:gender],citizenship: sinfo[:citizenship])
-    if @user.valid? #and @student.valid?
-      @user.save
-      session[:nav].delete("Begin Application")
-      session[:nav] = {"Continue Application" => students_degree_path}.merge(session[:nav])
-      session[:nav]["Edit User Information"] = students_edit_path
-      redirect_to students_degree_path
-    else
-      flash[:errors] = @user.errors
-      flash[:info] = uinfo.merge(sinfo)
-      redirect_to students_new_path
-    end
+
   end
 
 
   def home
 
-    @grad_applications = GradApplication.where(university: "University of Iowa")
+    faculty_university = current_user.faculty.university
+
+    @grad_applications = GradApplication.where(university: faculty_university)
+    @students_with_apps = []
+    @user_students_with_apps = []
+    @faculty_reviews = []
+    @grad_applications.each do |student_application|
+      student = Student.find_by_id(student_application[:student_id])
+      user = User.find_by_id(student[:user_id])
+      @students_with_apps.append(student)
+      @user_students_with_apps.append(user)
+      if GradAppReview.where(faculty_id: current_user.faculty.id, grad_application_id: student_application.id)[0].nil?
+        @faculty_reviews.append(false)
+      else
+        @faculty_reviews.append(true)
+      end
+    end
+
     render faculty_home_path
+
+  end
+
+  def review_grad_application
+
+    review_id = review_grad_application_params
+
+    @grad_application_review = GradApplication.find_by_id(review_id)
+    @letter_of_recommendations = LetterOfRecommendation.where(grad_application_id: review_id)
+    @student_to_review = Student.find_by_id(@grad_application_review[:student_id])
+    @user_to_review = User.find_by_id(@student_to_review[:user_id])
+    @degrees_to_review = Degree.where(student_id: @student_to_review.id)
+    @faculty_review = GradAppReview.where(faculty_id: current_user.faculty.id, grad_application_id: review_id)[0]
+
+    render faculty_review_grad_application_path
 
   end
 
 
   def submit_application_review
     par_score = params.require(:score_select)[:score]
-    par_comments = params.require(:comments)
+    par_comments = params[:comments]
     app_id = params.require(:app_id).keys[0]
 
-    puts par_score
-    puts par_comments
-    puts app_id
+    if par_comments.empty?
+      par_comments = "Add your comments here"
+    end
 
     @reviewed_grad_application = GradApplication.find_by_id(app_id)
+    @faculty = current_user.faculty
 
-    review = GradApplicationReview.new(:comments => par_comments, :score => par_score, :grad_application_id => app_id)
+    review = GradAppReview.new(:comments => par_comments, :score => par_score)
     if review.valid?
       review.save!
-      @reviewed_grad_application.grad_application_reviews << review # might want this to grad application to belong to the faculty
+      @reviewed_grad_application.grad_app_reviews << review # might want this to grad application to belong to the faculty
+      @faculty.grad_app_reviews << review
       redirect_to faculty_home_path
     else
-      #flash errors
+      #flash errors if missing fields
       render faculty_review_grad_application_path
     end
 
-    # @reviewed_grad_application = GradApplication.find_by_id(app_id)
-    # puts @reviewed_grad_application[:first_name]
-    #
-    # @grad_application_review = @reviewed_grad_application.grad_application_reviews
-    # @grad_application_review.update([:comments => par_comments, :score => :par_score]) ## faculty reviewer => current user
-    # @grad_application_review.save!
-    #
-    # redirect_to faculty_home_path
+  end
 
+
+  def update_application_review
+
+    grad_review_id = params.require(:review_id).keys[0]
+    par_comments = params[:comments]
+    par_score = params.require(:score_select)[:score]
+    if par_comments.empty? or par_comments == "Add your comments here"
+      par_comments = "Add your comments here"
+    end
+
+    review = GradAppReview.find_by_id(grad_review_id)
+    review.update(:comments => par_comments, :score => par_score)
+
+    if review.valid?
+      review.save!
+      redirect_to faculty_home_path
+    else
+      # flash errors
+      render faculty_review_grad_application_path
+    end
 
   end
 
-  def review_grad_application
-    # placeholder
-    # get the grad application ID
-    review_id = review_grad_application_params
-
-    @grad_application_review = GradApplication.find_by_id(review_id)
 
 
-  end
 
   def view_recommendation_letter
     # get the number of letter from the params,
@@ -97,73 +118,24 @@ class FacultyController < ApplicationController
 
   end
 
-  def submit_review
-
-    # go back to home page
-    # mark the application review to be true or something,
-    # or alternative way is to check on the home page that
-    #   the faculty user has comments, maybe application_review belongs to faculty?? might be the way to go
-  end
 
   def edit
     @user = current_user
-    @student = current_user.student
-    if @student.methods.include?(:degrees)
-      @degrees = @student.degrees
-    else
-      @degrees = nil
-    end
+    @faculty = current_user.faculty
+    # placeholder
   end
 
-  def update
-    #The params object is picky about where it receives data from. This is necessary with the current schema of the
-    # controller
 
-    sinfo = student_params
-    uinfo = user_params
-    @user = current_user
-    @user.update(:fname => uinfo[:fname], :lname => uinfo[:lname], :phone => uinfo[:phone])
-    @user.student.update(:address => sinfo[:address], :gender => sinfo[:gender], :citizenship => sinfo[:citizenship])
-    if @user.valid?
-      current_user.save
-      redirect_to users_path
-    else
-      flash[:errors] = @user.errors
-      flash[:info] = sinfo.merge(uinfo)
-      redirect_to users_edit_path
-    end
+  def update
+    #place holder
   end
 
   def delete
     flash[:notice] = "#{@current_user.username} account deleted"
-    @student = @current_user.student
-    @current_user.delete #TODO: ensure this will call user.delete and not student.delete
-    @student.delete
+    @faculty = @current_user.student
+    @current_user.delete
+    @faculty.delete
     redirect_to 'user/login'
-  end
-
-  def degree
-
-  end
-
-  def edit_degree
-
-  end
-  def degree_creation
-    dinfo = degree_params
-    degree = Degree.new(name: dinfo[:name], city: dinfo[:city], degree_type: dinfo[:degree_type], major:dinfo[:major], gpa: dinfo[:gpa])
-    if degree.valid?
-      degree.save
-      current_user.student.degrees << degree
-      session[:nav].delete("Continue Application")
-      session[:nav] = {"Continue Application": grad_application_new_path}.merge(session[:nav])
-      flash[:degree] = "Degree from " + dinfo[:name] + " successfully added. To finish, select continue application."
-      redirect_to students_degree_path
-    else
-      flash[:info] = dinfo
-      flash[:errors] = degree.errors
-      redirect_to students_degree_path
-    end
   end
 
   def new
