@@ -5,6 +5,5 @@ class AddPersonalInfoToUsers < ActiveRecord::Migration
     add_column :users, :phone, :text
     add_column :users, :lname, :text
     add_column :users, :fname, :text
-    add_column :users, :student_or_faculty, :text
   end
 end

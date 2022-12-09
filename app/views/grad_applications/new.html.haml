@@ -20,8 +20,8 @@
     %tbody
       %tr
         %td= label :grad_application, :first_name, 'First Name: '
-        %td= create_form_input_field :text_field, :grad_application, 'first_name'
-        %td= create_form_error :grad_application, 'first_name', flash[:requirement]['first_name'][0] if (flash[:requirement] and flash[:requirement]['first_name'])
+        %td= create_form_input_field :text_field, :grad_application, 'first_name', {:value => @grad_application.first_name, :class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+        %td= create_form_error :grad_application, 'first_name', flash[:requirement]['first_name'][0], {:class => "alert alert-danger"} if (flash[:requirement] and flash[:requirement]['first_name'])
         %td= label :grad_application, :ug_inst, 'Undergraduate Institute: '
         %td= create_form_input_field :text_field, :grad_application, 'ug_inst'
         %td= create_form_error :grad_application, 'ug_inst', flash[:requirement]['ug_inst'][0] if (flash[:requirement] and flash[:requirement]['ug_inst'])
