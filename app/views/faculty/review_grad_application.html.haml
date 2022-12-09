@@ -1,0 +1,82 @@
+%div{:class => "row"}
+  = new_header "Application Review for " + @user_to_review.fname.to_s + " " + @user_to_review.lname.to_s[0,1] + "."
+  = label :date, "date", "Date of Submission: " + @grad_application_review.date.to_s[0,10], {:align => "center"}
+  %hr
+  %div{:class => "col-sm-6", :align => "center", :style => "float:left"}
+    %h2.card-header Personal Info:
+    %div{:class => "column"}
+      = label :name, "name", "Name: " + @user_to_review.fname.to_s + " " + @user_to_review.lname.to_s, {:class => "form-control", :disabled => false}
+      = label :email, "email", "Email: " + @user_to_review.email.to_s, {:class => "form-control", :disabled => false}
+      = label :phone, "phone", "Phone: " + @user_to_review.phone.to_s, {:class => "form-control", :disabled => false}
+      = label :gender, "gender", "Gender: " + @student_to_review.gender.to_s, {:class => "form-control", :disabled => false}
+      = label :citizenship, "citizenship", "Citizenship: " + @student_to_review.citizenship.to_s, {:class => "form-control", :disabled => false}
+      = label :address, "address", "Address: " + @student_to_review.address.to_s, {:class => "form-control", :disabled => false}
+  %div{:class => "col-sm-6", :align => "center", :style => "float:right"}
+    %h2.card-header Recommendations:
+    %div{:class => "column"}
+      = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
+        = label :recommender_1, "recommender_1", "Recommender 1: " + @letter_of_recommendations[0].email.to_s, {:class => "form-control", :disabled => false}
+        = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
+      = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
+        = label :recommender_2, "recommender_2", "Recommender 2: " + @letter_of_recommendations[1].email.to_s, {:class => "form-control", :disabled => false}
+        = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
+      = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
+        = label :recommender_3, "recommender_3", "Recommender 3: " + @letter_of_recommendations[2].email.to_s, {:class => "form-control", :disabled => false}
+        = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
+%br
+%div{:class => "row", :align => "center"}
+  %h1.card-header Degrees:
+  - @degrees_to_review.each do |deg|
+    %h4.card-header
+      = label :deg_type, 'deg_type', deg.degree_type.to_s, {:align => "left", :style => "float:left"}
+    %h4
+      = label :deg_name, 'deg_name', "University: " + deg.name.to_s, {:class => "form-control", :disabled => false}
+      = label :deg_city, 'deg_city', "City: " + deg.city.to_s, {:class => "form-control", :disabled => false}
+      = label :deg_major, 'deg_major', "Major: " + deg.major.to_s, {:class => "form-control", :disabled => false}
+      = label :deg_gpa, 'deg_gpa', "GPA: " + deg.gpa.to_s, {:class => "form-control", :disabled => false}
+%br
+%div{:class => "row", :align => "center"}
+  %h1.card-header
+    = label :statement_of_purpose, 'statement_of_purpose', "Statement of Purpose: "
+  %br
+  %h4
+    %textarea{:name => "statement_of_purpose", :readonly => true, :rows => "8", :cols => "100", :style => "resize:none; font-color:black; font-family:Times New Roman; font-size:18px; white-space:pre-wrap"}
+      = @grad_application_review.statement_of_purpose.to_s
+%br
+%div{:class => "row", :align => "center"}
+  %h1.card-header Review Application:
+  - if !@faculty_review.nil?
+    = form_tag faculty_update_application_review_path do
+      %br
+      %br
+      %h4
+        = "Comments:"
+      %textarea{:name => "comments", :object => 'score_select', :rows => "8", :cols => "100", :style => "resize:none; font-color:black; font-family:Times New Roman; font-size:18px; white-space:pre-wrap"}
+        = @faculty_review.comments.to_s
+      %br
+      = text_field :app_id, @grad_application_review.id.to_s, {:hidden => true}
+      = text_field :review_id, @faculty_review.id.to_s, {:hidden => true}
+      %br
+      %h4
+        = "Application Score: "
+      = select :score_select, :score,  [0,1,2,3,4,5], {:selected => @faculty_review.score, :style => "width:400px"}
+      %hr
+      = submit_tag "Resubmit Review"
+  - else
+    = form_tag faculty_submit_application_review_path do
+      %br
+      %br
+      %h4
+        = "Comments:"
+      %textarea{:name => "comments", :object => 'score_select', :rows => "8", :cols => "100", :style => "resize:none; font-color:black; font-family:Times New Roman; font-size:18px; white-space:pre-wrap"}
+      %br
+      = text_field :app_id, @grad_application_review.id.to_s, {:hidden => true}
+      %br
+      %h4
+        = "Application Score: "
+      = select :score_select, :score, [0,1,2,3,4,5], {:style => "width:400px"}
+      %hr
+      = submit_tag "Submit Review"
+%br
+%br
+
