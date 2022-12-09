@@ -17,4 +17,9 @@ class User < ActiveRecord::Base
     self.fname + " " + self.lname
   end
 
+  def degrees
+    if not self.student.nil?
+      self.student.degrees
+    end
+  end
 end
