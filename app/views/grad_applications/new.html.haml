@@ -60,9 +60,14 @@
             -puts entry
           - @user.degrees.each do |degree|
 
-            %a{:class => "list-group-item list-group-action card-header javascript-degree-link", :id => "degree"+degree.id.to_s, :onclick => "show_degree('degree"+degree.id.to_s+"')"}= degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit "
-
-            %div.card-body{:style => "display:none", :id => "degree"+degree.id.to_s+"Form"}
+            -if flash["degree"+degree.id.to_s]
+              - display_type = "display:block"
+              - link_display = degree.degree_type + " of " + degree.major + " from " + degree.name
+            - else
+              - display_type = "display:none"
+              - link_display = degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit "
+            %a{:class => "list-group-item list-group-action card-header javascript-degree-link", :id => "degree"+degree.id.to_s, :onclick => "show_degree('degree"+degree.id.to_s+"')"}= link_display
+            %div.card-body{:style => display_type, :id => "degree"+degree.id.to_s+"Form"}
               %div{:class => "input-group"}
                 = create_form_input_field :text_field, "degrees["+degree.id.to_s+"]", "name", "Institution Name:", {:value => degree.name, :class => "form-control", :placeholder => "Name", :disabled => false}, {:class => "input-group-text"}
                 = create_form_error "degrees["+degree.id.to_s+"]", "name", flash["degree"+degree.id.to_s]["name"][0], {:class => "alert-danger input-group-text"} if (flash["degree"+degree.id.to_s] and flash["degree"+degree.id.to_s]["name"])
