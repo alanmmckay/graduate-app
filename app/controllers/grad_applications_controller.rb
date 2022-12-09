@@ -1,103 +1,3 @@
-# class GradApplicationController < ApplicationController
-#
-#   before_action :authorized
-#   before_filter :set_current_grad_application, :only=> %w[show edit update delete]
-#   def grad_application_params
-#     params.require(:grad_application).permit(:university, :date, :first_name, :last_name, :citizenship, :gender,
-#                                              :research_area, :deg_obj, :deg_obj_major, :ug_inst, :ug_inst_city,
-#                                              :ug_gpa, :ug_deg_earned, :grad_inst, :grad_inst_city, :grad_gpa,
-#                                              :grad_deg_earned, :recommender_1, :recommender_2, :recommender_3)
-#   end
-#
-#   def show
-#     # potentially assign an ID to every single GradApplications so they are all unique from each other
-#     last_name = params[:last_name] # retrieve GradApplications by searching last name, returns list maybe
-#     # if a list is returned, then maybe loop through till first name? or do something about same names
-#     @grad_application = GradApplication.find(last_name)# look up GradApplications by last name
-#   end
-#
-#   def create_student
-#
-#   end
-#   def create
-#
-#     @params = grad_application_params
-#     @grad_application = @current_grad_application
-#
-#     @grad_application.update(@params)
-#
-#     if @grad_application.valid?
-#       @grad_application.save!
-#       redirect_to ## grad_application_faculty_test_path #(student home page)
-#       flash[:notice] = "Application has been successfully submitted"
-#     else
-#       flash[:requirement] = @grad_application.errors
-#       render grad_application_new_path
-#     end
-#   end
-#
-#   def new
-#
-#     student = Student.find_by(:id => User.find_by(:email => session[:email]))
-#     @grad_application = student.grad_applications
-#
-#     if !student
-#       redirect_to students_new_path
-#     elsif student.degrees.length == 0
-#       redirect_to students_degree_path
-#     end
-#
-#
-#     # default: render 'new' template
-#   end
-#
-#   def update # Used for updating an GradApplications ? Maybe this won't be possible
-#     @grad_application = GradApplication.find params[:last_name]
-#     @grad_application.update_attributes!(grad_application_params)
-#     # flash[:notice] = "GradApplication was successfully updated."
-#     # redirect_to student home page
-#   end
-#
-#   def destroy # could be used for Withdrawing the GradApplication
-#     @grad_application = GradApplication.find(params[:id])
-#     @grad_application.destroy
-#     # flash[:notice] = "Your GradApplications has been deleted."
-#     # redirect_to student home page
-#   end
-#
-#   def index
-#     @user == User.find_by(:email => session[:email])
-#
-#   end
-#
-#
-#   def get_app_by_dep
-#
-#     # based on the filter for the applications
-#     applications_list = GradApplication.find_by_university("University of Iowa")
-#     #applications_list = GradApplication.all
-#
-#     1.upto 10 do |q|
-#       puts "&&&&&&&&&&&&&"
-#     end
-#     puts applications_list
-#     applications_list.each do |i|
-#       puts i[:first_name]
-#     end
-#
-#   end
-#
-#   def faculty_test
-#     @all_applications = GradApplication.all
-#     @all_applications.each do |app|
-#       puts app[:first_name]
-#     end
-#
-#   end
-#
-# end
-
-
 class GradApplicationsController < ApplicationController
 
   before_action :authorized
@@ -117,11 +17,16 @@ class GradApplicationsController < ApplicationController
     params.require(:letter_of_recommendation).permit(:university, :research_area, :deg_obj, :deg_obj_major, :statement_of_purpose, :recommender_1, :recommender_2, :recommender_3, :fname, :lname, :address, :phone, :citizenship, :gender)
   end
   def show
+    @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
+    @student_info = {:Gender => current_user.student.gender, :Citizenship => current_user.student.citizenship}
+    @degrees = current_user.degrees
+    application = current_user.student.grad_applications.find(params[:id])
+    @application_info = {:University => application.university, :Objective => application.deg_obj, "Field of Interest" => application.deg_obj_major, "Reasearch Area" => application.research_area, "Statement of Purpose" => application.statement_of_purpose}
 
   end
 
   def create
-    puts params
+
     uinfo = user_params
     sinfo = student_params
     ginfo = grad_application_params
@@ -145,6 +50,10 @@ class GradApplicationsController < ApplicationController
       letter_1.save
       letter_2.save
       letter_3.save
+      if session[:nav]["Continue Application"]
+        session[:nav].delete("Continue Application")
+        session[:nav] = {"View Applications" => applications_path}.merge(session[:nav])
+      end
       redirect_to applications_path
     else
       flash[:info] = uinfo.merge(sinfo).merge(ginfo).merge(linfo)
@@ -171,8 +80,29 @@ class GradApplicationsController < ApplicationController
 
   end
 
+  def edit
+    application = current_user.student.grad_applications.find(params[:id])
+    letters = application.letter_of_recommendations
+    @application_content = {}
+    @application_content[:university] = application.university
+    @application_content[:research_area] = application.research_area
+    @application_content[:deg_obj] = application.deg_obj
+    @application_content[:deg_obj_major] = application.deg_obj_major
+    @application_content[:recommender_1] = letters[0].email
+    @application_content[:recommender_2] = letters[1].email
+    @application_content[:recommender_3] = letters[2].email
+    @application_content[:statement_of_purpose] = application.statement_of_purpose
+    puts @application_content
+
+  end
+
   def index
-    @user == User.find_by(:email => session[:email])
+    applications = current_user.student.grad_applications
+    if applications.length > 1
+
+    else
+      redirect_to applications_show_path(applications[0].id)
+    end
 
   end
 
