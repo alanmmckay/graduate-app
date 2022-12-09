@@ -1,5 +1,8 @@
-= create_form_input_field :text_field, :user, "fname", "First Name", {:class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
-= create_form_error :user, "fname", flash[:login]["fname"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["fname"])
-= create_form_input_field :text_field, :user, "lname", "Last Name", {:class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
-= create_form_error :user, "lname", flash[:login]["lname"][0], {:class => "alert alert-danger"} if (flash[:login] and flash[:login]["lname"])
-= create_form_input_field :text_field, :user, "phone", "Phone Number", {:class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
+%div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "fname", "First Name", {:class => "form-control", :placeholder => "First Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :user, "fname", flash[:login]["fname"][0], {:class => "alert-danger input-group-text"} if (flash[:login] and flash[:login]["fname"])
+%div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "lname", "Last Name", {:class => "form-control", :placeholder => "Last Name", :disabled => false}, {:class => "input-group-text"}
+  = create_form_error :user, "lname", flash[:login]["lname"][0], {:class => "alert-danger input-group-text"} if (flash[:login] and flash[:login]["lname"])
+%div{:class => "input-group"}
+  = create_form_input_field :text_field, :user, "phone", "Phone Number", {:class => "form-control", :placeholder => "Phone Number", :disabled => false}, {:class => "input-group-text"}
