@@ -22,14 +22,32 @@ Rails.application.routes.draw do
   get 'students/degree_creation', to: 'students#degree'
 
   # Get methods in regards to the grad_applications controller.
-  get 'users/applications', to: 'grad_application#index'
-  get 'users/applications/new', to: 'grad_application#new'
-  get 'grad_application/new', to: 'grad_application#new'
+  get 'applications/', to: 'grad_applications#index'
+  get 'applications/new', to: 'grad_applications#new'
+  get 'applications/show/:id', to: 'grad_applications#show', as: 'applications_show'
+
+  get 'applications/edit/:id', to: 'grad_applications#edit', as: 'applications_edit'
 
   # Get methods in regards to the degrees controller.
   get 'degrees/edit/:id', to: 'degrees#edit'
   get 'degrees/update' #this will be used for redirection
   get 'degrees/edit' #this will be used for redirection
+  get 'degrees/application_update'
+
+  # Get methods in regards to the faculty controller.
+  get 'faculty/home', to: 'faculties#home'
+  get 'faculty/review_grad_application', to: 'faculties#review_grad_application'
+  get 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  get 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+
+  put 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+  put 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+
+  post 'faculty/submit_application_review', to: 'faculties#submit_application_review'
+  post 'faculty/update_application_review', to: 'faculties#update_application_review'
+  post 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  post 'faculty/home', to: 'faculties#home'
+
 
   #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
 
@@ -44,13 +62,19 @@ Rails.application.routes.draw do
   post 'students/degree_creation', to: 'students#degree_creation'
   post 'students/update', to: 'students#update'
 
-  post 'grad_application/create', to: 'grad_application#create'
+  post 'applications/create', to: 'grad_applications#create'
+  post 'applications/withdraw/:id', to: 'grad_applications#destroy', as: 'applications_withdraw'
   #This post will insert the degree into the relevant degrees collection. It...
   #... will then present a page represented within degree_creation.html.haml
   #... which allows the insertion of another degree. This process could be...
   #... made to be more concise; will likely change:
 
+  get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
+  put 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update'
+
+  post 'degrees/edit/:id', to: 'degrees#application_edit'
   put 'degrees/update/:id', to: 'degrees#update'
+  put 'degrees/application_update/:id', to: 'degrees#application_update'
 
   get 'users/error', to: 'users#error' #uncertain if this is being used
   root 'users#landing'
