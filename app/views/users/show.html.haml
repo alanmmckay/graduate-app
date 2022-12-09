@@ -6,6 +6,8 @@
 %p It is within here navigation to various resources may occur, such as comparing schools. Navigation pertaining to this profile and the graduation application process are also included in the navigation bar above.
 %hr
 %div.card
+  -if flash[:notice]
+    %span.alert.alert-warning #{flash[:notice]}
   %h2.card-header User information:
   %ul.card-body
     - @user_info.each do |attribute, value|
@@ -21,7 +23,4 @@
       %li.list-group-item
         %div.card
           %h3.card-header Degrees listed:
-          %ul.card-body
-            - @degrees.each do |degree|
-              %li.list-group-item= degree.degree_type + " of " + degree.major + " from " + degree.name
-
+          =render :file => 'layouts/list_degrees.html.haml'
