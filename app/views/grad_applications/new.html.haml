@@ -56,10 +56,7 @@
       %div.list-group.card
         %span.card-header Degrees obtained:
         %span.card-body
-          - flash.each do |entry|
-            -puts entry
           - @user.degrees.each do |degree|
-
             -if flash["degree"+degree.id.to_s]
               - display_type = "display:block"
               - link_display = degree.degree_type + " of " + degree.major + " from " + degree.name

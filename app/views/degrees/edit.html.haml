@@ -1,5 +1,4 @@
 = new_header "Degree edit page for Graduate Application"
-- puts params
 - if params['path'] == 'grad_application'
   - submit_path = degrees_application_update_path+'/'+@degree.id.to_s
   - cancel_path = applications_new_path
