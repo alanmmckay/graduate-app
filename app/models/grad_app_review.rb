@@ -1,5 +1,4 @@
-class GradApplicationReview < ActiveRecord::Base
-
+class GradAppReview < ActiveRecord::Base
 
   belongs_to :grad_application
   belongs_to :faculty
