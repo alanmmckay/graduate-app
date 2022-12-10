@@ -40,8 +40,8 @@
     = label :statement_of_purpose, 'statement_of_purpose', "Statement of Purpose: "
   %br
   %h4
-    %textarea{:name => "statement_of_purpose", :readonly => true, :rows => "8", :cols => "100", :style => "resize:none; font-color:black; font-family:Times New Roman; font-size:18px; white-space:pre-wrap"}
-      = @grad_application_review.statement_of_purpose.to_s
+    %p{:name => "statement_of_purpose", :align => "center", :style => "font-size:12px; float:middle"}
+      = @statement_of_purpose.html_safe
 %br
 %div{:class => "row", :align => "center"}
   %h1.card-header Review Application:
