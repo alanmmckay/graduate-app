@@ -9,9 +9,14 @@ class FacultiesController < ApplicationController
   def review_grad_application_params
     params.require(:id)
   end
+
   def submit_application_review_params
     params.require(:comments)
     params.require(:score_select)
+  end
+
+  def scrub_html(string)
+    string.gsub(/<div class="ql-editor" data-gramm="false" contenteditable="true">/,"<div class='ql-editor' data-gramm='false' contenteditable='false'>").gsub(/<\s*s\s*c\s*r\s*i\s*p\s*t\s*/,"").gsub(/<\s*\/\s*s\s*c\s*r\s*i\s*p\s*t\s*>/,"")
   end
 
   def create
@@ -19,7 +24,6 @@ class FacultiesController < ApplicationController
     @user = current_user
 
   end
-
 
   def home
 
@@ -55,6 +59,8 @@ class FacultiesController < ApplicationController
     @user_to_review = User.find_by_id(@student_to_review[:user_id])
     @degrees_to_review = Degree.where(student_id: @student_to_review.id)
     @faculty_review = GradAppReview.where(faculty_id: current_user.faculty.id, grad_application_id: review_id)[0]
+
+    @statement_of_purpose = scrub_html(@grad_application_review.statement_of_purpose.to_s)
 
     render faculty_review_grad_application_path
 
