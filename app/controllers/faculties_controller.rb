@@ -29,6 +29,16 @@ class FacultiesController < ApplicationController
 
     faculty_university = current_user.faculty.university
 
+    if !params[:application_sort].nil?
+      @app_filter = params[:application_sort][:select_application_sort]
+    else
+      @app_filter = "All Applications"
+    end
+    puts @app_filter
+    puts @app_filter
+    puts @app_filter
+    puts @app_filter
+
     @grad_applications = GradApplication.where(university: faculty_university)
     @students_with_apps = []
     @user_students_with_apps = []
