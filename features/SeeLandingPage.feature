@@ -1,11 +1,16 @@
-Feature: see landing page
+Feature: see user landing page
   As a user
   I would like to see a landing page so that I know I've accessed the page.
 
-Background:
+  Background: users have logged in
 
-  Given I am on the home page
+    Given the following users have accounts:
+      | email         | password | first_name | last_name |
+      | alan@test.com | test123  | Alan       |  Smith    |
+    Then 1 users should exist
+    When I am on the home page
+    And I have logged in with "alan@test.com" and "test123"
 
 Scenario: see landing page
-  When I follow the link to the website
-  Then I should see a landing page that says "Landing page"
+  Then I should see "landing page"
+  And I should see "User information"

@@ -82,7 +82,8 @@ class UsersController < ApplicationController
 
   def login
     info = login_params
-    @user = User.find_by(email:info[:email].downcase)
+    info[:email] = info[:email].downcase
+    @user = User.find_by(email:info[:email])
     if @user and @user.authenticate(info[:password])
       session[:email] = info[:email].downcase
       session[:nav] = {"Log out" => users_logout_path}

@@ -6,7 +6,7 @@ Feature: create a new account
 Background:
 
   Given the following users have accounts:
-    | email                     | password           | first_name       | last_name |
+    | email                        | password           | first_name       | last_name |
     | fred.uiowaSELT@example.com   | password1234       | Fred             | Smith     |
     | sally.uiowaSELT@example.com  | sally4321          | Sally            | Jones     |
 
@@ -14,7 +14,7 @@ Background:
   Then 2 users should exist
 
 # Happy paths
-Scenario: new applicant user
+Scenario: new valid user
   When I click "Register"
   And I input "frank123@example.com" for "Email"
   And I input "password123" for "Password"
@@ -23,6 +23,12 @@ Scenario: new applicant user
   And I input "Stevens" for "Last Name"
   And I click "Create Account"
   Then I should see "Account has been created. Please sign in"
+
+Scenario: cancel
+  When I click "Register"
+  Then I should see "Go Back"
+  When I click "Go Back"
+  Then I should see "Coming Soon"
 
 # Sad paths
 Scenario: account already exists
