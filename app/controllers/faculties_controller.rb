@@ -34,10 +34,6 @@ class FacultiesController < ApplicationController
     else
       @app_filter = "All Applications"
     end
-    puts @app_filter
-    puts @app_filter
-    puts @app_filter
-    puts @app_filter
 
     @grad_applications = GradApplication.where(university: faculty_university)
     @students_with_apps = []
@@ -79,7 +75,7 @@ class FacultiesController < ApplicationController
 
   def submit_application_review
     par_score = params.require(:score_select)[:score]
-    par_comments = params[:comments]
+    par_comments = params.require(:grad_application)[:comments]
     app_id = params.require(:app_id).keys[0]
 
     if par_comments.empty?
@@ -106,7 +102,7 @@ class FacultiesController < ApplicationController
   def update_application_review
 
     grad_review_id = params.require(:review_id).keys[0]
-    par_comments = params[:comments]
+    par_comments = params.require(:grad_application)[:comments]
     par_score = params.require(:score_select)[:score]
     if par_comments.empty? or par_comments == "Add your comments here"
       par_comments = "Add your comments here"
