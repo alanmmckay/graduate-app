@@ -6,16 +6,30 @@ module ApplicationHelper
     session[:header] = header_text
     render :file => 'layouts/header.html.haml'
   end
-  def is_student?(user)
-    user.methods.include?(:student)
+
+  class EmailValidator < ActiveModel::Validator
+    def validate(record)
+      if not URI::MailTo::EMAIL_REGEXP.match?(record.email)
+        record.errors.add :email, "Invalid email given"
+      end
+    end
   end
+
   def has_degree?(user)
-    user.student.degrees.exists?
+    user.degrees.exists? and user.degrees.length > 0
   end
-  class FormHelper::InvalidSymbolError < StandardError ; end
+
+  def has_application?(user)
+    user.student.grad_applications.exists? and user.student.grad_applications.length > 0
+  end
+  def has_script?(html)
+    html.include?("<script") or html.include?("</script>")
+  end
 
   # === === === === === === === === === === === === === === === === === === === === #
   # -- Functions pertaining to form_input. Perhaps rename 'suffix' and 'compatible?'.
+
+  class FormHelper::InvalidSymbolError < StandardError ; end
 
   def suffix(helper_sym)
     affix = helper_sym.to_s.split('_')

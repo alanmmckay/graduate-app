@@ -30,9 +30,12 @@ Rails.application.routes.draw do
 
   # Get methods in regards to the degrees controller.
   get 'degrees/edit/:id', to: 'degrees#edit'
+
+  get 'auth/:provider/callback' => 'sessions#omniauth'
+
   get 'degrees/update' #this will be used for redirection
   get 'degrees/edit' #this will be used for redirection
-  get 'degrees/application_update'
+  get 'degrees/application_update' #this will be used for redirection
 
   # Get methods in regards to the faculty controller.
   get 'faculty/home', to: 'faculties#home'
@@ -49,7 +52,7 @@ Rails.application.routes.draw do
   post 'faculty/home', to: 'faculties#home'
 
 
-  #get 'users/applications/show/:id', to: 'grad_application#show', as: 'application'
+  #get 'users/applications/show/:id', to: 'grad_applications#show', as: 'application'
 
   # Post methods in regards to the users controller.
   post 'users/', to: 'users#login'
@@ -68,6 +71,8 @@ Rails.application.routes.draw do
   #... will then present a page represented within degree_creation.html.haml
   #... which allows the insertion of another degree. This process could be...
   #... made to be more concise; will likely change:
+
+
 
   get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
   put 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update'

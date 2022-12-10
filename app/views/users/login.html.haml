@@ -1,4 +1,4 @@
-%div{:class => "row"}
+%div{:class => "row",:style => "max-width:1048px;margin:auto"}
   = new_header "Landing Page for Graduate Application"
   %hr
   %div{:class => "col-sm-8"}
@@ -7,3 +7,9 @@
   %div{:class => "col-sm-4"}
     = render :file => 'layouts/login.html.haml'
     = link_to 'Register', users_new_path, {:class => "link-primary"}
+    %br
+    %br
+    %div.card
+      %div.card-header Alternatively, Sign in with Google:
+      %div.card-body
+        = button_to "Log in with Google", '/auth/google_oauth2', {:class => 'btn btn-primary'}
