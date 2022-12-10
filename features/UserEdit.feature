@@ -1,4 +1,4 @@
-Feature: UserEdit
+Feature: Edit user information
   As a new user of this website
   So that I can confirm my personal information
   I would like to update this information
