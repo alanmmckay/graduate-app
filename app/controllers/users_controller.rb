@@ -101,13 +101,14 @@ class UsersController < ApplicationController
           application_path = {"Continue Application" => students_degree_path }
         end
         application_path = application_path.merge({"Edit Student Information" => students_edit_path})
-      elsif !@user.faculty.nil?
-        application_path = faculty_home_path
-        redirect_to faculty_home_path
       else
         application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
       end
-      if @user.faculty.nil?
+      if is_faculty? @user
+        application_path = {"View Applications" => faculty_home_path}
+        session[:nav] = application_path.merge(session[:nav])
+        redirect_to faculty_home_path
+      else
         session[:nav] = application_path.merge(session[:nav])
         redirect_to users_show_path
       end
