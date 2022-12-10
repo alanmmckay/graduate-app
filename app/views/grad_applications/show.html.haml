@@ -5,7 +5,7 @@
   - session[:nav] = {"View Application" => applications_show_path(params[:id])}.merge(session[:nav])
 - else
   - session[:nav] = {"Current Application" => applications_show_path(params[:id])}.merge(session[:nav])
-= new_header "show"
+= new_header "Student View Application Page"
 %br
 %div.row
   %div{:id => "statementModal", :class => "modal fade", :tabindex=>"-1", "area-labelledby" => "statementModalLabel", "aria-hidden" => "true"}

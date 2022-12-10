@@ -30,9 +30,27 @@ Rails.application.routes.draw do
 
   # Get methods in regards to the degrees controller.
   get 'degrees/edit/:id', to: 'degrees#edit'
+
+  get 'auth/:provider/callback' => 'sessions#omniauth'
+
   get 'degrees/update' #this will be used for redirection
   get 'degrees/edit' #this will be used for redirection
   get 'degrees/application_update' #this will be used for redirection
+
+  # Get methods in regards to the faculty controller.
+  get 'faculty/home', to: 'faculties#home'
+  get 'faculty/review_grad_application', to: 'faculties#review_grad_application'
+  get 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  get 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+
+  put 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+  put 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+
+  post 'faculty/submit_application_review', to: 'faculties#submit_application_review'
+  post 'faculty/update_application_review', to: 'faculties#update_application_review'
+  post 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  post 'faculty/home', to: 'faculties#home'
+
 
   #get 'users/applications/show/:id', to: 'grad_applications#show', as: 'application'
 
@@ -55,10 +73,12 @@ Rails.application.routes.draw do
   #... made to be more concise; will likely change:
 
 
+
   get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit', as: 'letter_of_recommendation_edit'
   get 'letter_of_recommendation/show/:id', to: 'letter_of_recommendation#show', as: 'letter_of_recommendation_show'
   post 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update', as: 'letter_of_recommendation_update'
   post 'letter_of_recommendation/submit/:id', to: 'letter_of_recommendation#submit', as: 'letter_of_recommendation_submit'
+
 
   post 'degrees/edit/:id', to: 'degrees#application_edit'
   put 'degrees/update/:id', to: 'degrees#update'
