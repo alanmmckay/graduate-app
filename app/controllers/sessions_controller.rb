@@ -11,7 +11,10 @@ class SessionsController < ApplicationController
     end
   end
   def omniauth
-    user = User.from_omniauth(request.env['omniauth.auth'])
+    #user = User.from_omniauth(request.env['omniauth.auth'])
+    flash[:auth_info] = User.from_omniauth(request.env['omniauth.auth'])
+    redirect_to users_login_path
+=begin
     if user
       flash[:notice] = "You've signed in."
       session[:email] = user.email
@@ -20,6 +23,7 @@ class SessionsController < ApplicationController
       flash[:alert] = "There was a problem signing in. Please try again."
       redirect_to users_login_path
     end
+=end
   end
 
   def destroy

@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
 
 
   def self.from_omniauth(response)
-    User.find_or_create_by(uid: response[:uid], provider: response[:provider]) do |u|
-      u.email = response[:info][:email]
-      u.password = SecureRandom.hex(15)
-    end
+    {:email => response[:info][:email], :fname => response[:info][:first_name], :lname => response[:info][:last_name]}
+    #User.find_or_create_by(uid: response[:uid], provider: response[:provider]) do |u|
+    #  u.email = response[:info][:email]
+    #  u.password = SecureRandom.hex(15)
   end
 
   def name
