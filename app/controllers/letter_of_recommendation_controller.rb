@@ -49,7 +49,7 @@ class LetterOfRecommendationController < ApplicationController
     letter_of_recommendation = LetterOfRecommendation.new(:email => email, :url => url)
 
     if letter_of_recommendation.valid?
-      Letter.email_recommender(user: user, url: url,email: email).deliver_now
+      #Letter.email_recommender(user: user, url: url,email: email).deliver_now
     end
 
     letter_of_recommendation #this could have error messages associated; will need to check at higher scope
