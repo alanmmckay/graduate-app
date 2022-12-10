@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  #
+
   def current_user
     if session[:email]
       @user = User.find_by(email:session[:email])
@@ -19,8 +19,16 @@ class ApplicationController < ActionController::Base
     !user.student.nil?
   end
   def has_degree?(user)
-    user.student.degrees.exists? and user.student.degrees.length > 0
+    user.degrees.exists? and user.degrees.length > 0
   end
+
+  def has_application?(user)
+    user.student.grad_applications.exists? and user.student.grad_applications.length > 0
+  end
+  def has_script?(html)
+    html.include?("<script") or html.include?("</script>")
+  end
+
   protect_from_forgery with: :exception
 
   protected

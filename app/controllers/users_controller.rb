@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         @student_info = {:Address => student.address, :Citizenship => student.citizenship, :Gender => student.gender}
         @user_info = @user_info.merge(@student_info)
         if has_degree? current_user
-          @degrees = @user.student.degrees
+          @degrees = @user.degrees
         end
       end
     else
@@ -85,14 +85,23 @@ class UsersController < ApplicationController
     info[:email] = info[:email].downcase
     @user = User.find_by(email:info[:email])
     if @user and @user.authenticate(info[:password])
-      session[:email] = info[:email]
+      session[:email] = info[:email].downcase
       session[:nav] = {"Log out" => users_logout_path}
       if is_student? @user
         if has_degree? @user
-          application_path = {"Continue Application" => "#", "Edit User Information" => students_edit_path }
+          if has_application? @user
+            if @user.student.grad_applications.length > 1
+              application_path = {"View Applications" => applications_path}
+            else
+              application_path = {"View Application" => applications_path}
+            end
+          else
+            application_path = {"Continue Application" => applications_new_path }
+          end
         else
-          application_path = {"Continue Application" => students_degree_path, "Edit User Information" => students_edit_path }
+          application_path = {"Continue Application" => students_degree_path }
         end
+        application_path = application_path.merge({"Edit Student Information" => students_edit_path})
       else
         application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
       end
@@ -108,6 +117,10 @@ class UsersController < ApplicationController
     session[:email] = nil
     session[:nav] = nil
     redirect_to users_login_path
+  end
+
+  def index
+    @users = User.all
   end
 
 end
