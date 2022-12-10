@@ -55,6 +55,10 @@ class LetterOfRecommendationController < ApplicationController
     letter_of_recommendation #this could have error messages associated; will need to check at higher scope
   end
 
+  def index
+    @letter_of_recommendations = LetterOfRecommendation.all
+  end
+
   def create
     params = letter_of_recommendation_params
     letter = self.create_letter(params[:email],current_user)
