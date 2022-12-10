@@ -11,7 +11,15 @@ class LetterOfRecommendationController < ApplicationController
 
   def update
     letter = letter_of_recommendation_params[:letter]
-    LetterOfRecommendation.find_by_url([:id]).update(:letter => letter)
+    if params[:submit].to_bool
+      LetterOfRecommendation.find_by_url(params[:id]).update(:letter => letter,:submitted => true)
+      flash[:notice] = 'Letter of recommendation successfully submitted'
+      redirect_to users_login_path
+    else
+      LetterOfRecommendation.find_by_url(params[:id]).update(:letter => letter,:submitted => false)
+      flash[:notice] = 'Letter of recommendation successfully saved'
+      redirect_to letter_of_recommendation_update_path+'/'+params[:id].to_s
+    end
   end
 
   def self.create_letter(email, user)
