@@ -7,10 +7,19 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false, message: "Email already in use"}, on: :create
   validates_with ApplicationHelper::EmailValidator
   has_one :student
+  has_one :faculty
   after_initialize :init
 
   def init
     self.phone ||= ""
+  end
+
+
+  def self.from_omniauth(response)
+    {:email => response[:info][:email], :fname => response[:info][:first_name], :lname => response[:info][:last_name]}
+    #User.find_or_create_by(uid: response[:uid], provider: response[:provider]) do |u|
+    #  u.email = response[:info][:email]
+    #  u.password = SecureRandom.hex(15)
   end
 
   def name
@@ -22,4 +31,5 @@ class User < ActiveRecord::Base
       self.student.degrees
     end
   end
+
 end

@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
     html.include?("<script") or html.include?("</script>")
   end
 
+  def is_faculty?(user)
+    !user.faculty.nil?
+  end
   protect_from_forgery with: :exception
 
   protected

@@ -17,3 +17,6 @@
 
 # Ignore all idea files
 /.idea
+
+
+/.env

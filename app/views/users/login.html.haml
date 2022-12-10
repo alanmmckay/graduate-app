@@ -7,3 +7,17 @@
   %div{:class => "col-sm-4"}
     = render :file => 'layouts/login.html.haml'
     = link_to 'Register', users_new_path, {:class => "link-primary"}
+    %br
+    %br
+    %div.card
+      %div.card-header Alternatively, Sign in with Google:
+      %div.card-body
+        = button_to "Log in with Google", '/auth/google_oauth2', {:class => 'btn btn-primary'}
+        %br
+        %div.card
+          %div.card-header Feature not fully implemented; database not primed.
+          - if flash[:auth_info]
+            %ul.card-body
+              %li.list-group-item= flash[:auth_info]["email"]
+              %li.list-group-item= flash[:auth_info]["fname"]
+              %li.list-group-item= flash[:auth_info]["lname"]

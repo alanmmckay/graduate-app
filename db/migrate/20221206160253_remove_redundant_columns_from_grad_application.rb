@@ -8,7 +8,7 @@ class RemoveRedundantColumnsFromGradApplication < ActiveRecord::Migration
     remove_column :grad_applications, :ug_inst_city, :string
     remove_column :grad_applications, :ug_gpa, :string
     remove_column :grad_applications, :ug_deg_earned, :string
-    remove_column :grad_applications, :grad_isnt, :string
+    remove_column :grad_applications, :grad_inst, :string
     remove_column :grad_applications, :grad_inst_city, :string
     remove_column :grad_applications, :grad_gpa, :string
     remove_column :grad_applications, :grad_deg_earned, :string

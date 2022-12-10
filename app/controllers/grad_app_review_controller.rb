@@ -1,0 +1,3 @@
+class GradAppReviewController < ApplicationController
+
+end
