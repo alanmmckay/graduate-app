@@ -37,6 +37,21 @@ Rails.application.routes.draw do
   get 'degrees/edit' #this will be used for redirection
   get 'degrees/application_update' #this will be used for redirection
 
+  # Get methods in regards to the faculty controller.
+  get 'faculty/home', to: 'faculties#home'
+  get 'faculty/review_grad_application', to: 'faculties#review_grad_application'
+  get 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  get 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+
+  put 'faculty/view_recommendation_letter', to: 'faculties#view_recommendation_letter'
+  put 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+
+  post 'faculty/submit_application_review', to: 'faculties#submit_application_review'
+  post 'faculty/update_application_review', to: 'faculties#update_application_review'
+  post 'faculty/review_grad_application/:id', to: 'faculties#review_grad_application'
+  post 'faculty/home', to: 'faculties#home'
+
+
   #get 'users/applications/show/:id', to: 'grad_applications#show', as: 'application'
 
   # Post methods in regards to the users controller.
@@ -56,6 +71,7 @@ Rails.application.routes.draw do
   #... will then present a page represented within degree_creation.html.haml
   #... which allows the insertion of another degree. This process could be...
   #... made to be more concise; will likely change:
+
 
 
   get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'

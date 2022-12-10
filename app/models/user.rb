@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: {case_sensitive: false, message: "Email already in use"}, on: :create
   validates_with ApplicationHelper::EmailValidator
   has_one :student
+  has_one :faculty
   after_initialize :init
 
   def init
@@ -30,4 +31,5 @@ class User < ActiveRecord::Base
       self.student.degrees
     end
   end
+
 end
