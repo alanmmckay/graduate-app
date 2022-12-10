@@ -32,6 +32,10 @@ class LetterOfRecommendationController < ApplicationController
 
   def show
     @letter_of_recommendation = LetterOfRecommendation.find_by_url(params[:id])
+    if @letter_of_recommendation.submitted == true
+      flash[:warning] = 'Letter of recommendation already submitted'
+      redirect_to users_login_path and return
+    end
   end
 
   def self.create_letter(email, user)
