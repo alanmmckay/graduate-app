@@ -15,16 +15,25 @@
         = label :address, "address", "Address: " + @student_to_review.address.to_s, {:class => "form-control", :disabled => false}
     %div.card.col-md-6
       %h2.card-header Recommendations:
-      %div.card-body
-        = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
-          = label :recommender_1, "recommender_1", "Recommender 1: " + @letter_of_recommendations[0].email.to_s, {:class => "form-control", :disabled => false}
-          = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
-        = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
-          = label :recommender_2, "recommender_2", "Recommender 2: " + @letter_of_recommendations[1].email.to_s, {:class => "form-control", :disabled => false}
-          = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
-        = form_tag faculty_review_grad_application_path + '/'+ @grad_application_review.id.to_s + '/' + faculty_view_recommendation_letter_path do
-          = label :recommender_3, "recommender_3", "Recommender 3: " + @letter_of_recommendations[2].email.to_s, {:class => "form-control", :disabled => false}
-          = submit_tag "View Letter", {:class => "form-control", :disabled => false, :style => "color:black; background-color:lightgrey; text-decoration:underline"}
+      - @letter_of_recommendations.each do |letter|
+        %div{:id => "letterModal"+letter.id.to_s, :class => "modal fade", :tabindex=>"-1", "area-labelledby" => "statementModalLabel", "aria-hidden" => "true"}
+          %div{:class => "modal-dialog modal-xl modal-fullscreen-lg-down"}
+            %div{:class => "modal-content"}
+              %div{:class => "modal-header"}
+                %h5{:id => "letterModal"+letter.id.to_s+"Label", :class =>"modal-title"} Letter of Recommendation
+                %button{:class => "btn-close", "data-bs-dismiss" => "modal", "aria-label" => "Close"}
+              %div{:class => "modal-body"}
+                =letter.letter.html_safe
+              %div{:class => "modal-footer"}
+                %button{:class => "btn btn-secondary", :type => "button", "data-bs-dismiss" =>"modal" } Close
+        %ul.card-body
+          %li.list-group-item= "Recommender 1: " + letter.email.to_s
+          %li.list-group-item
+            - if letter.submitted
+              %button{:id => "letter"+letter.id.to_s+"Button", :class => "btn btn-alternative", "data-bs-toggle" => "modal", "data-bs-target" => "#letterModal"+letter.id.to_s} View Letter of Recommendation
+            - else
+              %button{:id => "letter"+letter.id.to_s+"Button", :class => "btn btn-alternative", "data-bs-toggle" => "modal", "data-bs-target" => "#letterModal"+letter.id.to_s, :disabled=>true} Letter not submitted
+
   %br
   %div.row.card
     %h1.card-header Degrees Earned:
