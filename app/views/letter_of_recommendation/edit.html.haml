@@ -1,7 +1,7 @@
-%h1 Letter of Recommendation for #{@student.user.fname} #{@student.user.lname}
-- submit_path = letter_of_recommendation_update_path+'/'+@letter_of_recommendation.id.to_s
+%h1 Letter of Recommendation for #{@student.user.name}
+- submit_path = letter_of_recommendation_update_path+'/'+@letter_of_recommendation.url.to_s
 %hr
-= form_tag submit_path+'/true' do
+= form_tag submit_path+'/false' do
   - if flash[:notice]
     %div{class: 'alert alert-warning'}
       = flash[:notice]
@@ -20,4 +20,3 @@
       %script var output_content = document.getElementById('letter_of_recommendation_letter'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
     %br
     = submit_tag 'Submit Letter of Recommendation', {:class => "btn btn-alternative", :type => 'submit', :disabled => true}
-= link_to "Save & Continue", submit_path+'/false'
