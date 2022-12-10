@@ -2,32 +2,57 @@
   = new_header "Faculty Home"
   %hr
   %div{:class => "row"}
-    = form_tag faculty_home_path, :method => :get do
-      = check_box_tag "unreviewed_applications", "Unreviewed Applications", :id => "unreviewed_applications"
-      = "Unreviewed Applications"
-      = check_box_tag "reviewed_applications", "Reviewed Applications", :id => "reviewed_applications"
-      = "Reviewed Applications"
-      = submit_tag "Filter"
+    %div
+      = form_tag faculty_home_path, :method => :get do
+        = select :application_sort, :select_application_sort, ["All Applications", "Unreviewed Applications", "Reviewed Applications"], {:selected => @app_filter}
+        = submit_tag "Refresh"
+    %br
     %br
     %h1.card-header Applications:
     - 0.upto(@grad_applications.length - 1) do |idx|
-      = form_tag faculty_review_grad_application_path+'/'+@grad_applications[idx].id.to_s, {class: "card", method: :put} do
-        %div.card-body
-        - if @faculty_reviews[idx]
+      - if @app_filter == "Reviewed Applications" and @faculty_reviews[idx]
+        = form_tag faculty_review_grad_application_path+'/'+@grad_applications[idx].id.to_s, {class: "card", method: :put} do
+          %div.card-body
           %h5
             = label :review_status, 'review_status', "Reviewed", {:style => "color:grey"}
-        - else
-          %h5
-            = label :review_status, 'review_status', "Unreviewed", {:style => "color:grey"}
-        %h3
-          = label :name, "name", "Name: " + @user_students_with_apps[idx].fname.to_s + " " + @user_students_with_apps[idx].lname.to_s, {:align => "left", :style => "float:left"}
-          = label :degree_objective, "degree_objective", "Degree Objective: " + @grad_applications[idx].deg_obj.to_s + " in " + @grad_applications[idx].deg_obj_major.to_s, {:align => "right", :style => "float:right"}
+          %h3
+            = label :name, "name", "Name: " + @user_students_with_apps[idx].fname.to_s + " " + @user_students_with_apps[idx].lname.to_s, {:align => "left", :style => "float:left"}
+            = label :degree_objective, "degree_objective", "Degree Objective: " + @grad_applications[idx].deg_obj.to_s + " in " + @grad_applications[idx].deg_obj_major.to_s, {:align => "right", :style => "float:right"}
+            %br
+            = label :citizenship, "citizenship", "Citizenship: " + @students_with_apps[idx].citizenship.to_s, {:align => "left", :style => "float:left"}
+            = label :research_area, "research_area", "Research Area: " + @grad_applications[idx].research_area.to_s, {:align => "right", :style => "float:right"}
+          = submit_tag "Review Application", {:align => "center", :style => "font-size:24px; float:center"}
           %br
-          = label :citizenship, "citizenship", "Citizenship: " + @students_with_apps[idx].citizenship.to_s, {:align => "left", :style => "float:left"}
-          = label :research_area, "research_area", "Research Area: " + @grad_applications[idx].research_area.to_s, {:align => "right", :style => "float:right"}
-        = submit_tag "Review Application", {:align => "center", :style => "font-size:24px; float:center"}
-        %br
-
+      - elsif @app_filter == "Unreviewed Applications" and @faculty_reviews[idx] == false
+        = form_tag faculty_review_grad_application_path+'/'+@grad_applications[idx].id.to_s, {class: "card", method: :put} do
+          %div.card-body
+          %h5
+            = label :unreviewed_status, 'unreviewed_status', "Unreviewed", {:style => "color:grey"}
+          %h3
+            = label :name, "name", "Name: " + @user_students_with_apps[idx].fname.to_s + " " + @user_students_with_apps[idx].lname.to_s, {:align => "left", :style => "float:left"}
+            = label :degree_objective, "degree_objective", "Degree Objective: " + @grad_applications[idx].deg_obj.to_s + " in " + @grad_applications[idx].deg_obj_major.to_s, {:align => "right", :style => "float:right"}
+            %br
+            = label :citizenship, "citizenship", "Citizenship: " + @students_with_apps[idx].citizenship.to_s, {:align => "left", :style => "float:left"}
+            = label :research_area, "research_area", "Research Area: " + @grad_applications[idx].research_area.to_s, {:align => "right", :style => "float:right"}
+          = submit_tag "Review Application", {:align => "center", :style => "font-size:24px; float:center"}
+          %br
+      - elsif @app_filter == "All Applications"
+        = form_tag faculty_review_grad_application_path+'/'+@grad_applications[idx].id.to_s, {class: "card", method: :put} do
+          %div.card-body
+          - if @faculty_reviews[idx]
+            %h5
+              = label :review_status, 'review_status', "Reviewed", {:style => "color:grey"}
+          - else
+            %h5
+              = label :review_status, 'review_status', "Unreviewed", {:style => "color:grey"}
+          %h3
+            = label :name, "name", "Name: " + @user_students_with_apps[idx].fname.to_s + " " + @user_students_with_apps[idx].lname.to_s, {:align => "left", :style => "float:left"}
+            = label :degree_objective, "degree_objective", "Degree Objective: " + @grad_applications[idx].deg_obj.to_s + " in " + @grad_applications[idx].deg_obj_major.to_s, {:align => "right", :style => "float:right"}
+            %br
+            = label :citizenship, "citizenship", "Citizenship: " + @students_with_apps[idx].citizenship.to_s, {:align => "left", :style => "float:left"}
+            = label :research_area, "research_area", "Research Area: " + @grad_applications[idx].research_area.to_s, {:align => "right", :style => "float:right"}
+          = submit_tag "Review Application", {:align => "center", :style => "font-size:24px; float:center"}
+          %br
 
 
 
