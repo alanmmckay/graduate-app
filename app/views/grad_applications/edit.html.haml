@@ -1,5 +1,5 @@
 = new_header "Application edit page for Graduate Application"
-= form_tag applications_create_path, {class: 'card'} do
+= form_tag applications_update_path, {class: 'card'} do
   - if flash[:notice]
     %div{class: 'alert alert-warning'}
       = flash[:notice]
@@ -28,15 +28,15 @@
       %h5.card-header Please confirm/update the email addresses for your letters of recommendation:
       %div.card-body
         %div{:class => "input-group"}
-          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_1", "Email 1", {:value => @application_content[:recommender_1], :class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
+          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_1", "Email 1", {:value => @application_content[:recommender_1], :class => "form-control", :placeholder => "Department", :disabled => true}, {:class => "input-group-text"}
           = create_form_error :user, "recommender_1", flash[:r1errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r1errors] and flash[:r1errors]["email"])
         %br
         %div{:class => "input-group"}
-          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_2", "Email 2", {:value => @application_content[:recommender_2], :class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
+          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_2", "Email 2", {:value => @application_content[:recommender_2], :class => "form-control", :placeholder => "Department", :disabled => true}, {:class => "input-group-text"}
           = create_form_error :user, "recommender_2", flash[:r2errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r2errors] and flash[:r2errors]["email"])
         %br
         %div{:class => "input-group"}
-          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_3", "Email 3", {:value => @application_content[:recommender_3], :class => "form-control", :placeholder => "Department", :disabled => false}, {:class => "input-group-text"}
+          = create_form_input_field :text_field, :letter_of_recommendation, "recommender_3", "Email 3", {:value => @application_content[:recommender_3], :class => "form-control", :placeholder => "Department", :disabled => true}, {:class => "input-group-text"}
           = create_form_error :user, "recommender_3", flash[:r3errors]["email"][0], {:class => "alert-danger input-group-text"} if (flash[:r3errors] and flash[:r3errors]["email"])
     %hr
     %div{:class => "input-group", :style =>'display:none;'}
@@ -50,5 +50,5 @@
         var quill = new Quill('#statement_editor', { theme: 'snow' });
       %script var output_content = document.getElementById('grad_application_statement_of_purpose'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
     %br
-    = submit_tag 'Update Application', {:class => "btn btn-alternative", :type => 'submit', :disabled => true}
+    = submit_tag 'Update Application',  {:class => "btn btn-alternative", :type => 'submit', :disabled => false}
 = link_to "Cancel", applications_path
