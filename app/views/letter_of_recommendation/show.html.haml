@@ -1,0 +1,14 @@
+- if flash[:notice]
+  %div{class: 'alert alert-warning'}
+    = flash[:notice]
+- elsif flash[:warning]
+  %div{class: 'alert alert-danger'}
+    = flash[:warning]
+%div{:class => "row", :align => "center"}
+  %h1.card-header
+    = label :letter_of_recommendation, 'letter_of_recommendation', "Letter of Recommendation"
+  %br
+    %p{:name => "letter_of_recommendation", :align => "center", :style => "float:middle"}
+      = @letter_of_recommendation.letter.html_safe
+= link_to "Continue Editing", '/letter_of_recommendation/edit/'+@letter_of_recommendation.url.to_s
+= link_to "Submit", '/letter_of_recommendation/submit/'+@letter_of_recommendation.url.to_s, method: :post

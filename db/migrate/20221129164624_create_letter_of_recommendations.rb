@@ -5,6 +5,7 @@ class CreateLetterOfRecommendations < ActiveRecord::Migration
       t.string :recommender_email
       t.string :url
       t.string :letter
+      t.boolean :submitted
       t.timestamps null:false
       end
   end

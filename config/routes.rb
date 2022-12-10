@@ -74,8 +74,11 @@ Rails.application.routes.draw do
 
 
 
-  get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit'
-  put 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update'
+  get 'letter_of_recommendation/edit/:id', to: 'letter_of_recommendation#edit', as: 'letter_of_recommendation_edit'
+  get 'letter_of_recommendation/show/:id', to: 'letter_of_recommendation#show', as: 'letter_of_recommendation_show'
+  post 'letter_of_recommendation/update/:id', to: 'letter_of_recommendation#update', as: 'letter_of_recommendation_update'
+  post 'letter_of_recommendation/submit/:id', to: 'letter_of_recommendation#submit', as: 'letter_of_recommendation_submit'
+
 
   post 'degrees/edit/:id', to: 'degrees#application_edit'
   put 'degrees/update/:id', to: 'degrees#update'

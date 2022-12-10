@@ -6,5 +6,6 @@ class LetterOfRecommendation < ActiveRecord::Base
 
   def init
     self.letter ||= ""
+    self.submitted ||= false
   end
 end

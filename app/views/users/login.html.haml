@@ -1,5 +1,11 @@
 %div{:class => "row",:style => "max-width:1048px;margin:auto"}
   = new_header "Landing Page for Graduate Application"
+  - if flash[:notice]
+    %div{class: 'alert alert-warning'}
+      = flash[:notice]
+  - elsif flash[:warning]
+    %div{class: 'alert alert-danger'}
+      = flash[:warning]
   %hr
   %div{:class => "col-sm-8"}
     %h2 Coming Soon
