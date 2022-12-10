@@ -93,7 +93,6 @@ class GradApplicationsController < ApplicationController
       flash[:warning] = "Error in submission form, please ensure all fields are correct"
       redirect_to applications_new_path
     end
-
   end
 
   def new
@@ -112,12 +111,47 @@ class GradApplicationsController < ApplicationController
     @application_content[:recommender_2] = letters[1].email
     @application_content[:recommender_3] = letters[2].email
     @application_content[:statement_of_purpose] = application.statement_of_purpose
-
-
   end
 
   def update
+    #this should be DRYed out with respect to the create controller action
+    ginfo = grad_application_params
 
+    user = current_user
+    sanitized_html_string = scrub_html(ginfo[:statement_of_purpose])
+    application = user.student.grad_applications.first # need to change when we allow multiple applications
+    application.update(university: ginfo[:university], date: Time.now, research_area: ginfo[:research_area], deg_obj: ginfo[:deg_obj], deg_obj_major: ginfo[:deg_obj_major], statement_of_purpose: sanitized_html_string, status: "In Progress")
+    # ----
+    # space to allow selection of letters of recommendation, be sure to check validity in the statement below
+    # ----
+    if application.valid? and not has_script?(ginfo[:statement_of_purpose])
+      application.save
+      # ----
+      # space to allow saving of letters of recommendation
+      # ----
+      if session[:nav]["Continue Application"]
+        session[:nav].delete("Continue Application")
+        if user.student.grad_applications.length > 1
+          session[:nav] = {"View Applications" => applications_path}.merge(session[:nav])
+        else
+          session[:nav] = {"View Application" => applications_path}.merge(session[:nav])
+        end
+      end
+      redirect_to applications_path
+    else
+      flash[:info] = uinfo.merge(sinfo).merge(ginfo)#.merge(linfo)
+      flash[:errors] = user.errors
+      flash[:app_errors] = application.errors
+      flash[:r1errors] = letter_1.errors
+      flash[:r2errors] = letter_2.errors
+      flash[:r3errors] = letter_3.errors
+      degrees.each do |key, degree|
+        flash[:info] = flash[:info].merge(dinfo[key])
+        flash[("degree"+key.to_s).to_sym] = degree.errors
+      end
+      flash[:warning] = "Error in submission form, please ensure all fields are correct"
+      redirect_to applications_new_path
+    end
   end
 
   def destroy
