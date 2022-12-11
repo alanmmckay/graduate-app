@@ -1,0 +1,24 @@
+=new_header "Letter of Recommendation for #{@student.user.name}"
+= form_tag letter_of_recommendation_update_path do
+  - if flash[:notice]
+    %div{class: 'alert alert-warning'}
+      = flash[:notice]
+  - elsif flash[:warning]
+    %div{class: 'alert alert-danger'}
+      = flash[:warning]
+  %hr
+  %div.row
+    %div{:class => "input-group", :style =>'display:none;'}
+      = create_form_input_field :text_area, :letter_of_recommendation, "letter", "Letter of Recommendation", {:value => @letter_of_recommendation[:letter], :class => "form-control", :placeholder => "Insert and format letter of recommendation.", :disabled => false}, {:class => "input-group-text"}
+    %div.card
+      = create_form_error :letter_of_recommendation, "letter", flash[:app_errors]["letter"][0], {:class => "alert-danger input-group-text"} if (flash[:app_errors] and flash[:app_errors]["letter_of_recommendation"])
+      %h3.card-header Please input your letter of recommendation:
+      %div.card-body{:id => "letter_editor", :style => "height:300px"}
+        =@letter_of_recommendation[:letter].html_safe
+      %script
+        var quill = new Quill('#letter_editor', { theme: 'snow' });
+      %script var output_content = document.getElementById('letter_of_recommendation_letter'); quill.on('text-change', function() {var delta = quill.container.innerHTML;output_content.value = delta;});
+      %br
+      = submit_tag 'Save Letter of Recommendation', {:class => "btn btn-alternative", :type => 'submit', :disabled => false}
+      %br
+= link_to "Cancel", letter_of_recommendation_show_path

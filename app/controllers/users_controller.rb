@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :authorized, only: [:show]
   def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :phone)
+    params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :phone)
   end
 
   def update_user_params
@@ -13,8 +13,17 @@ class UsersController < ApplicationController
   end
 
   def show
+    #puts request.path
     if session[:email]
-      @email = session[:email]
+      @user_info = {:Name => current_user.name, :Email => current_user.email, :Phone => current_user.phone}
+      if is_student? current_user
+        student = current_user.student
+        @student_info = {:Address => student.address, :Citizenship => student.citizenship, :Gender => student.gender}
+        @user_info = @user_info.merge(@student_info)
+        if has_degree? current_user
+          @degrees = @user.degrees
+        end
+      end
     else
       redirect_to users_path
     end
@@ -28,9 +37,16 @@ class UsersController < ApplicationController
 
   def update
     info = update_user_params
-    current_user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
-    current_user.save
-    redirect_to users_path
+    @user = current_user
+    @user.update(:fname => info[:fname], :lname => info[:lname], :phone => info[:phone])
+    if @user.valid?
+      @user.save
+      redirect_to users_path
+    else
+      flash[:errors] = @user.errors
+      flash[:info] = info
+      redirect_to users_edit_path
+    end
   end
   def edit
     if current_user.student
@@ -41,24 +57,24 @@ class UsersController < ApplicationController
   def create
     info = user_params
     #Need to consider range of acceptable values for these parameters; their domains
-      @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
-      if @user.valid?
-        @user.save
-        flash[:login] = "Account has been created. Please sign in:"
-        redirect_to users_path
-      else
-        #using params here will instead cast as string
-        flash[:login] = @user.errors
-        info.delete(:password)
-        info.delete(:password_confirmation)
-        flash[:info] = info
-        redirect_to users_new_path
-      end
+    @user = User.new(email: info[:email], password: info[:password], password_confirmation: info[:password_confirmation], lname: info[:lname], fname: info[:fname], phone: info[:phone])
+    if @user.valid?
+      @user.save
+      flash[:login] = "Account has been created. Please sign in:"
+      redirect_to users_path
+    else
+      #using params here will instead cast as string
+      flash[:login] = @user.errors
+      info.delete(:password)
+      info.delete(:password_confirmation)
+      flash[:info] = info
+      redirect_to users_new_path
+    end
   end
 
   def landing
     if logged_in?
-      render users_show_path
+      redirect_to users_show_path
     else
       render users_login_path
     end
@@ -66,10 +82,37 @@ class UsersController < ApplicationController
 
   def login
     info = login_params
-    @user = User.find_by(email:info[:email].downcase)
+    info[:email] = info[:email].downcase
+    @user = User.find_by(email:info[:email])
     if @user and @user.authenticate(info[:password])
-      session[:email] = info[:email]
-      redirect_to users_show_path
+      session[:email] = info[:email].downcase
+      session[:nav] = {"Log out" => users_logout_path}
+      if is_student? @user
+        if has_degree? @user
+          if has_application? @user
+            if @user.student.grad_applications.length > 1
+              application_path = {"View Applications" => applications_path}
+            else
+              application_path = {"View Application" => applications_path}
+            end
+          else
+            application_path = {"Continue Application" => applications_new_path }
+          end
+        else
+          application_path = {"Continue Application" => students_degree_path }
+        end
+        application_path = application_path.merge({"Edit Student Information" => students_edit_path})
+      else
+        application_path = {"Begin Application" => students_new_path, "Edit User Information" => users_edit_path}
+      end
+      if is_faculty? @user
+        application_path = {"View Applications" => faculty_home_path}
+        session[:nav] = application_path.merge(session[:nav])
+        redirect_to faculty_home_path
+      else
+        session[:nav] = application_path.merge(session[:nav])
+        redirect_to users_show_path
+      end
     else
       flash[:login] = "Invalid Credentials"
       flash[:info] = {:email => info[:email]}
@@ -78,7 +121,12 @@ class UsersController < ApplicationController
 
   def destroy
     session[:email] = nil
+    session[:nav] = nil
     redirect_to users_login_path
+  end
+
+  def index
+    @users = User.all
   end
 
 end

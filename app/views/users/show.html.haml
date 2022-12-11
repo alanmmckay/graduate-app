@@ -1,17 +1,26 @@
 -#This will be the view which displays user info and allows routing to other user actions
-%h1 User control page for Graduate Application
+-# %h1 User control page for Graduate Application
+= new_header "User landing page for Graduate Application"
 %hr
-Consider this page to be a primary hub for one logged in.
-%br
-It is within here one can navigate to various resources, such as comparing schools.
-%br
-A user can be redirected from here via link to view the application page.
-%br
-They can also be redirected from here via link to faculty controls, should they be faculty.
-%br
-= link_to "View Applications", users_applications_path
-%br
-This logout link should be placed into a higher-order template so that it can be displayed on all pages:
-= link_to "Logout", users_logout_path
-This edit link should be placed into a higher-order template so that it can be displayed on all pages:
-= link_to "Edit User Information", users_edit_path
+%p Consider this page to be a primary hub for one logged in.
+%p It is within here navigation to various resources may occur, such as comparing schools. Navigation pertaining to this profile and the graduation application process are also included in the navigation bar above.
+%hr
+%div.card
+  -if flash[:notice]
+    %span.alert.alert-warning #{flash[:notice]}
+  %h2.card-header User information:
+  %ul.card-body
+    - @user_info.each do |attribute, value|
+      %li.list-group-item
+        %ul.list-group.list-group-horizontal
+          %li.list-group-item= attribute
+          - if value == nil or value == ''
+            %li.list-group-item.flex-fill{:style => "color:red"}= "None given"
+          - else
+            %li.list-group-item.flex-fill= value
+
+    - if !@degrees.nil?
+      %li.list-group-item
+        %div.card
+          %h3.card-header Degrees listed:
+          =render :file => 'layouts/list_degrees.html.haml'

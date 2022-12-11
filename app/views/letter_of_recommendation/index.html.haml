@@ -1,0 +1,5 @@
+=new_header "Letter of Recommendation URLS"
+%h2 This is a simple index to list all letter of recommendation urls. This will not exist in production. It is used for development.
+%ul
+  - @letter_of_recommendations.each do |letter|
+    %li= link_to letter.email+" | "+ letter.submitted.to_s, letter_of_recommendation_show_path(letter.url)

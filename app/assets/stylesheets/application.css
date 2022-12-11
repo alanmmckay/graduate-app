@@ -12,19 +12,26 @@
  *
  *= require_tree .
  *= require_self
+ *= require quill.snow.min
  */
 body {
     /*background: gold;*/
 }
 
 h1 {
-    background-color: gold;
     /*font-size: 350%;*/
     /*font-style: italic*/
+}
+
+.javascript-degree-link:hover{
+    cursor:pointer;
 }
 
 .btn-alternative{
     background-color: #e9ecef;
     border: 1px solid #ced4da;
+}
+.ql-hidden{
+    display:none;
 }
 

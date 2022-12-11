@@ -1,0 +1,3 @@
+%span.card-body
+  - @user.degrees.each do |degree|
+    = link_to degree.degree_type + " of " + degree.major + " from " + degree.name + " | edit ", degrees_edit_path+"/"+degree.id.to_s, {:class => "list-group-item list-group-action"}

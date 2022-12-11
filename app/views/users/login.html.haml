@@ -1,12 +1,29 @@
-%div{:class => "row"}
-  %h1 Landing Page for Graduate Application
+%div{:class => "row",:style => "max-width:1048px;margin:auto"}
+  = new_header "Landing Page for Graduate Application"
+  - if flash[:notice]
+    %div{class: 'alert alert-warning'}
+      = flash[:notice]
+  - elsif flash[:warning]
+    %div{class: 'alert alert-danger'}
+      = flash[:warning]
   %hr
   %div{:class => "col-sm-8"}
     %h2 Coming Soon
     %p This website will host the graduate application submission web application to allow prospective students coordinate with the university and allow faculty coordinate in making approval decisions.
-  %div{:class => "col-sm-4", :style => "margin-top:10px"}
-    - if flash[:login]
-      %div{:class => "alert alert-warning"}
-        = flash[:login]
+  %div{:class => "col-sm-4"}
     = render :file => 'layouts/login.html.haml'
     = link_to 'Register', users_new_path, {:class => "link-primary"}
+    %br
+    %br
+    %div.card
+      %div.card-header Alternatively, Sign in with Google:
+      %div.card-body
+        = button_to "Log in with Google", '/auth/google_oauth2', {:class => 'btn btn-primary'}
+        %br
+        %div.card
+          %div.card-header Feature not fully implemented; database not primed.
+          - if flash[:auth_info]
+            %ul.card-body
+              %li.list-group-item= flash[:auth_info]["email"]
+              %li.list-group-item= flash[:auth_info]["fname"]
+              %li.list-group-item= flash[:auth_info]["lname"]
