@@ -34,6 +34,8 @@ gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
 gem 'dotenv-rails'
 
+#https://stackoverflow.com/questions/23022258/tzinfodatasourcenotfound-error-starting-rails-v4-1-0-server-on-windows
+gem 'tzinfo-data'
 
 # Hashing functions
 gem 'digest'
