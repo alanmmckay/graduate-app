@@ -18,4 +18,4 @@ To build this image and run the container, clone this repo and change directory 
 
 ## Feature tour of the web-app
 
-\-WIP: will be completed by 03/25/25. Check back after this date.
+A feature tour is located at [alanmckay.blog/notes/2025/03-26/graduate-app](https://alanmckay.blog/notes/2025/03-26/graduate-app/).
